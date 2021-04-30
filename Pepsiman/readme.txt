@@ -37,4 +37,4 @@ Installation Guide
 
 If you have any issues setting up the Auto-Splitter or need any help in general, don't hesitate to get in touch with me!
 
-PS: You can read the changelog here: https://www.speedrun.com/pepsiman/thread/sjmjx
+PS: You can read the complete changelog here: https://www.speedrun.com/pepsiman/thread/sjmjx
