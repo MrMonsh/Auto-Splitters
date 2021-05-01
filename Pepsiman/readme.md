@@ -25,15 +25,15 @@ This timer will function similar to your current timer, but the difference is th
 
 ## Supported Emulator/Versions
 
-+ pSX/psxFin 1.13
++ pSX/psxFin v1.13
 + XEBRA 2020-04-05
-+ ePSXe 1.7.0
-+ ePSXe 1.9.0
-+ mednafen 1.26.1 win32
-+ mednafen 1.26.1 win64
-+ BizHawk 2.4.2
-+ BizHawk 2.5.2
-+ BizHawk 2.6.1
++ ePSXe v1.7.0
++ ePSXe v1.9.0
++ mednafen v1.26.1 win32
++ mednafen v1.26.1 win64
++ BizHawk v2.4.2
++ BizHawk v2.5.2
++ BizHawk v2.6.1
 
 ## Installation Guide
 
