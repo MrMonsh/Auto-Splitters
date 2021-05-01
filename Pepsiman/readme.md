@@ -1,4 +1,6 @@
-# Pepsiman Auto-Splitter & Load Remover v0.9.3 - by MrMonsh
+# Pepsiman Auto-Splitter & Load Remover - by MrMonsh
+
+**Latest Version Available: v0.9.3**
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
