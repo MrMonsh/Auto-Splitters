@@ -1,7 +1,7 @@
 # Pepsiman Auto-Splitter & Load Remover v0.9.3 - by MrMonsh
 
-This is an experimental build of the Auto-Splitter & Load Remover. 
-Emulator/Versions Supported:
+## Emulator/Versions Supported:
+
 + pSX/psxFin 1.13
 + XEBRA 2020-04-05
 + ePSXe 1.7.0
@@ -12,12 +12,14 @@ Emulator/Versions Supported:
 + BizHawk 2.5.2
 + BizHawk 2.6.1
 
-Auto-Splitter:
-This tool will start, split, stop and reset the timer automatically for you, allowing you to focus less on the timer and more on what's important: Drinking Pepsi!
+## FAQ
 
-Load Remover:
-This tool will allow you to have a second timer in your LiveSplit layout that uses "Game Time". 
-This timer will function similar to your current  timer, but the difference is that this one will stop while the game is loading, meaning load times will not count towards your final time of the run.
+**Q:** What's an Auto-Splitter?
+**A:** An Auto-Splitter is a tool that will start, split, stop and reset the timer automatically for you, allowing you to focus less on the timer and more on what's important: Drinking Pepsi!
+
+**Q:** What's a Load Remover?
+**A:** A Load Remover is a tool that will allow you to have a second timer in your LiveSplit layout that uses "Game Time". 
+This timer will function similar to your current timer, but the difference is that this one will stop while the game is loading, meaning load times will not count towards your final time of the run.
 
 
 ## Installation Guide
