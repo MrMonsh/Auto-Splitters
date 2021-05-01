@@ -1,4 +1,4 @@
-Pepsiman Auto-Splitter & Load Remover v0.9.3 - by MrMonsh
+# Pepsiman Auto-Splitter & Load Remover v0.9.3 - by MrMonsh
 
 This is an experimental build of the Auto-Splitter & Load Remover. 
 Emulator/Versions Supported:
