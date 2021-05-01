@@ -51,7 +51,7 @@ This timer will function similar to your current timer, but the difference is th
 9. Click "OK".
 10. You're done! Now you can boot up the emulator and run to your heart's content.
 
-⚠️ ### Important Notice
+### ⚠️ Important Notice
 
 **If you had a version of the Auto-Splitter prior to 0.9.3, please make sure you get rid of the "Scriptable Auto-Splitter" section of your layout, as you will otherwise run into issues due to having two different versions running at the same time.**
 
