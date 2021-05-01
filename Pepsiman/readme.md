@@ -1,6 +1,15 @@
 # Pepsiman Auto-Splitter & Load Remover v0.9.3 - by MrMonsh
 
-## Emulator/Versions Supported:
+<!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Supported Emulator/Versions](#supported-emulator/versions)
+- [FAQ](#FAQ)
+- [Installation Guide](#installation-guide)
+- [Changelog](#changelog)
+
+<!-- /TOC -->
+
+## Supported Emulator/Versions
 
 + pSX/psxFin 1.13
 + XEBRA 2020-04-05
