@@ -20,7 +20,7 @@ This tool will allow you to have a second timer in your LiveSplit layout that us
 This timer will function similar to your current  timer, but the difference is that this one will stop while the game is loading, meaning load times will not count towards your final time of the run.
 
 
-Installation Guide
+## Installation Guide
 
 1. Open your LiveSplit.
 2. Right-click on the LiveSplit window, then select "Edit Splits".
