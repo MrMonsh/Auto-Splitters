@@ -53,7 +53,7 @@ This timer will function similar to your current timer, but the difference is th
 
 ### Important Notice
 
-⚠️**If you had a version of the Auto-Splitter prior to 0.9.3, please make sure you get rid of the "Scriptable Auto-Splitter" section of your layout, as you will otherwise run into issues due to having two different versions running at the same time.**⚠️
+⚠️ **If you had a version of the Auto-Splitter prior to 0.9.3, please make sure you get rid of the "Scriptable Auto-Splitter" section of your layout, as you will otherwise run into issues due to having two different versions running at the same time.** ⚠️
 
 If you have any issues setting up the Auto-Splitter or need any help in general, don't hesitate to get in touch with me!
 
