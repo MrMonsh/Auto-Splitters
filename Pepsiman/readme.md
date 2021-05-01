@@ -40,6 +40,6 @@ This timer will function similar to your current timer, but the difference is th
 
 If you have any issues setting up the Auto-Splitter or need any help in general, don't hesitate to get in touch with me!
 
-### Changelog
+## Changelog
 
 You can read the complete changelog here: https://www.speedrun.com/pepsiman/thread/sjmjx
