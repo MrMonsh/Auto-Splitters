@@ -1,2 +1,2 @@
 # Auto-Splitters
-Repository for Auto-Splitters &amp; Load Removers for LiveSplit.
+Repository for my own Auto-Splitters &amp; Load Removers for LiveSplit.
