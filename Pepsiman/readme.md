@@ -44,7 +44,7 @@ This timer will function similar to your current timer, but the difference is th
 5. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
 	+ In the topic of changing the "Timer Start" advanced settings, I'd personally leave it as-is, given that its set to start on Game Start select at Main Menu (which is how the current ruleset works). I added this just for future-proofing.
 7. Click "OK" on the settings window, then click "OK" on the Splits window.
-8. Right-click again on the LiveSplit window, then select "Edit Layout"
+8. Right-click again on the LiveSplit window, then select "Edit Layout".
 9. Click on the "+" button and select "Timer > Timer".
 10. Select the newly added "Timer", then select "Game Time" for the Timing Method option.
 	+ I personally also suggest changing the height slider of this timer so that it's noticeably smaller than the original one, to differentiate them easily.
