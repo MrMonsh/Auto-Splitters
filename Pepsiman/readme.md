@@ -2,12 +2,21 @@
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Supported Emulator/Versions](#supported-emulator/versions)
 - [FAQ](#FAQ)
+- [Supported Emulator/Versions](#supported-emulator/versions)
 - [Installation Guide](#installation-guide)
 - [Changelog](#changelog)
 
 <!-- /TOC -->
+
+## FAQ
+
+**Q:** What's an Auto-Splitter?
+**A:** An Auto-Splitter is a tool that will start, split, stop and reset the timer automatically for you, allowing you to focus less on the timer and more on what's important: Drinking Pepsi!
+
+**Q:** What's a Load Remover?
+**A:** A Load Remover is a tool that will allow you to have a second timer in your LiveSplit layout that uses "Game Time". 
+This timer will function similar to your current timer, but the difference is that this one will stop while the game is loading, meaning load times will not count towards your final time of the run.
 
 ## Supported Emulator/Versions
 
@@ -20,16 +29,6 @@
 + BizHawk 2.4.2
 + BizHawk 2.5.2
 + BizHawk 2.6.1
-
-## FAQ
-
-**Q:** What's an Auto-Splitter?
-**A:** An Auto-Splitter is a tool that will start, split, stop and reset the timer automatically for you, allowing you to focus less on the timer and more on what's important: Drinking Pepsi!
-
-**Q:** What's a Load Remover?
-**A:** A Load Remover is a tool that will allow you to have a second timer in your LiveSplit layout that uses "Game Time". 
-This timer will function similar to your current timer, but the difference is that this one will stop while the game is loading, meaning load times will not count towards your final time of the run.
-
 
 ## Installation Guide
 
