@@ -329,60 +329,63 @@ init
 
 update 
 {
-	if (vars.shouldUseWatchers)
+	if (vars.shouldUseWatchers && !vars.foundMemoryOffset)
 	{
-		if (vars.foundMemoryOffset)
-		{
-			IntPtr memoryOffset = IntPtr.Zero;
+		IntPtr memoryOffset = IntPtr.Zero;
 		
-			foreach (var page in game.MemoryPages(true)) {
-				if ((page.RegionSize != (UIntPtr)0x200000) || (page.Type != MemPageType.MEM_MAPPED))
-					continue;
-				memoryOffset = page.BaseAddress;
-				vars.foundMemoryOffset = true;
-				
-				// MemoryWatcher used to get the memory addresses of interest
-				vars.watchers = new MemoryWatcherList
-				{
-					new MemoryWatcher<int>(memoryOffset + 0x95880) { Name = "GameState" },
-					new MemoryWatcher<uint>(memoryOffset + 0xACF1C) { Name = "EndOfThirdLevel" },
-					new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
-					new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
-					new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
-					new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
-				};
-				break;
-			}
-		}
-	
-		vars.watchers.UpdateAll(game);
-		current.GameState = vars.watchers["GameState"].Current;
-        current.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
-        current.LostControlOfPepsiman = vars.watchers["LostControlOfPepsiman"].Current;
-        current.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
-		current.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
-		current.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
-		
-		// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
-		if (vars.firstUpdate)
+		foreach (var page in game.MemoryPages(true)) 
 		{
-			old.GameState = vars.watchers["GameState"].Current;
-			old.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
-			old.LostControlOfPepsiman = vars.watchers["LostControlOfPepsiman"].Current;
-			old.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
-			old.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
-			old.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
-			vars.firstUpdate = false;
+			if ((page.RegionSize != (UIntPtr)0x200000) || (page.Type != MemPageType.MEM_MAPPED))
+				continue;
+			memoryOffset = page.BaseAddress;
+			vars.foundMemoryOffset = true;
+			
+			// MemoryWatcher used to get the memory addresses of interest
+			vars.watchers = new MemoryWatcherList
+			{
+				new MemoryWatcher<int>(memoryOffset + 0x95880) { Name = "GameState" },
+				new MemoryWatcher<uint>(memoryOffset + 0xACF1C) { Name = "EndOfThirdLevel" },
+				new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
+				new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
+				new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
+				new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
+			};
+			break;
 		}
 	}
-
-	if (old.GameState != current.GameState)
+	else 
 	{
-		int parsedGameStateLevel = current.GameState - 40;
-		if (parsedGameStateLevel >= 0 && parsedGameStateLevel <= 3)
-			vars.CurrentLevel = parsedGameStateLevel;
-		else if (current.GameState == 8)
-			vars.CurrentLevel = 0;
+		if (vars.shouldUseWatchers)
+		{
+			vars.watchers.UpdateAll(game);
+			current.GameState = vars.watchers["GameState"].Current;
+			current.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
+			current.LostControlOfPepsiman = vars.watchers["LostControlOfPepsiman"].Current;
+			current.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
+			current.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
+			current.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
+			
+			// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
+			if (vars.firstUpdate)
+			{
+				old.GameState = vars.watchers["GameState"].Current;
+				old.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
+				old.LostControlOfPepsiman = vars.watchers["LostControlOfPepsiman"].Current;
+				old.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
+				old.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
+				old.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
+				vars.firstUpdate = false;
+			}
+		}
+
+		if (old.GameState != current.GameState)
+		{
+			int parsedGameStateLevel = current.GameState - 40;
+			if (parsedGameStateLevel >= 0 && parsedGameStateLevel <= 3)
+				vars.CurrentLevel = parsedGameStateLevel;
+			else if (current.GameState == 8)
+				vars.CurrentLevel = 0;
+		}
 	}
 
 	return version != "";
