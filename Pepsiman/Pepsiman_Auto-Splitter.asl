@@ -1,4 +1,4 @@
-// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.0.0 - by MrMonsh
+// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.1.0 - by MrMonsh
 // Notes: We track six variables here: GameState, LostControlOfPepsiman, ScoreBoardIsPresent, EndOfThirdLevel, CurrentHoveredMainMenuItem and MenuItemIsSelected
 // GameState tells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
 // GameState Values:
@@ -159,6 +159,10 @@ state("EmuHawk", "v2.4.2")
 // RetroArch is a special case, I'll be manually reading its memory
 state("retroarch", "N/A"){}
 
+// DuckStation is another special case, I'll be manually reading its memory
+state("duckstation-qt-x64-ReleaseLTCG", "N/A") {}
+state("duckstation-nogui-x64-ReleaseLTCG", "N/A") {}
+
 startup
 {
 	// Add setting group 'start_group'
@@ -255,43 +259,42 @@ init
 		else if (firstModuleMemorySize == 25337856)
 			version = "v2.0.5";
 	}
-	else if (memory.ProcessName.ToLower().Contains("retroarch")) 
+	else if (processName.Contains("retroarch")) 
 	{
 		version = "N/A";
 		vars.shouldUseWatchers = true;
 		IntPtr memoryOffset = IntPtr.Zero;
 		int wramOffset;
 	
-		// Supported libretro modules are Beetle_PSX, Beetle_PSX_HW, PCSX_Rearmed and Duckstation
-		// Support for Duckstation is spotty and largely untested. Might break anytime.
-		ProcessModuleWow64Safe libretromodule = modules.Where(m => m.ModuleName == "mednafen_psx_hw_libretro.dll" || m.ModuleName == "mednafen_psx_libretro.dll" || m.ModuleName == "pcsx_rearmed_libretro.dll" || m.ModuleName == "duckstation_libretro.dll").First();
-		if (libretromodule.ModuleName == "mednafen_psx_hw_libretro.dll") 
+        // Supported libretro modules are Beetle_PSX, Beetle_PSX_HW, PCSX_Rearmed and Duckstation
+        // Support for Duckstation is spotty and largely untested. Might break anytime.
+        ProcessModuleWow64Safe libretromodule = modules.Where(m => m.ModuleName == "mednafen_psx_hw_libretro.dll" || m.ModuleName == "mednafen_psx_libretro.dll" || m.ModuleName == "pcsx_rearmed_libretro.dll" || m.ModuleName == "duckstation_libretro.dll").First();
+        if (libretromodule.ModuleName == "mednafen_psx_hw_libretro.dll") 
 		{
-		    memoryOffset = (IntPtr)0x40000000;    // Beetle PSX always uses the same memory address for the start of emulated RAM regardless of the version of the core
-		} 
+            memoryOffset = (IntPtr)0x40000000;    // Beetle PSX always uses the same memory address for the start of emulated RAM regardless of the version of the core
+        } 
 		else if (libretromodule.ModuleName == "mednafen_psx_libretro.dll") 
 		{
-		    memoryOffset = (IntPtr)0x40000000;    // Beetle PSX always uses the same memory address for the start of emulated RAM regardless of the version of the core
-		} 
+            memoryOffset = (IntPtr)0x40000000;    // Beetle PSX always uses the same memory address for the start of emulated RAM regardless of the version of the core
+        } 
 		else if (libretromodule.ModuleName == "pcsx_rearmed_libretro.dll") 
 		{
-		    memoryOffset = (IntPtr)0x30000000;    // PCSX_ReARMed always uses the same memory address for the start of emulated RAM, even though it's different from the one used by Beetle PSX
-		} 
+            memoryOffset = (IntPtr)0x30000000;    // PCSX_ReARMed always uses the same memory address for the start of emulated RAM, even though it's different from the one used by Beetle PSX
+        } 
 		else if (libretromodule.ModuleName == "duckstation_libretro.dll") 
 		{
-			var versions = new Dictionary<int, int>
+            var versions = new Dictionary<int, int>{
+                { 0x4B0A000, 0x2D4030 },   // Duckstation 64bit
+                { 0x55B000, 0x22CF88 },    // Duckstation 32bit
+            };
+	    // Duckstation uses a static address relative to the start od duckstation memory module as the start of emulated RAM.
+	    // The address might change if the libretro core is updated, which is why the
+	    // script will need to be updated in case a new version of Duckstation gets released.
+            if (versions.TryGetValue(libretromodule.ModuleMemorySize, out wramOffset)) 
 			{
-				{ 0x4B0A000, 0x2D4030 },   // Duckstation 64bit
-				{ 0x55B000, 0x22CF88 },    // Duckstation 32bit
-		    	};
-		    	// Duckstation uses a static address relative to the start od duckstation memory module as the start of emulated RAM.
-		    	// The address might change if the libretro core is updated, which is why the
-		    	// script will need to be updated in case a new version of Duckstation gets released.
-		    	if (versions.TryGetValue(libretromodule.ModuleMemorySize, out wramOffset)) 
-		    	{
-				memoryOffset = (IntPtr)libretromodule.BaseAddress + wramOffset;
-			}
-        	}
+                memoryOffset = (IntPtr)libretromodule.BaseAddress + wramOffset;
+            }
+        }
 		
 		// MemoryWatcher used to get the memory addresses of interest
 		vars.watchers = new MemoryWatcherList
@@ -303,7 +306,31 @@ init
 			new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
 			new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
 		};
-    	}
+    }
+	else if ((processName.Length > 10) && (processName.Substring(0, 11) == "duckstation"))
+	{
+		version = "N/A";
+		vars.shouldUseWatchers = true;
+		IntPtr memoryOffset = IntPtr.Zero;
+		
+		foreach (var page in game.MemoryPages(true)) {
+			if ((page.RegionSize != (UIntPtr)0x200000) || (page.Type != MemPageType.MEM_MAPPED))
+				continue;
+			memoryOffset = page.BaseAddress;
+			break;
+		}
+		
+		// MemoryWatcher used to get the memory addresses of interest
+		vars.watchers = new MemoryWatcherList
+		{
+			new MemoryWatcher<int>(memoryOffset + 0x95880) { Name = "GameState" },
+			new MemoryWatcher<uint>(memoryOffset + 0xACF1C) { Name = "EndOfThirdLevel" },
+			new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
+			new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
+			new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
+			new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
+		};
+	}
 	
 	vars.CurrentLevel = 0;
 	
@@ -319,9 +346,9 @@ update
 	{
 		vars.watchers.UpdateAll(game);
 		current.GameState = vars.watchers["GameState"].Current;
-		current.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
-		current.LostControlOfPepsiman = vars.watchers["LostControlOfPepsiman"].Current;
-		current.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
+        current.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
+        current.LostControlOfPepsiman = vars.watchers["LostControlOfPepsiman"].Current;
+        current.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
 		current.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
 		current.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
 		
