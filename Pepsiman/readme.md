@@ -38,9 +38,9 @@ This timer will function similar to your current timer, but the difference is th
 + BizHawk v2.5.2
 + BizHawk v2.6.1
 + RetroArch 
-	+ Beetle_PSX core
-	+ Beetle_PSX_HW core
-	+ PCSX_Rearmed core
+	+ Beetle PSX core
+	+ Beetle PSX HW core
+	+ PCSX Rearmed core
 	+ Duckstation core
 
 ## Installation Guide
