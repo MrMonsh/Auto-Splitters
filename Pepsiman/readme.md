@@ -6,6 +6,7 @@
 - [Supported Emulator/Versions](#supported-emulator/versions)
 - [Installation Guide](#installation-guide)
 - [Changelog](#changelog)
+- [Contact](#contact)
 
 <!-- /TOC -->
 
@@ -66,6 +67,8 @@ This timer will function similar to your current timer, but the difference is th
 12. You're done! Now you can boot up the emulator and run to your heart's content.
 
 ⚠️ **If you had a version of the Auto-Splitter prior to 0.9.3, please make sure you get rid of the "Scriptable Auto-Splitter" section of your layout, as you will otherwise run into issues due to having two different versions running at the same time.**
+
+## Contact
 
 If you have any issues setting up the Auto-Splitter or need any help in general, don't hesitate to get in touch with me!
 + Speedrun.com Profile: https://www.speedrun.com/user/MrMonsh
