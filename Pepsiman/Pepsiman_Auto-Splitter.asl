@@ -1,4 +1,4 @@
-// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v0.9.4 - by MrMonsh
+// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.0.0 - by MrMonsh
 // Notes: We track six variables here: GameState, LostControlOfPepsiman, ScoreBoardIsPresent, EndOfThirdLevel, CurrentHoveredMainMenuItem and MenuItemIsSelected
 // GameState tells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
 // GameState Values:
@@ -156,6 +156,9 @@ state("EmuHawk", "v2.4.2")
 	byte MenuItemIsSelected : "octoshock.dll", 0x3EE54E;
 }
 
+// RetroArch is a special case, I'll be manually reading its memory
+state("retroarch", "N/A"){}
+
 startup
 {
 	// Add setting group 'start_group'
@@ -202,49 +205,139 @@ startup
 
 init 
 {
-	// pSX/psxfin
-	if (modules.First().ModuleMemorySize == 3313664)
-		version = "v1.13";
+	var firstModuleMemorySize = modules.First().ModuleMemorySize;
+	var processName = memory.ProcessName.ToLower();
+	vars.shouldUseWatchers = false;
+	vars.firstUpdate = true;
+
+	if (processName.Contains("psxfin")) // pSX/psxfin
+	{
+		if (firstModuleMemorySize == 3313664)
+			version = "v1.13";
+	}
+	else if (processName.Contains("xebra")) // XEBRA
+	{
+		if (firstModuleMemorySize == 770048)
+			version = "20200405";
+	}
+	else if (processName.Contains("mednafen")) // mednafen
+	{
+		if (firstModuleMemorySize == 70021120)
+			version = "v1.26.1 win32";
+		else if (firstModuleMemorySize == 99102720)
+			version = "v1.26.1 win64";
+	}
+	else if (processName.Contains("emuhawk")) // BizHawk
+	{
+		if (firstModuleMemorySize == 5054464)
+			version = "v2.4.2";
+		else if (firstModuleMemorySize == 4759552)
+			version = "v2.5.2";
+		else if (firstModuleMemorySize == 4546560)
+			version = "v2.6.1";
+	}
+	else if (processName.Contains("epsxe")) // ePSXe 
+	{
+		if (firstModuleMemorySize == 5120000)
+			version = "v1.6.0";
+		else if (firstModuleMemorySize == 9138176)
+			version = "v1.7.0";
+		else if (firstModuleMemorySize == 10231808)
+			version = "v1.8.0";
+		else if (firstModuleMemorySize == 10301440)
+			version = "v1.9.0";
+		else if (firstModuleMemorySize == 10518528)
+			version = "v1.9.25";
+		else if (firstModuleMemorySize == 20287488)
+			version = "v2.0.0";
+		else if (firstModuleMemorySize == 22360064)
+			version = "v2.0.2-1";
+		else if (firstModuleMemorySize == 25337856)
+			version = "v2.0.5";
+	}
+	else if (memory.ProcessName.ToLower().Contains("retroarch")) {
+		version = "N/A";
+		vars.shouldUseWatchers = true;
+		IntPtr memoryOffset = IntPtr.Zero;
+		int wramOffset;
+	
+        // Supported libretro modules are Beetle_PSX, Beetle_PSX_HW, PCSX_Rearmed and Duckstation
+        // Support for Duckstation is spotty and largely untested. Might break anytime.
+        ProcessModuleWow64Safe libretromodule = modules.Where(m => m.ModuleName == "mednafen_psx_hw_libretro.dll" || m.ModuleName == "mednafen_psx_libretro.dll" || m.ModuleName == "pcsx_rearmed_libretro.dll" || m.ModuleName == "duckstation_libretro.dll").First();
+        if (libretromodule.ModuleName == "mednafen_psx_hw_libretro.dll") 
+		{
+            memoryOffset = (IntPtr)0x40000000;    // Beetle PSX always uses the same memory address for the start of emulated RAM regardless of the version of the core
+        } 
+		else if (libretromodule.ModuleName == "mednafen_psx_libretro.dll") 
+		{
+            memoryOffset = (IntPtr)0x40000000;    // Beetle PSX always uses the same memory address for the start of emulated RAM regardless of the version of the core
+        } 
+		else if (libretromodule.ModuleName == "pcsx_rearmed_libretro.dll") 
+		{
+            memoryOffset = (IntPtr)0x30000000;    // PCSX_ReARMed always uses the same memory address for the start of emulated RAM, even though it's different from the one used by Beetle PSX
+        } 
+		else if (libretromodule.ModuleName == "duckstation_libretro.dll") 
+		{
+            var versions = new Dictionary<int, int>{
+                { 0x4B0A000, 0x2D4030 },   // Duckstation 64bit
+                { 0x55B000, 0x22CF88 },    // Duckstation 32bit
+            };
+	    // Duckstation uses a static address relative to the start od duckstation memory module as the start of emulated RAM.
+	    // The address might change if the libretro core is updated, which is why the
+	    // script will need to be updated in case a new version of Duckstation gets released.
+            if (versions.TryGetValue(libretromodule.ModuleMemorySize, out wramOffset)) 
+			{
+                memoryOffset = (IntPtr)libretromodule.BaseAddress + wramOffset;
+            }
+        }
 		
-	// XEBRA
-	if (modules.First().ModuleMemorySize == 770048)
-		version = "20200405";
-		
-	// mednafen
-	if (modules.First().ModuleMemorySize == 70021120)
-		version = "v1.26.1 win32";
-	if (modules.First().ModuleMemorySize == 99102720)
-		version = "v1.26.1 win64";
-		
-	// BizHawk
-	if (modules.First().ModuleMemorySize == 5054464)
-		version = "v2.4.2";
-	if (modules.First().ModuleMemorySize == 4759552)
-		version = "v2.5.2";
-	if (modules.First().ModuleMemorySize == 4546560)
-		version = "v2.6.1";
-		
-	// ePSXe
-	if (modules.First().ModuleMemorySize == 9138176)
-		version = "v1.7.0";
-	if (modules.First().ModuleMemorySize == 10301440)
-		version = "v1.9.0";
-	if (modules.First().ModuleMemorySize == 10518528)
-		version = "v1.9.25";
-	if (modules.First().ModuleMemorySize == 20287488)
-		version = "v2.0.0";
-	if (modules.First().ModuleMemorySize == 25337856)
-		version = "v2.0.5";
+		// MemoryWatcher used to get the memory addresses of interest
+		vars.watchers = new MemoryWatcherList
+		{
+			new MemoryWatcher<int>(memoryOffset + 0x95880) { Name = "GameState" },
+			new MemoryWatcher<uint>(memoryOffset + 0xACF1C) { Name = "EndOfThirdLevel" },
+			new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
+			new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
+			new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
+			new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
+		};
+    }
 	
 	vars.CurrentLevel = 0;
 	
-	print("Current ModuleMemorySize is: " + modules.First().ModuleMemorySize.ToString());
+	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
+	print("CurrentProcess is: " + processName);
 	print("CurrentVersion is: " + version);
+	print("Using Watchers?: " + vars.shouldUseWatchers);
 }
 
 update 
 {
-	if (old.GameState != current.GameState){
+	if (vars.shouldUseWatchers)
+	{
+		vars.watchers.UpdateAll(game);
+		current.GameState = vars.watchers["GameState"].Current;
+        current.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
+        current.LostControlOfPepsiman = vars.watchers["LostControlOfPepsiman"].Current;
+        current.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
+		current.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
+		current.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
+		
+		// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
+		if (vars.firstUpdate)
+		{
+			old.GameState = vars.watchers["GameState"].Current;
+			old.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
+			old.LostControlOfPepsiman = vars.watchers["LostControlOfPepsiman"].Current;
+			old.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
+			old.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
+			old.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
+			vars.firstUpdate = false;
+		}
+	}
+
+	if (old.GameState != current.GameState)
+	{
 		int parsedGameStateLevel = current.GameState - 40;
 		if (parsedGameStateLevel >= 0 && parsedGameStateLevel <= 3)
 			vars.CurrentLevel = parsedGameStateLevel;
