@@ -316,6 +316,7 @@ init
 		version = "N/A";
 		vars.shouldUseWatchers = true;
 		vars.foundMemoryOffset = false;
+		vars.watchers = new MemoryWatcherList{};
 	}
 	
 	vars.CurrentLevel = 0;
