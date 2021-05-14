@@ -263,6 +263,7 @@ init
 	{
 		version = "N/A";
 		vars.shouldUseWatchers = true;
+		vars.foundMemoryOffset = false;
 		IntPtr memoryOffset = IntPtr.Zero;
 		int wramOffset;
 	
@@ -287,14 +288,17 @@ init
                 { 0x4B0A000, 0x2D4030 },   // Duckstation 64bit
                 { 0x55B000, 0x22CF88 },    // Duckstation 32bit
             };
-	    // Duckstation uses a static address relative to the start od duckstation memory module as the start of emulated RAM.
-	    // The address might change if the libretro core is updated, which is why the
-	    // script will need to be updated in case a new version of Duckstation gets released.
+			
+			// Duckstation uses a static address relative to the start of duckstation memory module as the start of emulated RAM.
+			// The address might change if the libretro core is updated, which is why the
+			// script will need to be updated in case a new version of Duckstation gets released.
             if (versions.TryGetValue(libretromodule.ModuleMemorySize, out wramOffset)) 
 			{
                 memoryOffset = (IntPtr)libretromodule.BaseAddress + wramOffset;
             }
         }
+		
+		vars.foundMemoryOffset = memoryOffset != IntPtr.Zero;
 		
 		// MemoryWatcher used to get the memory addresses of interest
 		vars.watchers = new MemoryWatcherList
@@ -311,25 +315,7 @@ init
 	{
 		version = "N/A";
 		vars.shouldUseWatchers = true;
-		IntPtr memoryOffset = IntPtr.Zero;
-		
-		foreach (var page in game.MemoryPages(true)) {
-			if ((page.RegionSize != (UIntPtr)0x200000) || (page.Type != MemPageType.MEM_MAPPED))
-				continue;
-			memoryOffset = page.BaseAddress;
-			break;
-		}
-		
-		// MemoryWatcher used to get the memory addresses of interest
-		vars.watchers = new MemoryWatcherList
-		{
-			new MemoryWatcher<int>(memoryOffset + 0x95880) { Name = "GameState" },
-			new MemoryWatcher<uint>(memoryOffset + 0xACF1C) { Name = "EndOfThirdLevel" },
-			new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
-			new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
-			new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
-			new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
-		};
+		vars.foundMemoryOffset = false;
 	}
 	
 	vars.CurrentLevel = 0;
@@ -344,6 +330,30 @@ update
 {
 	if (vars.shouldUseWatchers)
 	{
+		if (vars.foundMemoryOffset)
+		{
+			IntPtr memoryOffset = IntPtr.Zero;
+		
+			foreach (var page in game.MemoryPages(true)) {
+				if ((page.RegionSize != (UIntPtr)0x200000) || (page.Type != MemPageType.MEM_MAPPED))
+					continue;
+				memoryOffset = page.BaseAddress;
+				vars.foundMemoryOffset = true;
+				
+				// MemoryWatcher used to get the memory addresses of interest
+				vars.watchers = new MemoryWatcherList
+				{
+					new MemoryWatcher<int>(memoryOffset + 0x95880) { Name = "GameState" },
+					new MemoryWatcher<uint>(memoryOffset + 0xACF1C) { Name = "EndOfThirdLevel" },
+					new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
+					new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
+					new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
+					new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
+				};
+				break;
+			}
+		}
+	
 		vars.watchers.UpdateAll(game);
 		current.GameState = vars.watchers["GameState"].Current;
         current.EndOfThirdLevel = vars.watchers["EndOfThirdLevel"].Current;
