@@ -1,4 +1,4 @@
-# Pepsiman Auto-Splitter & Load Remover v0.9.3 - by MrMonsh
+# Pepsiman Auto-Splitter & Load Remover v0.9.4 - by MrMonsh
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -29,6 +29,9 @@ This timer will function similar to your current timer, but the difference is th
 + XEBRA 2020-04-05
 + ePSXe v1.7.0
 + ePSXe v1.9.0
++ ePSXe v1.9.25
++ ePSXe v2.0.0
++ ePSXe v2.0.5
 + mednafen v1.26.1 win32
 + mednafen v1.26.1 win64
 + BizHawk v2.4.2
