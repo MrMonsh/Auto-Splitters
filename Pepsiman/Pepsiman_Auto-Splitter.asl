@@ -255,7 +255,8 @@ init
 		else if (firstModuleMemorySize == 25337856)
 			version = "v2.0.5";
 	}
-	else if (memory.ProcessName.ToLower().Contains("retroarch")) {
+	else if (memory.ProcessName.ToLower().Contains("retroarch")) 
+	{
 		version = "N/A";
 		vars.shouldUseWatchers = true;
 		IntPtr memoryOffset = IntPtr.Zero;
