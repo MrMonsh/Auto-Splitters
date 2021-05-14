@@ -1,4 +1,4 @@
-# Pepsiman Auto-Splitter & Load Remover v0.9.4 - by MrMonsh
+# Pepsiman Auto-Splitter & Load Remover v1.0.0 - by MrMonsh
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -37,6 +37,11 @@ This timer will function similar to your current timer, but the difference is th
 + BizHawk v2.4.2
 + BizHawk v2.5.2
 + BizHawk v2.6.1
++ RetroArch 
+	+ Beetle_PSX core
+	+ Beetle_PSX_HW core
+	+ PCSX_Rearmed core
+	+ Duckstation core
 
 ## Installation Guide
 
