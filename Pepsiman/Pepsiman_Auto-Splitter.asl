@@ -1,4 +1,4 @@
-// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v0.9.3 - by MrMonsh
+// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v0.9.4 - by MrMonsh
 // Notes: We track six variables here: GameState, LostControlOfPepsiman, ScoreBoardIsPresent, EndOfThirdLevel, CurrentHoveredMainMenuItem and MenuItemIsSelected
 // GameState tells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
 // GameState Values:
@@ -64,6 +64,36 @@ state("ePSXe", "v1.9.0")
 	byte ScoreBoardIsPresent : "ePSXe.exe", 0x6ED420; // Address you're looking for: 00AED420
 	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0x751C14; // Address you're looking for: 00B51C14
 	byte MenuItemIsSelected : "ePSXe.exe", 0x737F5E; // Address you're looking for: 00B37F5E
+}
+
+state("ePSXe", "v2.0.5")
+{
+	int GameState : "ePSXe.exe", 0xB178A0; // Address you're looking for: 01AB78A0
+	uint EndOfThirdLevel : "ePSXe.exe", 0xB2EF3C; // Address you're looking for: 01ACEF3C 
+	byte LostControlOfPepsiman : "ePSXe.exe", 0xAD7664; // Address you're looking for: 01A77664
+	byte ScoreBoardIsPresent : "ePSXe.exe", 0xB17AA0; // Address you're looking for: 01AB7AA0
+	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0xB7C294; // Address you're looking for: 01B1C294
+	byte MenuItemIsSelected : "ePSXe.exe", 0xB625DE; // Address you're looking for: 01B025DE
+}
+
+state("ePSXe", "v2.0.0")
+{
+	int GameState : "ePSXe.exe", 0x8AF8A0; // Address you're looking for: 0096F8A0
+	uint EndOfThirdLevel : "ePSXe.exe", 0x8C6F3C; // Address you're looking for: 00986F3C
+	byte LostControlOfPepsiman : "ePSXe.exe", 0x86F664; // Address you're looking for: 0092F664
+	byte ScoreBoardIsPresent : "ePSXe.exe", 0x8AFAA0; // Address you're looking for: 0096FAA0
+	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0x914294; // Address you're looking for: 009D4294
+	byte MenuItemIsSelected : "ePSXe.exe", 0x8FA5DE; // Address you're looking for: 009BA5DE
+}
+
+state("ePSXe", "v1.9.25")
+{
+	int GameState : "ePSXe.exe", 0x720F20; // Address you're looking for: 00B20F20
+	uint EndOfThirdLevel : "ePSXe.exe", 0x7385BC; // Address you're looking for: 00B385BC 
+	byte LostControlOfPepsiman : "ePSXe.exe", 0x6E0CE4; // Address you're looking for: 00AE0CE4
+	byte ScoreBoardIsPresent : "ePSXe.exe", 0x721120; // Address you're looking for: 00B21120
+	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0x785914; // Address you're looking for: 00B85914
+	byte MenuItemIsSelected : "ePSXe.exe", 0x76BC5E; // Address you're looking for: 00B6BC5E
 }
 
 state("ePSXe", "v1.7.0")
@@ -199,6 +229,12 @@ init
 		version = "v1.7.0";
 	if (modules.First().ModuleMemorySize == 10301440)
 		version = "v1.9.0";
+	if (modules.First().ModuleMemorySize == 10518528)
+		version = "v1.9.25";
+	if (modules.First().ModuleMemorySize == 20287488)
+		version = "v2.0.0";
+	if (modules.First().ModuleMemorySize == 25337856)
+		version = "v2.0.5";
 	
 	vars.CurrentLevel = 0;
 	
