@@ -212,6 +212,7 @@ init
 	var firstModuleMemorySize = modules.First().ModuleMemorySize;
 	var processName = memory.ProcessName.ToLower();
 	vars.shouldUseWatchers = false;
+	vars.foundMemoryOffset = false;
 	vars.firstUpdate = true;
 
 	if (processName.Contains("psxfin")) // pSX/psxfin
@@ -263,7 +264,6 @@ init
 	{
 		version = "N/A";
 		vars.shouldUseWatchers = true;
-		vars.foundMemoryOffset = false;
 		IntPtr memoryOffset = IntPtr.Zero;
 		int wramOffset;
 	
@@ -315,7 +315,6 @@ init
 	{
 		version = "N/A";
 		vars.shouldUseWatchers = true;
-		vars.foundMemoryOffset = false;
 		vars.watchers = new MemoryWatcherList{};
 	}
 	
