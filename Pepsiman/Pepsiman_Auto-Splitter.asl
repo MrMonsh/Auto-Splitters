@@ -339,6 +339,7 @@ update
 				continue;
 			memoryOffset = page.BaseAddress;
 			vars.foundMemoryOffset = true;
+			print("Found MemoryOffset!");
 			
 			// MemoryWatcher used to get the memory addresses of interest
 			vars.watchers = new MemoryWatcherList
