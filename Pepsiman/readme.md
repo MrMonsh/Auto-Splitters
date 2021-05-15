@@ -1,4 +1,4 @@
-# Pepsiman Auto-Splitter & Load Remover v1.0.0 - by MrMonsh
+# Pepsiman Auto-Splitter & Load Remover v1.1.0 - by MrMonsh
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -48,6 +48,9 @@ This timer will function similar to your current timer, but the difference is th
 	+ Beetle PSX HW core
 	+ PCSX Rearmed core
 	+ Duckstation core
++ DuckStation
+	+ NoGUI version
+	+ QT Front-End version
 
 ## Installation Guide
 
