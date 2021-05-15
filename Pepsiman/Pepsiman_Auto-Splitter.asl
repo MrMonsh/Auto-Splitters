@@ -328,6 +328,8 @@ init
 
 update 
 {
+	var justFoundMemoryOffset = false;
+	
 	if (vars.shouldUseWatchers && !vars.foundMemoryOffset)
 	{
 		IntPtr memoryOffset = IntPtr.Zero;
@@ -338,6 +340,7 @@ update
 				continue;
 			memoryOffset = page.BaseAddress;
 			vars.foundMemoryOffset = true;
+			justFoundMemoryOffset = true;
 			print("Found MemoryOffset!");
 			
 			// MemoryWatcher used to get the memory addresses of interest
@@ -388,7 +391,7 @@ update
 		}
 	}
 
-	return version != "" && vars.shouldUseWatchers && vars.foundMemoryOffset;
+	return version != "" && vars.shouldUseWatchers && vars.foundMemoryOffset && !justFoundMemoryOffset;
 }
 
 start 
