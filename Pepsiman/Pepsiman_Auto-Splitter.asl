@@ -388,7 +388,7 @@ update
 		}
 	}
 
-	return version != "";
+	return version != "" && vars.shouldUseWatchers && !vars.foundMemoryOffset;
 }
 
 start 
