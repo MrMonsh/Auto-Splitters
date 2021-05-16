@@ -1,4 +1,4 @@
-// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.1.0 - by MrMonsh
+// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.1.1 - by MrMonsh
 // Notes: We track six variables here: GameState, LostControlOfPepsiman, ScoreBoardIsPresent, EndOfThirdLevel, CurrentHoveredMainMenuItem and MenuItemIsSelected
 // GameState tells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
 // GameState Values:
@@ -391,7 +391,7 @@ update
 		}
 	}
 
-	return version != "" && vars.shouldUseWatchers && vars.foundMemoryOffset && !justFoundMemoryOffset;
+	return version != "" && (!vars.shouldUseWatchers || (vars.foundMemoryOffset && !justFoundMemoryOffset));
 }
 
 start 
