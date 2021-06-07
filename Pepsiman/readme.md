@@ -5,8 +5,8 @@
 - [FAQ](#FAQ)
 - [Supported Emulator/Versions](#supported-emulator/versions)
 - [Installation Guide](#installation-guide)
-- [Changelog](#changelog)
 - [Contact](#contact)
+- [Changelog](#changelog)
 
 <!-- /TOC -->
 
