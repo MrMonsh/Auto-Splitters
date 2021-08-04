@@ -65,6 +65,7 @@ This timer will function similar to your current timer, but the difference is th
 8. You're done! Now you can boot up the emulator and run to your heart's content.
 
 Now, Pepsiman currently only takes Time with Loads into account for your final time on the leaderboard, so having a Loadless Timer is as of yet *not necessary at all*.
+
 In the event you'd still like to show Time without Loads (which pauses during loads between levels) side to side with your regular timer, this tool also supports that!
 Here's what to do to achieve that:
 
