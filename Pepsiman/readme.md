@@ -72,7 +72,7 @@ However, in the event you'd still like to show a Loadless Timer/Time without Loa
 3. Select the newly added "Timer", then select "Game Time" for the Timing Method option.
 	+ I personally also suggest changing the height slider of this timer so that it's noticeably smaller than the original one, to differentiate them easily.
 4. Click "OK".
-5. Done! Now you should have 2 timers, one showing time with loads and another one without loads.
+5. Done! Now you should have 2 timers, the bigger one showing Time without Loads and the smaller one showing Time with Loads.
 
 ⚠️ **If you had a version of the Auto-Splitter prior to 0.9.3, please make sure you get rid of the "Scriptable Auto-Splitter" section of your layout, as you will otherwise run into issues due to having two different versions running at the same time.**
 
