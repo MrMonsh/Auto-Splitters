@@ -62,12 +62,18 @@ This timer will function similar to your current timer, but the difference is th
 6. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
 	+ On the topic of changing the "Timer Start" advanced settings, I'd personally leave it as-is, given that its set to start on Game Start select at Main Menu (which is how the current ruleset works). I added this just for future-proofing.
 7. Click "OK" on the settings window, then click "OK" on the Splits window.
-8. Right-click again on the LiveSplit window, then select "Edit Layout".
-9. Click on the "+" button and select "Timer > Timer".
-10. Select the newly added "Timer", then select "Game Time" for the Timing Method option.
+8. You're done! Now you can boot up the emulator and run to your heart's content.
+
+Now, Pepsiman currently only takes Time with Loads into account for your final time on the leaderboard, so having a Loadless Timer is as of yet *not necessary at all*.
+In the event you'd still like to show Time without Loads (which pauses during loads between levels) side to side with your regular timer, this tool also supports that!
+Here's what to do to achieve that:
+
+1. Right-click again on the LiveSplit window, then select "Edit Layout".
+2. Click on the "+" button and select "Timer > Timer".
+3. Select the newly added "Timer", then select "Game Time" for the Timing Method option.
 	+ I personally also suggest changing the height slider of this timer so that it's noticeably smaller than the original one, to differentiate them easily.
-11. Click "OK".
-12. You're done! Now you can boot up the emulator and run to your heart's content.
+4. Click "OK".
+5. Done! Now you should have 2 timers, one showing time with loads and another one without loads.
 
 ⚠️ **If you had a version of the Auto-Splitter prior to 0.9.3, please make sure you get rid of the "Scriptable Auto-Splitter" section of your layout, as you will otherwise run into issues due to having two different versions running at the same time.**
 
