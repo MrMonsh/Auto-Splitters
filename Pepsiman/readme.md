@@ -64,11 +64,9 @@ This timer will function similar to your current timer, but the difference is th
 7. Click "OK" on the settings window, then click "OK" on the Splits window.
 8. You're done! Now you can boot up the emulator and run to your heart's content.
 
-Now, Pepsiman currently only takes Time with Loads into account for your final time on the leaderboard, so having a Loadless Timer is as of yet *not necessary at all*.
+Now, Pepsiman currently only takes Time with Loads into account for your final time on the leaderboard, so having a Loadless Timer (which would pause during loads between levels) is as of yet *not necessary at all*.
 
-In the event you'd still like to show Time without Loads (which pauses during loads between levels) side to side with your regular timer, this tool also supports that!
-Here's what to do to achieve that:
-
+However, in the event you'd still like to show a Loadless Timer/Time without Loads side to side with your default timer for comparison, you can follow these extra steps to achieve that with this tool:
 1. Right-click again on the LiveSplit window, then select "Edit Layout".
 2. Click on the "+" button and select "Timer > Timer".
 3. Select the newly added "Timer", then select "Game Time" for the Timing Method option.
