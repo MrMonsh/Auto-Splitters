@@ -1,11 +1,17 @@
 # Pepsiman Auto-Splitter & Load Remover v1.1.1 - by MrMonsh
 
-## Notes
+## Variables
 
-We track six variables here: GameState, LostControlOfPepsiman, ScoreBoardIsPresent, EndOfThirdLevel, CurrentHoveredMainMenuItem and MenuItemIsSelected.
+We track the following six variables: 
++ GameState
++ LostControlOfPepsiman
++ ScoreBoardIsPresent
++ EndOfThirdLevel
++ CurrentHoveredMainMenuItem
++ MenuItemIsSelected
 
 ### GameState 
-This addresstells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
+This address tells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
 
 #### GameState Values
 
