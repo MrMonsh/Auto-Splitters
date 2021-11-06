@@ -1,4 +1,4 @@
-# PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.1.1 - by MrMonsh
+# Pepsiman Auto-Splitter & Load Remover v1.1.1 - by MrMonsh
 
 ## Notes
 
