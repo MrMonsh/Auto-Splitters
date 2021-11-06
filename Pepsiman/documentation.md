@@ -2,10 +2,12 @@
 
 ## Notes
 
-We track six variables here: GameState, LostControlOfPepsiman, ScoreBoardIsPresent, EndOfThirdLevel, CurrentHoveredMainMenuItem and MenuItemIsSelected
-GameState tells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
+We track six variables here: GameState, LostControlOfPepsiman, ScoreBoardIsPresent, EndOfThirdLevel, CurrentHoveredMainMenuItem and MenuItemIsSelected.
 
-## GameState Values
+### GameState 
+This addresstells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
+
+#### GameState Values
 
 + 7: Game Over/End of Credits (used for auto-resets)
 + 8: Main Menu (used for auto-start)
