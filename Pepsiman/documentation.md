@@ -25,15 +25,15 @@ This address tells us what the game is currently playing, whether it's a level, 
 + 44: A fat man cutscene
 
 ### LostControlOfPepsiman 
-This address tells us exactly when we lose control of Pepsiman, whether it's during the end of a level or during the initial cutscene of a level
+This address tells us exactly when we lose control of Pepsiman, whether it's during the end of a level or during the initial cutscene of a level.
 + Value 0 means we're currently in control of Pepsiman, 1 means we're not in control.
 
 ### ScoreBoardIsPresent 
-This address tells us exactly when the Score Board at the end of each level is present on the screen
+This address tells us exactly when the Score Board at the end of each level is present on the screen.
 + Value 0 means it's not present, 1 means it's present.
 
 ### EndOfThirdLevel 
-This address tells us exactly when we stop controlling Pepsiman at the end of the third level of each act, given that GameState doesn't pick up on this
+This address tells us exactly when we stop controlling Pepsiman at the end of the third level of each act, given that GameState doesn't pick up on this.
 
 #### EndOfThirdLevel Values
 + 24480: Lost control of Pepsiman (due to reaching the end of the level)
