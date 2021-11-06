@@ -18,6 +18,8 @@ This address tells us what the game is currently playing, whether it's a level, 
 + 7: Game Over/End of Credits (used for auto-resets)
 + 8: Main Menu (used for auto-start)
 + 14: Currently playing a level
++ 39: For a split second, during the black screen between the fatman cutscene and the cutscene where pepsiman talks with someone (at the beginning of each act).
+  + This value is particularly useless for our purposes.
 + 40: 3D cutscene for first level of the each act
 + 41: Loading the first level of the each act (used to detect loading for Load Remover)
 + 42: Loading the second level of the each act (used to detect loading for Load Remover and to auto-split first level)
