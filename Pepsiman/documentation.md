@@ -41,6 +41,8 @@ This address tells us exactly when we stop controlling Pepsiman at the end of th
 + 151703316: Currently playing level 1-2
 + 3774875200: Fade out at the end of level cutscene
 
+Note: This address has other possible (and wildly different) values during loads, but since we're not tracking this value during loads they're not of any interest for our purposes and we can disregard them.
+
 ### CurrentHoveredMainMenuItem 
 This address tells us which is the current MAIN menu item we're stepped on, from the list of available items of our main menu.
 The amount of items may vary depending whether you have played the game before or not, given the Free Play and Continue options are unlocked in this fashion. 
