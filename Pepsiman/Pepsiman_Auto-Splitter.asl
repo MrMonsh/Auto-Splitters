@@ -1,40 +1,4 @@
-// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.1.1 - by MrMonsh
-// Notes: We track six variables here: GameState, LostControlOfPepsiman, ScoreBoardIsPresent, EndOfThirdLevel, CurrentHoveredMainMenuItem and MenuItemIsSelected
-// GameState tells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
-// GameState Values:
-// + 7: Game Over/End of Credits (used for auto-resets)
-// + 8: Main Menu (used for auto-start)
-// + 14: Currently playing a level
-// + 40: 3D cutscene for first level of the each act
-// + 41: Loading the first level of the each act (used to detect loading for Load Remover)
-// + 42: Loading the second level of the each act (used to detect loading for Load Remover and to auto-split first level)
-// + 43: Loading the third level of the each act (used to detect loading for Load Remover and to auto-split second level)
-// + 44: A fat man cutscene
-
-// LostControlOfPepsiman tells us exactly when we lose control of Pepsiman, whether it's during the end of a level or during the initial cutscene of a level
-// 0 means we're currently in control of Pepsiman, 1 means we're not in control.
-
-// ScoreBoardIsPresent tells us exactly when the Score Board at the end of each level is present on the screen
-// 0 means it's not present, 1 means it's present.
-
-// EndOfThirdLevel tells us exactly when we stop controlling Pepsiman at the end of the third level of each act, given that GameState doesn't pick up on this
-// EndOfThirdLevel Values:
-// + 24480: Lost control of Pepsiman (due to reaching the end of the level)
-// + 67817236: Currently playing the level, paused or at the main menu
-// + 151703316: Currently playing level 1-2
-// + 3774875200: Fade out at the end of level cutscene
-
-// CurrentHoveredMainMenuItem tells us which is the current MAIN menu item we're stepped on, from the list of available items of our main menu.
-// The amount of items may vary depending whether you have played the game before or not, given the Free Play and Continue options are unlocked in this fashion. 
-// Values: 0 is the top item, 1 is the one right under it, and so on.
-// As such, "Game Start" is always value 0, since it's always at the top of the main menu, and this is the one we're concerned with.
-// If you enter a sub-menu (such as Options or Free Play), this value doesn't change, regardless of what you do inside it.
-
-// MenuItemIsSelected tells us if the current menu item was selected (ie. player pressed circle to select it).
-// MenuItemIsSelected Values:
-// + 64: Passive State
-// + 20: Menu Item Selected
-
+// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.1.2 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -44,6 +8,8 @@ state("psxfin", "v1.13")
 	byte ScoreBoardIsPresent : "psxfin.exe", 0x171A5C, 0x95A80;
 	byte CurrentHoveredMainMenuItem : "psxfin.exe", 0x171A5C, 0xFA274;
 	byte MenuItemIsSelected : "psxfin.exe", 0x171A5C, 0xE05BE;
+	int LoadingBlackScreen1: "psxfin.exe", 0x171A5C, 0xE1F48;
+	int LoadingBlackScreen2: "psxfin.exe", 0x171A5C, 0x9586C;
 }
 
 state("XEBRA", "20200405")
@@ -54,6 +20,8 @@ state("XEBRA", "20200405")
 	byte ScoreBoardIsPresent : "xebra.exe", 0xA71F8, 0x95A80;
 	byte CurrentHoveredMainMenuItem : "xebra.exe", 0xA71F8, 0xFA274;
 	byte MenuItemIsSelected : "xebra.exe", 0xA71F8, 0xE05BE;
+	int LoadingBlackScreen1: "xebra.exe", 0xA71F8, 0xE1F48;
+	int LoadingBlackScreen2: "xebra.exe", 0xA71F8, 0x9586C;
 }
 
 state("ePSXe", "v1.9.0")
@@ -64,6 +32,8 @@ state("ePSXe", "v1.9.0")
 	byte ScoreBoardIsPresent : "ePSXe.exe", 0x6ED420; // Address you're looking for: 00AED420
 	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0x751C14; // Address you're looking for: 00B51C14
 	byte MenuItemIsSelected : "ePSXe.exe", 0x737F5E; // Address you're looking for: 00B37F5E
+	int LoadingBlackScreen1: "ePSXe.exe", 0x87A58C; // Address you're looking for: 00C7A58C
+	int LoadingBlackScreen2: "ePSXe.exe", 0x6ED20C; // Address you're looking for: 00AEC20C
 }
 
 state("ePSXe", "v2.0.5")
@@ -74,6 +44,8 @@ state("ePSXe", "v2.0.5")
 	byte ScoreBoardIsPresent : "ePSXe.exe", 0xB17AA0; // Address you're looking for: 01AB7AA0
 	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0xB7C294; // Address you're looking for: 01B1C294
 	byte MenuItemIsSelected : "ePSXe.exe", 0xB625DE; // Address you're looking for: 01B025DE
+	int LoadingBlackScreen1: "ePSXe.exe", 0xD1406C; // Address you're looking for: 0152406C
+	int LoadingBlackScreen2: "ePSXe.exe", 0xB1788C; // Address you're looking for: 0132788C
 }
 
 state("ePSXe", "v2.0.0")
@@ -84,6 +56,8 @@ state("ePSXe", "v2.0.0")
 	byte ScoreBoardIsPresent : "ePSXe.exe", 0x8AFAA0; // Address you're looking for: 0096FAA0
 	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0x914294; // Address you're looking for: 009D4294
 	byte MenuItemIsSelected : "ePSXe.exe", 0x8FA5DE; // Address you're looking for: 009BA5DE
+	int LoadingBlackScreen1: "ePSXe.exe", 0xAAC06C; // Address you're looking for: 0102C06C
+	int LoadingBlackScreen2: "ePSXe.exe", 0x8AF88C; // Address you're looking for: 00E2F88C
 }
 
 state("ePSXe", "v1.9.25")
@@ -94,6 +68,8 @@ state("ePSXe", "v1.9.25")
 	byte ScoreBoardIsPresent : "ePSXe.exe", 0x721120; // Address you're looking for: 00B21120
 	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0x785914; // Address you're looking for: 00B85914
 	byte MenuItemIsSelected : "ePSXe.exe", 0x76BC5E; // Address you're looking for: 00B6BC5E
+	int LoadingBlackScreen1: "ePSXe.exe", 0x8AE28C; // Address you're looking for: 00CAE28C
+	int LoadingBlackScreen2: "ePSXe.exe", 0x720F0C; // Address you're looking for: 00B20F0C
 }
 
 state("ePSXe", "v1.7.0")
@@ -104,6 +80,8 @@ state("ePSXe", "v1.7.0")
 	byte ScoreBoardIsPresent : "ePSXe.exe", 0x5E1AA0; // Address you're looking for: 009E1AA0
 	byte CurrentHoveredMainMenuItem : "ePSXe.exe", 0x646294; // Address you're looking for: 00A46294
 	byte MenuItemIsSelected : "ePSXe.exe", 0x62C5DE; // Address you're looking for: 00A2C5DE
+	int LoadingBlackScreen1: "ePSXe.exe", 0x75E7EC; // Address you're looking for: 00B5E7EC
+	int LoadingBlackScreen2: "ePSXe.exe", 0x5E188C; // Address you're looking for: 009E188C
 }
 
 state("mednafen", "v1.26.1 win64")
@@ -114,6 +92,8 @@ state("mednafen", "v1.26.1 win64")
 	byte ScoreBoardIsPresent : "mednafen.exe", 0x25E8D00;
 	byte CurrentHoveredMainMenuItem : "mednafen.exe", 0x264D4F4;
 	byte MenuItemIsSelected : "mednafen.exe", 0x263383E;
+	int LoadingBlackScreen1: "mednafen.exe", 0x26351C8;
+	int LoadingBlackScreen2: "mednafen.exe", 0x25E8AEC;
 }
 
 state("mednafen", "v1.26.1 win32")
@@ -124,6 +104,8 @@ state("mednafen", "v1.26.1 win32")
 	byte ScoreBoardIsPresent : "mednafen.exe", 0x1D29FE0;
 	byte CurrentHoveredMainMenuItem : "mednafen.exe", 0x1D8E7D4;
 	byte MenuItemIsSelected : "mednafen.exe", 0x1D74B1E;
+	int LoadingBlackScreen1: "mednafen.exe", 0x1D764A8;
+	int LoadingBlackScreen2: "mednafen.exe", 0x1D29DCC;
 }
 
 state("EmuHawk", "v2.6.1")
@@ -134,6 +116,8 @@ state("EmuHawk", "v2.6.1")
 	byte ScoreBoardIsPresent : "octoshock.dll", 0x3A6A00;
 	byte CurrentHoveredMainMenuItem : "octoshock.dll", 0x40B1F4;
 	byte MenuItemIsSelected : "octoshock.dll", 0x3F153E;
+	int LoadingBlackScreen1: "octoshock.dll", 0x3F2EC8;
+	int LoadingBlackScreen2: "octoshock.dll", 0x3A67EC;
 }
 
 state("EmuHawk", "v2.5.2")
@@ -144,6 +128,8 @@ state("EmuHawk", "v2.5.2")
 	byte ScoreBoardIsPresent : "octoshock.dll", 0x3A6A00;
 	byte CurrentHoveredMainMenuItem : "octoshock.dll", 0x40B1F4;
 	byte MenuItemIsSelected : "octoshock.dll", 0x3F153E;
+	int LoadingBlackScreen1: "octoshock.dll", 0x3F2EC8;
+	int LoadingBlackScreen2: "octoshock.dll", 0x3A67EC;
 }
 
 state("EmuHawk", "v2.4.2")
@@ -154,6 +140,8 @@ state("EmuHawk", "v2.4.2")
 	byte ScoreBoardIsPresent : "octoshock.dll", 0x3A3A10;
 	byte CurrentHoveredMainMenuItem : "octoshock.dll", 0x408204;
 	byte MenuItemIsSelected : "octoshock.dll", 0x3EE54E;
+	int LoadingBlackScreen1: "octoshock.dll", 0x3EFED8;
+	int LoadingBlackScreen2: "octoshock.dll", 0x3A37FC;
 }
 
 // RetroArch is a special case, I'll be manually reading its memory
@@ -308,7 +296,9 @@ init
 			new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
 			new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
 			new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
-			new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
+			new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" },
+			new MemoryWatcher<int>(memoryOffset + 0xE1F48) { Name = "LoadingBlackScreen1" },
+			new MemoryWatcher<int>(memoryOffset + 0x9586C) { Name = "LoadingBlackScreen2" }
 		};
     	}
 	else if ((processName.Length > 10) && (processName.Substring(0, 11) == "duckstation"))
@@ -351,7 +341,9 @@ update
 				new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
 				new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
 				new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
-				new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" }
+				new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" },
+				new MemoryWatcher<int>(memoryOffset + 0xE1F48) { Name = "LoadingBlackScreen1" },
+				new MemoryWatcher<int>(memoryOffset + 0x9586C) { Name = "LoadingBlackScreen2" }
 			};
 			break;
 		}
@@ -367,6 +359,8 @@ update
 			current.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
 			current.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
 			current.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
+			current.LoadingBlackScreen1 = vars.watchers["LoadingBlackScreen1"].Current;
+			current.LoadingBlackScreen2 = vars.watchers["LoadingBlackScreen2"].Current;
 			
 			// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
 			if (vars.firstUpdate)
@@ -377,6 +371,8 @@ update
 				old.ScoreBoardIsPresent = vars.watchers["ScoreBoardIsPresent"].Current;
 				old.CurrentHoveredMainMenuItem = vars.watchers["CurrentHoveredMainMenuItem"].Current;
 				old.MenuItemIsSelected = vars.watchers["MenuItemIsSelected"].Current;
+				old.LoadingBlackScreen1 = vars.watchers["LoadingBlackScreen1"].Current;
+				old.LoadingBlackScreen2 = vars.watchers["LoadingBlackScreen2"].Current;
 				vars.firstUpdate = false;
 			}
 		}
@@ -421,8 +417,9 @@ reset
 }
 
 isLoading 
-{
-	return current.GameState == 41 || current.GameState == 42 || current.GameState == 43;
+{	
+	return (current.GameState != 8 && current.GameState != 14 && (current.LoadingBlackScreen1 == 1 || current.LoadingBlackScreen2 == 1)) 
+			|| current.GameState == 41 || current.GameState == 42 || current.GameState == 43;
 }
 
 exit 
