@@ -2,13 +2,15 @@
 
 ## Variables
 
-We track the following six variables: 
+We track the following eight variables: 
 + GameState
 + LostControlOfPepsiman
 + ScoreBoardIsPresent
 + EndOfThirdLevel
 + CurrentHoveredMainMenuItem
 + MenuItemIsSelected
++ LoadingBlackScreen1
++ LoadingBlackScreen2
 
 ### GameState (offset 0x95880)
 This address tells us what the game is currently playing, whether it's a level, a cutscene, a level loading, pepsiman's death or the main menu.
@@ -57,3 +59,11 @@ This address tells us if the current menu item was selected (ie. player pressed 
 #### MenuItemIsSelected Values
 + 64: Passive State
 + 20: Menu Item Selected
+
+### LoadingBlackScreen1 (offset 0xE1F48)
+This address tells us if we're currently in the middle of a black screen, specifically the one that takes places right before a fatman cutscene (between "Game Start" and the fatman cutscene).
++ Value 0 means it's not present, 1 means it's present.
+
+### LoadingBlackScreen2 (offset 0x9586C)
+This address tells us if we're currently in the middle of a black screen, specifically the one that takes places between the fatman cutscene and the cutscene where Pepsiman talks to someone at the beginning of each chapter.
++ Value 0 means it's not present, 1 means it's present.
