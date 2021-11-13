@@ -1,4 +1,4 @@
-# Pepsiman Auto-Splitter & Load Remover v1.1.1 - by MrMonsh
+# Pepsiman Auto-Splitter & Load Remover v1.1.2 - by MrMonsh
 
 ## Variables
 
