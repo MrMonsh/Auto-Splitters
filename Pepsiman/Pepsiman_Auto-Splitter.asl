@@ -1,4 +1,4 @@
-// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.1.2 - by MrMonsh
+// PEPSIMAN AUTO-SPLITTER AND LOAD REMOVER v1.1.3 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -252,54 +252,7 @@ init
 	{
 		version = "N/A";
 		vars.shouldUseWatchers = true;
-		IntPtr memoryOffset = IntPtr.Zero;
-		int wramOffset;
-	
-		// Supported libretro modules are Beetle_PSX, Beetle_PSX_HW, PCSX_Rearmed and Duckstation
-		// Support for Duckstation is spotty and largely untested. Might break anytime.
-		ProcessModuleWow64Safe libretromodule = modules.Where(m => m.ModuleName == "mednafen_psx_hw_libretro.dll" || m.ModuleName == "mednafen_psx_libretro.dll" || m.ModuleName == "pcsx_rearmed_libretro.dll" || m.ModuleName == "duckstation_libretro.dll").First();
-		if (libretromodule.ModuleName == "mednafen_psx_hw_libretro.dll") 
-		{
-		    memoryOffset = (IntPtr)0x40000000;    // Beetle PSX always uses the same memory address for the start of emulated RAM regardless of the version of the core
-		} 
-		else if (libretromodule.ModuleName == "mednafen_psx_libretro.dll") 
-		{
-		    memoryOffset = (IntPtr)0x40000000;    // Beetle PSX always uses the same memory address for the start of emulated RAM regardless of the version of the core
-		} 
-		else if (libretromodule.ModuleName == "pcsx_rearmed_libretro.dll") 
-		{
-		    memoryOffset = (IntPtr)0x30000000;    // PCSX_ReARMed always uses the same memory address for the start of emulated RAM, even though it's different from the one used by Beetle PSX
-		} 
-		else if (libretromodule.ModuleName == "duckstation_libretro.dll") 
-		{
-		    var versions = new Dictionary<int, int>{
-			{ 0x4B0A000, 0x2D4030 },   // Duckstation 64bit
-			{ 0x55B000, 0x22CF88 },    // Duckstation 32bit
-		    };
-			
-			// Duckstation uses a static address relative to the start of duckstation memory module as the start of emulated RAM.
-			// The address might change if the libretro core is updated, which is why the
-			// script will need to be updated in case a new version of Duckstation gets released.
-           		if (versions.TryGetValue(libretromodule.ModuleMemorySize, out wramOffset)) 
-			{
-                		memoryOffset = (IntPtr)libretromodule.BaseAddress + wramOffset;
-            		}
-        	}
-		
-		vars.foundMemoryOffset = memoryOffset != IntPtr.Zero;
-		
-		// MemoryWatcher used to get the memory addresses of interest
-		vars.watchers = new MemoryWatcherList
-		{
-			new MemoryWatcher<int>(memoryOffset + 0x95880) { Name = "GameState" },
-			new MemoryWatcher<uint>(memoryOffset + 0xACF1C) { Name = "EndOfThirdLevel" },
-			new MemoryWatcher<byte>(memoryOffset + 0x4023C) { Name = "LostControlOfPepsiman" },
-			new MemoryWatcher<byte>(memoryOffset + 0x95A80) { Name = "ScoreBoardIsPresent" },
-			new MemoryWatcher<byte>(memoryOffset + 0xFA274) { Name = "CurrentHoveredMainMenuItem" },
-			new MemoryWatcher<byte>(memoryOffset + 0xE05BE) { Name = "MenuItemIsSelected" },
-			new MemoryWatcher<int>(memoryOffset + 0xE1F48) { Name = "LoadingBlackScreen1" },
-			new MemoryWatcher<int>(memoryOffset + 0x9586C) { Name = "LoadingBlackScreen2" }
-		};
+		vars.watchers = new MemoryWatcherList{};
     	}
 	else if ((processName.Length > 10) && (processName.Substring(0, 11) == "duckstation"))
 	{
