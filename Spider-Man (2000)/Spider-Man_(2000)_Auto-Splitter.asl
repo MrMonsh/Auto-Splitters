@@ -46,7 +46,7 @@ startup
 	settings.SetToolTip("resetOnQuit", "The timer will reset as soon as you pause and select & confirm Quit.");
 
 	// Add setting 'resetOnMainMenu', with 'reset_group' as parent
-	settings.Add("resetOnMainMenu", true, "Reset on Main Menu", "reset_group");
+	settings.Add("resetOnMainMenu", false, "Reset on Main Menu", "reset_group");
 	settings.SetToolTip("resetOnMainMenu", "The timer will reset as soon as you return to the Main Menu.");
 
 	vars.timerModel = new TimerModel { CurrentState = timer };
