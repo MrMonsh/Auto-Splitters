@@ -108,10 +108,14 @@ update
 			// MemoryWatcher used to get the memory addresses of interest
 			vars.watchers = new MemoryWatcherList
 			{
+				new MemoryWatcher<int>(memoryOffset + 0x) { Name = "IsDemo" }, // Help
 				new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
-        		new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "IsCutscene" },
-        		new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
+				new MemoryWatcher<int>(memoryOffset + 0x) { Name = "IsPlaying" }, // Help
+				new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "IsCutscene" },
+				new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
+				new MemoryWatcher<int>(memoryOffset + 0x) { Name = "MainMenuItem" }, // Help
 				new MemoryWatcher<byte>(memoryOffset + 0x1FFF9F) { Name = "LevelEnd" }
+				new MemoryWatcher<byte>(memoryOffset + 0x) { Name = "PauseMenu" }, // Help
 			};
 			break;
 		}
@@ -121,18 +125,26 @@ update
 		if (vars.shouldUseWatchers)
 		{
 			vars.watchers.UpdateAll(game);
+			current.IsDemo = vars.watchers["IsDemo"].Current;
 			current.IsLoading = vars.watchers["IsLoading"].Current;
+			current.IsPlaying = vars.watchers["IsPlaying"].Current;
 			current.IsCutscene = vars.watchers["IsCutscene"].Current;
 			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
+			current.MainMenuItem = vars.watchers["MainMenuItem"].Current;
 			current.LevelEnd = vars.watchers["LevelEnd"].Current;
+			current.PauseMenu = vars.watchers["PauseMenu"].Current;
 			
 			// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
 			if (vars.firstUpdate)
 			{
+				old.IsDemo = vars.watchers["IsDemo"].Current;
 				old.IsLoading = vars.watchers["IsLoading"].Current;
+				old.IsPlaying = vars.watchers["IsPlaying"].Current;
 				old.IsCutscene = vars.watchers["IsCutscene"].Current;
 				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
+				old.MainMenuItem = vars.watchers["MainMenuItem"].Current;
 				old.LevelEnd = vars.watchers["LevelEnd"].Current;
+				old.PauseMenu = vars.watchers["PauseMenu"].Current;
 				vars.firstUpdate = false;
 			}
 		}
