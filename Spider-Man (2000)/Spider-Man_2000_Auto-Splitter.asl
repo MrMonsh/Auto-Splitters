@@ -4,15 +4,15 @@ state("psxfin", "v1.13")
 {
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xB556C;
 	int InCutscene : "psxfin.exe", 0x171A5C, 0xB4E84;
-  int InMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
+  	int InMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
 	byte LevelEnd : "psxfin.exe", 0x171A5C, 0x1FFF9F;
 }
 
 state("ePSXe", "v1.9.0")
 {
-  int IsLoading: "ePSXe.exe", 0x6579A0, 0xB556C;
+  	int IsLoading: "ePSXe.exe", 0x6579A0, 0xB556C;
 	int InCutscene : "ePSXe.exe", 0x6579A0, 0xB4E84;
-  int InMainMenu : "ePSXe.exe", 0x6579A0, 0xB579C;
+  	int InMainMenu : "ePSXe.exe", 0x6579A0, 0xB579C;
 	byte LevelEnd : "ePSXe.exe", 0x6579A0, 0x1FFF9F;
 }
 
@@ -64,7 +64,7 @@ init
 		version = "N/A";
 		vars.shouldUseWatchers = true;
 		vars.watchers = new MemoryWatcherList{};
-  }
+  	}
 	else if ((processName.Length > 10) && (processName.Substring(0, 11) == "duckstation"))
 	{
 		version = "N/A";
@@ -72,7 +72,7 @@ init
 		vars.watchers = new MemoryWatcherList{};
 	}
 
-  vars.dontSplitUntilLoads = false;
+  	vars.dontSplitUntilLoads = false;
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
 	print("CurrentProcess is: " + processName);
@@ -101,8 +101,8 @@ update
 			vars.watchers = new MemoryWatcherList
 			{
 				new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
-        new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "InCutscene" },
-        new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "InMainMenu" },
+        			new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "InCutscene" },
+        			new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "InMainMenu" },
 				new MemoryWatcher<byte>(memoryOffset + 0x1FFF9F) { Name = "LevelEnd" }
 			};
 			break;
@@ -149,11 +149,11 @@ start
 
 split
 {
-  if (vars.dontSplitUntilLoads == false && ((old.InCutscene == 0 && current.InCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128))) 
-  {
-    vars.dontSplitUntilLoads = true;
-	  return true;
-  }
+	if (vars.dontSplitUntilLoads == false && ((old.InCutscene == 0 && current.InCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128))) 
+	{
+		vars.dontSplitUntilLoads = true;
+	  	return true;
+	}
 }
 
 reset 
@@ -163,11 +163,11 @@ reset
 
 isLoading 
 {
-  if (current.IsLoading == 1) 
-  {
-	  vars.dontSplitUntilLoads = false;
-    return current.IsLoading == 1;
-  }
+	if (current.IsLoading == 1) 
+	{
+		vars.dontSplitUntilLoads = false;
+		return current.IsLoading == 1;
+	}
 }
 
 exit 
