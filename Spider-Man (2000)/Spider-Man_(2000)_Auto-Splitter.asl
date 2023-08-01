@@ -172,7 +172,7 @@ start
 split
 {
 	if (!vars.dontSplitUntilPlaying && 
-	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128)))
+	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.LevelEnd == 0 && current.LevelEnd == 128)))
 	{
 		vars.dontSplitUntilPlaying = true;
 		return true;
