@@ -129,13 +129,9 @@ update
 			}
 		}
 
-		if (old.GameState != current.GameState)
+		if (vars.dontSplitUntilLoads && (current.IsLoading == 1 || current.InMainMenu == 1)) 
 		{
-			int parsedGameStateLevel = current.GameState - 40;
-			if (parsedGameStateLevel >= 0 && parsedGameStateLevel <= 3)
-				vars.CurrentLevel = parsedGameStateLevel;
-			else if (current.GameState == 8)
-				vars.CurrentLevel = 0;
+			vars.dontSplitUntilLoads = false;
 		}
 	}
 
@@ -149,11 +145,7 @@ start
 
 split
 {
-	if (vars.dontSplitUntilLoads == false && ((old.InCutscene == 0 && current.InCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128))) 
-	{
-		vars.dontSplitUntilLoads = true;
-	  	return true;
-	}
+	return vars.dontSplitUntilLoads == false && ((old.InCutscene == 0 && current.InCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128));
 }
 
 reset 
@@ -163,11 +155,7 @@ reset
 
 isLoading 
 {
-	if (current.IsLoading == 1) 
-	{
-		vars.dontSplitUntilLoads = false;
-		return current.IsLoading == 1;
-	}
+	return current.IsLoading == 1;
 }
 
 exit 
