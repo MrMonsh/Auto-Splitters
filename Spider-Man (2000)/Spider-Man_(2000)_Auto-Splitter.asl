@@ -10,10 +10,10 @@ state("psxfin", "v1.13")
 
 state("ePSXe", "v1.9.0")
 {
-  	int IsLoading: "ePSXe.exe", 0x6579A0, 0xB556C;
-	int InCutscene : "ePSXe.exe", 0x6579A0, 0xB4E84;
-  	int InMainMenu : "ePSXe.exe", 0x6579A0, 0xB579C;
-	byte LevelEnd : "ePSXe.exe", 0x6579A0, 0x1FFF9F;
+  	int IsLoading: "ePSXe.exe", 0x70CF0C;
+	int InCutscene : "ePSXe.exe", 0x70C824;
+  	int InMainMenu : "ePSXe.exe", 0x70D13C;
+	byte LevelEnd : "ePSXe.exe", 0x85793F;
 }
 
 // RetroArch is a special case, I'll be manually reading its memory
@@ -101,8 +101,8 @@ update
 			vars.watchers = new MemoryWatcherList
 			{
 				new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
-        			new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "InCutscene" },
-        			new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "InMainMenu" },
+        		new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "InCutscene" },
+        		new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "InMainMenu" },
 				new MemoryWatcher<byte>(memoryOffset + 0x1FFF9F) { Name = "LevelEnd" }
 			};
 			break;
@@ -140,14 +140,14 @@ update
 
 start 
 {
-	return current.InMainMenu == 0;
+	return old.InMainMenu == 1 && current.InMainMenu == 0;
 }
 
 split
 {
 	if (vars.dontSplitUntilLoads == false && ((old.InCutscene == 0 && current.InCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128)))
 	{
-		vars.dontSplitUntilLoads == true;
+		vars.dontSplitUntilLoads = true;
 		return true;
 	}
 	return false;
