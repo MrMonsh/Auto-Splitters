@@ -3,17 +3,21 @@
 state("psxfin", "v1.13")
 {
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xB556C;
-	int InCutscene : "psxfin.exe", 0x171A5C, 0xB4E84;
-  	int InMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
+	int IsCutscene : "psxfin.exe", 0x171A5C, 0xB4E84;
+  	int IsMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
 	byte LevelEnd : "psxfin.exe", 0x171A5C, 0x1FFF9F;
 }
 
 state("ePSXe", "v1.9.0")
 {
-  	int IsLoading: "ePSXe.exe", 0x70CF0C;
-	int InCutscene : "ePSXe.exe", 0x70C824;
-  	int InMainMenu : "ePSXe.exe", 0x70D13C;
+	int IsDemo : "ePSXe.exe", 0x70D118;
+	int IsLoading: "ePSXe.exe", 0x70B4B8;
+	int IsPlaying : "ePSXe.exe", 0x70CC04;
+	int IsCutscene : "ePSXe.exe", 0x70C824;
+  	int IsMainMenu : "ePSXe.exe", 0x70D13C;
+	int MainMenuItem : "ePSXe.exe", 0x665BF4;
 	byte LevelEnd : "ePSXe.exe", 0x85793F;
+	byte PauseMenu : "ePSXe.exe", 0x70C374;
 }
 
 // RetroArch is a special case, I'll be manually reading its memory
@@ -32,6 +36,10 @@ startup
 	// Add setting 'resetOnGameClosed', with 'reset_group' as parent
 	settings.Add("resetOnGameClosed", true, "Reset when closing the emulator", "reset_group");
 	settings.SetToolTip("resetOnGameClosed", "The timer will reset as soon as the emulator is closed.");
+
+	// Add setting 'resetOnQuit', with 'reset_group' as parent
+	settings.Add("resetOnQuit", true, "Reset on Quit", "reset_group");
+	settings.SetToolTip("resetOnQuit", "The timer will reset as soon as you pause and select & confirm Quit.");
 
 	// Add setting 'resetOnMainMenu', with 'reset_group' as parent
 	settings.Add("resetOnMainMenu", true, "Reset on Main Menu", "reset_group");
@@ -72,7 +80,7 @@ init
 		vars.watchers = new MemoryWatcherList{};
 	}
 
-  	vars.dontSplitUntilLoads = false;
+  	vars.dontSplitUntilPlaying = true;
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
 	print("CurrentProcess is: " + processName);
@@ -101,8 +109,8 @@ update
 			vars.watchers = new MemoryWatcherList
 			{
 				new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
-        		new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "InCutscene" },
-        		new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "InMainMenu" },
+        		new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "IsCutscene" },
+        		new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
 				new MemoryWatcher<byte>(memoryOffset + 0x1FFF9F) { Name = "LevelEnd" }
 			};
 			break;
@@ -114,24 +122,26 @@ update
 		{
 			vars.watchers.UpdateAll(game);
 			current.IsLoading = vars.watchers["IsLoading"].Current;
-			current.InCutscene = vars.watchers["InCutscene"].Current;
-			current.InMainMenu = vars.watchers["InMainMenu"].Current;
+			current.IsCutscene = vars.watchers["IsCutscene"].Current;
+			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 			current.LevelEnd = vars.watchers["LevelEnd"].Current;
 			
 			// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
 			if (vars.firstUpdate)
 			{
 				old.IsLoading = vars.watchers["IsLoading"].Current;
-				old.InCutscene = vars.watchers["InCutscene"].Current;
-				old.InMainMenu = vars.watchers["InMainMenu"].Current;
+				old.IsCutscene = vars.watchers["IsCutscene"].Current;
+				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 				old.LevelEnd = vars.watchers["LevelEnd"].Current;
 				vars.firstUpdate = false;
 			}
 		}
 
-		if (vars.dontSplitUntilLoads && (current.IsLoading == 1 || current.InMainMenu == 1)) 
+		if (vars.dontSplitUntilPlaying && old.IsPlaying == 0 && current.IsPlaying == 1) 
+			vars.dontSplitUntilPlaying = false;
+		else if (!vars.dontSplitUntilPlaying)
 		{
-			vars.dontSplitUntilLoads = false;
+			vars.dontSplitUntilPlaying = ((old.PauseMenu == 1 || old.PauseMenu == 3) && current.IsPlaying == 0) || (old.IsMainMenu == 0 && current.IsMainMenu == 1);
 		}
 	}
 
@@ -140,14 +150,15 @@ update
 
 start 
 {
-	return old.InMainMenu == 1 && current.InMainMenu == 0;
+	return current.IsDemo == 0 && (old.IsMainMenu == 1 && current.IsMainMenu == 0);
 }
 
 split
 {
-	if (vars.dontSplitUntilLoads == false && ((old.InCutscene == 0 && current.InCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128)))
+	if (!vars.dontSplitUntilPlaying && 
+	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128)))
 	{
-		vars.dontSplitUntilLoads = true;
+		vars.dontSplitUntilPlaying = true;
 		return true;
 	}
 	return false;
@@ -155,12 +166,12 @@ split
 
 reset 
 {
-	return settings["resetOnMainMenu"] && current.InMainMenu == 1;
+	return (settings["resetOnMainMenu"] && current.IsMainMenu == 1) || (settings["resetOnQuit"] && old.PauseMenu == 3 && current.IsPlaying == 0);
 }
 
 isLoading 
 {
-	return current.IsLoading == 1;
+	return current.IsLoading == 160;
 }
 
 exit 
