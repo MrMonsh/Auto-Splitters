@@ -145,7 +145,12 @@ start
 
 split
 {
-	return vars.dontSplitUntilLoads == false && ((old.InCutscene == 0 && current.InCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128));
+	if (vars.dontSplitUntilLoads == false && ((old.InCutscene == 0 && current.InCutscene == 1) || (old.LevelEnd == 0 && current.LevelEnd == 128)))
+	{
+		vars.dontSplitUntilLoads == true;
+		return true;
+	}
+	return false;
 }
 
 reset 
