@@ -2,16 +2,20 @@
 
 state("psxfin", "v1.13")
 {
+	int IsDemo: "psxfin.exe", 0x171A5C, 0xB5778;
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xB556C;
+	int IsPlaying: "psxfin.exe", 0x171A5C, 0xB5264;
 	int IsCutscene : "psxfin.exe", 0x171A5C, 0xB4E84;
   	int IsMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
+	int MainMenuItem: "psxfin.exe", 0x171A5C, 0xE254;
 	byte LevelEnd : "psxfin.exe", 0x171A5C, 0x1FFF9F;
+	byte PauseMenu: "psxfin.exe", 0x171A5C, 0xB49D4;
 }
 
 state("ePSXe", "v1.9.0")
 {
 	int IsDemo : "ePSXe.exe", 0x70D118;
-	int IsLoading: "ePSXe.exe", 0x70B4B8;
+	int IsLoading: "ePSXe.exe", 0x70CF0C;
 	int IsPlaying : "ePSXe.exe", 0x70CC04;
 	int IsCutscene : "ePSXe.exe", 0x70C824;
   	int IsMainMenu : "ePSXe.exe", 0x70D13C;
@@ -108,14 +112,14 @@ update
 			// MemoryWatcher used to get the memory addresses of interest
 			vars.watchers = new MemoryWatcherList
 			{
-				new MemoryWatcher<int>(memoryOffset + 0x) { Name = "IsDemo" }, // Help
+				new MemoryWatcher<int>(memoryOffset + 0xB5778) { Name = "IsDemo" },
 				new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
-				new MemoryWatcher<int>(memoryOffset + 0x) { Name = "IsPlaying" }, // Help
+				new MemoryWatcher<int>(memoryOffset + 0xB5264) { Name = "IsPlaying" },
 				new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "IsCutscene" },
 				new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
-				new MemoryWatcher<int>(memoryOffset + 0x) { Name = "MainMenuItem" }, // Help
-				new MemoryWatcher<byte>(memoryOffset + 0x1FFF9F) { Name = "LevelEnd" }
-				new MemoryWatcher<byte>(memoryOffset + 0x) { Name = "PauseMenu" }, // Help
+				new MemoryWatcher<int>(memoryOffset + 0xE254) { Name = "MainMenuItem" },
+				new MemoryWatcher<byte>(memoryOffset + 0x1FFF9F) { Name = "LevelEnd" },
+				new MemoryWatcher<byte>(memoryOffset + 0xB49D4) { Name = "PauseMenu" }
 			};
 			break;
 		}
@@ -183,7 +187,7 @@ reset
 
 isLoading 
 {
-	return current.IsLoading == 160;
+	return current.IsLoading == 1;
 }
 
 exit 
