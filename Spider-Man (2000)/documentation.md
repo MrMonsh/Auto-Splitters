@@ -26,8 +26,7 @@ This address tells us if we're currently in the middle of playing _something_, w
 + Value 0 means we're currently not playing anything, value 1 means we're playing.
 
 ### DeathMenu (offset 0xB4F34)
-This address tells us if we're currently at the Death Menu and/or loading a level after dying.
-+ Value 0 means we're currently not playing anything, value 1 means we're playing.
+This address tells us if we're currently at the Death Menu and/or loading a level after dying. Once it picks a value it won't go back to 0 until you start playing a level again (after loads).
 
 #### DeathMenu Values
 + 0: At Main Menu after resetting the console / Playing a level normally
