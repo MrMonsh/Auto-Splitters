@@ -86,6 +86,7 @@ init
 		vars.watchers = new MemoryWatcherList{};
 	}
 
+	vars.dontStartUntilMainMenu = true;
   	vars.dontSplitUntilPlaying = true;
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
@@ -158,11 +159,34 @@ update
 			}
 		}
 
-		if (vars.dontSplitUntilPlaying && old.IsPlaying == 0 && current.IsPlaying == 1) 
-			vars.dontSplitUntilPlaying = false;
+		if (vars.dontStartUntilMainMenu && current.DeathMenu != 3 && current.IsMainMenu == 1)
+			vars.dontStartUntilMainMenu = false;
+
+
+
+		//if (old.LevelEnd == 0 && current.LevelEnd == 128)
+		//{
+		//	print("LevelEnd: " + current.LevelEnd);
+		//	print("IsLoading: " + current.IsLoading);
+		//	print("IsPlaying: " + current.IsPlaying);
+		//	print("PauseMenu: " + current.PauseMenu);
+		//	print("DeathMenu: " + current.DeathMenu);
+		//	print("IsMainMenu: " + current.IsMainMenu);
+		//	print("IsCutscene: " + current.IsCutscene);
+		//	print("DontSplitUntilPlaying: " + vars.dontSplitUntilPlaying);
+		//}
+		
+		
+		if (vars.dontSplitUntilPlaying) 
+		{ 
+			vars.dontSplitUntilPlaying = !(old.IsPlaying == 0 && current.IsPlaying == 1);
+		}
 		else if (!vars.dontSplitUntilPlaying)
 		{
-			vars.dontSplitUntilPlaying = current.DeathMenu == 2 || ((old.PauseMenu == 1 || old.PauseMenu == 3) && current.IsPlaying == 0) || (old.IsMainMenu == 0 && current.IsMainMenu == 1);
+			if (current.DeathMenu == 2 || (current.DeathMenu == 3 && current.IsLoading == 1) || ((old.PauseMenu == 1 || old.PauseMenu == 3) && current.IsPlaying == 0) || (old.IsMainMenu == 0 && current.IsMainMenu == 1)) 
+			{
+				vars.dontSplitUntilPlaying = true;
+			}
 		}
 	}
 
@@ -171,7 +195,7 @@ update
 
 start 
 {
-	return current.IsDemo == 0 && (old.IsMainMenu == 1 && current.IsMainMenu == 0);
+	return !vars.dontStartUntilMainMenu && current.IsDemo == 0 && current.DeathMenu != 3 && old.IsMainMenu == 1 && current.IsMainMenu == 0;
 }
 
 split
@@ -187,7 +211,7 @@ split
 
 reset 
 {
-	return (settings["resetOnMainMenu"] && current.IsMainMenu == 1) || (settings["resetOnQuit"] && old.PauseMenu == 3 && current.IsPlaying == 0);
+	return (settings["resetOnMainMenu"] && current.DeathMenu != 3 && current.IsMainMenu == 1) || (settings["resetOnQuit"] && old.PauseMenu == 3 && current.IsPlaying == 0);
 }
 
 isLoading 
