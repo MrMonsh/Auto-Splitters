@@ -31,7 +31,8 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 #### DeathMenu Values
 + 0: At Main Menu after resetting the console / Playing a level normally
 + 2: At Death Menu / Loading a level after dying
-+ 7: After quitting a level
++ 3: At Save Menu / Save selection
++ 7: After manually quitting a level (without dying)
 + 8: Loading after manually restarting a level (without dying)
 
 ### IsCutscene (offset 0xB4E84)
