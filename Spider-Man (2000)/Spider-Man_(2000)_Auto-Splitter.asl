@@ -5,6 +5,7 @@ state("psxfin", "v1.13")
 	int IsDemo: "psxfin.exe", 0x171A5C, 0xB5778;
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xB556C;
 	int IsPlaying: "psxfin.exe", 0x171A5C, 0xB5264;
+	int DeathMenu: "psxfin.exe", 0x171A5C, 0xB4F34;
 	int IsCutscene : "psxfin.exe", 0x171A5C, 0xB4E84;
   	int IsMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
 	int MainMenuItem: "psxfin.exe", 0x171A5C, 0xE254;
@@ -17,6 +18,7 @@ state("ePSXe", "v1.9.0")
 	int IsDemo : "ePSXe.exe", 0x70D118;
 	int IsLoading: "ePSXe.exe", 0x70CF0C;
 	int IsPlaying : "ePSXe.exe", 0x70CC04;
+	int DeathMenu : "ePSXe.exe", 0x70C8D4;
 	int IsCutscene : "ePSXe.exe", 0x70C824;
   	int IsMainMenu : "ePSXe.exe", 0x70D13C;
 	int MainMenuItem : "ePSXe.exe", 0x665BF4;
@@ -115,6 +117,7 @@ update
 				new MemoryWatcher<int>(memoryOffset + 0xB5778) { Name = "IsDemo" },
 				new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
 				new MemoryWatcher<int>(memoryOffset + 0xB5264) { Name = "IsPlaying" },
+				new MemoryWatcher<int>(memoryOffset + 0xB4F34) { Name = "DeathMenu" },
 				new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "IsCutscene" },
 				new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
 				new MemoryWatcher<int>(memoryOffset + 0xE254) { Name = "MainMenuItem" },
@@ -132,6 +135,7 @@ update
 			current.IsDemo = vars.watchers["IsDemo"].Current;
 			current.IsLoading = vars.watchers["IsLoading"].Current;
 			current.IsPlaying = vars.watchers["IsPlaying"].Current;
+			current.DeathMenu = vars.watchers["DeathMenu"].Current;
 			current.IsCutscene = vars.watchers["IsCutscene"].Current;
 			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 			current.MainMenuItem = vars.watchers["MainMenuItem"].Current;
@@ -144,6 +148,7 @@ update
 				old.IsDemo = vars.watchers["IsDemo"].Current;
 				old.IsLoading = vars.watchers["IsLoading"].Current;
 				old.IsPlaying = vars.watchers["IsPlaying"].Current;
+				old.DeathMenu = vars.watchers["DeathMenu"].Current;
 				old.IsCutscene = vars.watchers["IsCutscene"].Current;
 				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 				old.MainMenuItem = vars.watchers["MainMenuItem"].Current;
@@ -157,7 +162,7 @@ update
 			vars.dontSplitUntilPlaying = false;
 		else if (!vars.dontSplitUntilPlaying)
 		{
-			vars.dontSplitUntilPlaying = ((old.PauseMenu == 1 || old.PauseMenu == 3) && current.IsPlaying == 0) || (old.IsMainMenu == 0 && current.IsMainMenu == 1);
+			vars.dontSplitUntilPlaying = current.DeathMenu == 2 || ((old.PauseMenu == 1 || old.PauseMenu == 3) && current.IsPlaying == 0) || (old.IsMainMenu == 0 && current.IsMainMenu == 1);
 		}
 	}
 
