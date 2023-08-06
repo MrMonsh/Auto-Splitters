@@ -33,7 +33,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 + 0: At Main Menu after resetting the console / Playing a level normally
 + 2: At Death Menu / Loading a level after dying
 + 7: After quitting a level
-+ 8: Loading a level after manually restarting (without dying)
++ 8: Loading after manually restarting a level (without dying)
 
 ### IsCutscene (offset 0xB4E84)
 This address tells us exactly when we are playing a _pre-rendered_ cutscene. This means that mid-level 3D cutscenes do **NOT** count for this variable.
