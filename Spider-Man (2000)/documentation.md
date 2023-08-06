@@ -2,10 +2,11 @@
 
 ## Variables
 
-We track the following eight variables: 
+We track the following nine variables: 
 + IsDemo
 + IsLoading
 + IsPlaying
++ DeathMenu
 + IsCutscene
 + IsMainMenu 
 + MainMenuItem
@@ -28,7 +29,7 @@ This address tells us if we're currently in the middle of playing _something_, w
 This address tells us if we're currently at the Death Menu and/or loading a level after dying.
 + Value 0 means we're currently not playing anything, value 1 means we're playing.
 
-#### MainMenuItem Values
+#### DeathMenu Values
 + 0: At Main Menu after resetting the console / Playing a level normally
 + 2: At Death Menu / Loading a level after dying
 + 7: After quitting a level
