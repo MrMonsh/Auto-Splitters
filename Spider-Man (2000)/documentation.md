@@ -24,6 +24,16 @@ This address tells us if the game's currently loading. However, it's a bit incon
 This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
 + Value 0 means we're currently not playing anything, value 1 means we're playing.
 
+### DeathMenu (offset 0xB4F34)
+This address tells us if we're currently at the Death Menu and/or loading a level after dying.
++ Value 0 means we're currently not playing anything, value 1 means we're playing.
+
+#### MainMenuItem Values
++ 0: At Main Menu after resetting the console / Playing a level normally
++ 2: At Death Menu / Loading a level after dying
++ 7: After quitting a level
++ 8: Loading a level after manually restarting (without dying)
+
 ### IsCutscene (offset 0xB4E84)
 This address tells us exactly when we are playing a _pre-rendered_ cutscene. This means that mid-level 3D cutscenes do **NOT** count for this variable.
 + Value 0 means we're currently outside of pre-rendered cutscenes, value 1 means we're currently watching one.
@@ -31,7 +41,6 @@ This address tells us exactly when we are playing a _pre-rendered_ cutscene. Thi
 ### IsMainMenu (offset 0xB579C)
 This address tells us whether we're currently at the Main Menu or not.
 + Value 0 means we're currently outside of the Main Menu, value 1 means we're currently at the Main Menu.
-
 
 ### MainMenuItem (offset 0xE254)
 This address tells us which is the current MAIN menu item we're stepping on.
