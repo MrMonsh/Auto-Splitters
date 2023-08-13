@@ -72,7 +72,7 @@ This address tells us if we're currently inside the Pause Menu while on a level.
 + 1: Pause Menu is active
 + 3: At the "Quit" confirmation screen
 
-### UnlockedCostumes (offset 0x?????)
+### UnlockedCostumes (offset 0xA5708)
 This address tells us what costumes are currently unlocked. This is actually a Binary Bit flag consisting of 10 consecutive bits.
 
 #### UnlockedCostumes Values
