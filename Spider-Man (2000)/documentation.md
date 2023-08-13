@@ -77,7 +77,7 @@ This address tells us what costumes are currently unlocked. This is actually a B
 
 #### UnlockedCostumes Values
 + 0: Literally 0 costumes unlocked, including default (never happens unless hax)
-  + When you go to Costume Selection, all costumes will be locked (?????), but the game will still allow you to continue using whichever costume you're currently wearing to avoid breaking itself.
+  + When you go to Costume Selection, all costumes will be locked, but the game will still allow you to continue using whichever costume you're currently wearing to avoid breaking itself.
   + Since the game isn't prepared for this scenario, once you do this the default costume will never be able to be unlocked again on this save (unless you hack the value again).
 + 1: Default Costume
 + 2: Spider-Man 2099
