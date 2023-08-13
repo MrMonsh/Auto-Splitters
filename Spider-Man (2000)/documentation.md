@@ -76,7 +76,7 @@ This address tells us if we're currently inside the Pause Menu while on a level.
 This address tells us what costumes are currently unlocked. This is actually a Binary Bit flag consisting of 10 consecutive bits.
 
 #### UnlockedCostumes Values
-+ 0: No costumes (never happens tho)
++ 0: Literally 0 costumes unlocked, including default (never happens unless hax)
 + 1: Default Costume
 + 2: Spider-Man 2099
 + 4: Symbiote Spider-Man
