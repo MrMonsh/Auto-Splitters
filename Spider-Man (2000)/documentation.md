@@ -12,6 +12,7 @@ We track the following nine variables:
 + MainMenuItem
 + LevelEnd 
 + PauseMenu
++ UnlockedCostumes
 
 ### IsDemo (offset 0xB5778)
 This address tells us if the game is currently playing a demo or not.
@@ -70,3 +71,20 @@ This address tells us if we're currently inside the Pause Menu while on a level.
 + 0: Not on Pause Menu
 + 1: Pause Menu is active
 + 3: At the "Quit" confirmation screen
+
+### UnlockedCostumes (offset 0x)
+This address tells us what costumes are currently unlocked. This is actually a Binary Bit flag consisting of 10 consecutive bits.
+
+#### UnlockedCostumes Values
++ 0: No costumes (never happens tho)
++ 1: Default Costume
++ 2: Spider-Man 2099
++ 4: Symbiote Spider-Man
++ 8: Captain Universe
++ 16: Spidey Unlimited
++ 32: Amazing Bag Man
++ 64: Scarlet Spidey
++ 128: Ben Reilly
++ 256: Quick-Change Spidey
++ 512: Peter Parker
++ Any other values work as additions of the others. Example: Value 3 would be (2+1) = (2099 + Default) // Value 545 would be (512+32+1) = (Peter Parker + Bag Man + Default)
