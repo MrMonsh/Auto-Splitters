@@ -3,7 +3,6 @@
 ## Variables
 
 We track the following nine variables: 
-+ IsDemo
 + IsLoading
 + IsPlaying
 + DeathMenu
@@ -13,10 +12,6 @@ We track the following nine variables:
 + LevelEnd 
 + PauseMenu
 + UnlockedCostumes
-
-### IsDemo (offset 0xB5778)
-This address tells us if the game is currently playing a demo or not.
-+ Value 0 means we're currently not playing a demo, value 1 means we are.
 
 ### IsLoading (offset 0xB556C)
 This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable.
