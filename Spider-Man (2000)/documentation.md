@@ -87,6 +87,6 @@ This address tells us what costumes are currently unlocked. This is actually a B
 + 128: Ben Reilly
 + 256: Quick-Change Spidey
 + 512: Peter Parker
-+ Any other values work as additions of the others. Examples:
++ Any other values work as additions of the aforementioned. Examples:
   + Value 3 would be (2 + 1) = (2099 + Default)
   + Value 545 would be (512 + 32 + 1) = (Peter Parker + Bag Man + Default)
