@@ -100,6 +100,7 @@ This address tells us what level we're currently in (or which level was last pla
 #### LevelID Values
 + 61: Spidey vs Carnage!
 + 73: Spidey vs Venom!
++ 97: Item Hunt
 + 98: Spidey vs Rhino!
 + 109: Spidey vs Doc Ock!
 + 122: Subway
@@ -110,6 +111,7 @@ This address tells us what level we're currently in (or which level was last pla
 + 193: Scale the Girders
 + 195: Tunnel Crawl / Venom's Puzzle
   + Yes, two levels share the same ID. Why NeverSoft, why?
++ 230: Zip-Line Training
 + 234: Sewer Entrance
 + 240: Spidey vs Venom Again!
 + 251: Spidey vs Mysterio!
