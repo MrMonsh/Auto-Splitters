@@ -95,7 +95,7 @@ This address tells us whether we're currently seeing a Comic Cover or not.
 
 #### IsComicCover Values
 + 116: Currently seeing a Comic Cover
-+ Literally anything else: Not seeing a Comic Cover. Trust me bro
++ Literally anything else: Not seeing a Comic Cover. _Trust me bro_
 
 ### LevelID (offset 0xB53C4)
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
