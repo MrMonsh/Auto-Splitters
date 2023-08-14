@@ -98,23 +98,37 @@ This address tells us whether we're currently seeing a Comic Cover or not.
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
 
 #### LevelID Values
++ 61: Spidey vs Carnage!
 + 73: Spidey vs Venom!
 + 98: Spidey vs Rhino!
++ 109: Spidey vs Doc Ock!
 + 122: Subway
 + 162: Sewer Cavern
 + 175: Race to the Bugle
++ 180: Hidden Switches
 + 181: Bank Approach
 + 193: Scale the Girders
 + 195: Tunnel Crawl / Venom's Puzzle
   + Yes, two levels share the same ID. Why NeverSoft, why?
 + 234: Sewer Entrance
++ 240: Spidey vs Venom Again!
++ 251: Spidey vs Mysterio!
 + 285: Police Chopper Chase
++ 291: Elevator Descent
 + 294: Get to the Bank!
 + 298: Police Evaded
++ 301: Sewage Plant
++ 312: Underwater Trench
++ 316: Lizard's Maze
 + 333: Spidey vs Scorpion!
 + 337: Building Top Chase
 + 344: Catch Venom
++ 352: Symbiotes Infest Bugle
++ 364: Waterfront Warehouse
 + 380: Stop the Bomb!
++ 426: Stop the Presses!
++ 431: Stopping the Fog!
++ 442: Bugle's Basement
 + 463: Missile Attack
 + 494: Hostage Situation
 + 695: Spidey vs Monster-Ock!
