@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.5 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -9,6 +9,7 @@ state("psxfin", "v1.13")
   	int IsMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
 	int MenuXPress : "psxfin.exe", 0x171A5C, 0xA4E24;
 	int MainMenuItem: "psxfin.exe", 0x171A5C, 0xE254;
+	int TrainingSubMenuItem: "psxfin.exe", 0x171A5C, 0xE214;
 	int MenuTrianglePress : "psxfin.exe", 0x171A5C, 0xA4DF4;
 	int UnlockedCostumes : "psxfin.exe", 0x171A5C, 0xA5708;
 	int LevelID : "psxfin.exe", 0x171A5C, 0xB53C4;
@@ -26,6 +27,7 @@ state("ePSXe", "v1.9.0")
   	int IsMainMenu : "ePSXe.exe", 0x70D13C;
 	int MenuXPress : "ePSXe.exe", 0x6FC7C4;
 	int MainMenuItem : "ePSXe.exe", 0x665BF4;
+	int TrainingSubMenuItem: "ePSXe.exe", 0x665BB4;
 	int MenuTrianglePress : "ePSXe.exe", 0x6FC794;
 	int UnlockedCostumes : "ePSXe.exe", 0x6FD0A8;
 	int LevelID : "ePSXe.exe", 0x70CD64;
@@ -43,13 +45,22 @@ state("duckstation-nogui-x64-ReleaseLTCG", "N/A") {}
 
 startup
 {
+	// Add setting group 'start_group'
+	settings.Add("start_group", true, "Starting");
+	settings.SetToolTip("start_group", "Choose how you want the timer to start. You can choose more than one option.");
+	
+	// Add setting 'startOnNewGame', with 'start_group' as parent
+	settings.Add("startOnNewGame", true, "Start when selecting New Game", "start_group");
+	settings.SetToolTip("startOnNewGame", "The timer will start as soon as you start a new game.");
+	
+	// Add setting 'startOnTraining', with 'start_group' as parent
+	settings.Add("startOnTraining", true, "Start when selecting a training level", "start_group");
+	settings.SetToolTip("startOnTraining", "The timer will start as soon as you select either Item Hunt or Zip-Line Training (for 100%).");
+	
+	
 	// Add setting group 'split_group'
 	settings.Add("split_group", true, "Splitting");
 	settings.SetToolTip("split_group", "Choose how you want the timer to split. You can choose more than one option.");
-	
-	// Add setting 'splitOnNewCostume', with 'split_group' as parent
-	settings.Add("splitOnNewCostume", true, "Split when unlocking a new costume", "split_group");
-	settings.SetToolTip("splitOnNewCostume", "The timer will split as soon as a new costume is unlocked. This only includes Amazing Bag Man, Quick-Change Spidey and Peter Parker (for 100%).");
 	
 	// Add setting 'splitOnAnyLevel', with 'split_group' as parent
 	settings.Add("splitOnAnyLevel", true, "Split when completing any level", "split_group");
@@ -59,6 +70,10 @@ startup
 	settings.Add("splitOnLastLevelOnly", false, "Split only when completing the last level", "split_group");
 	settings.SetToolTip("splitOnLastLevelOnly", "The timer will split as soon as the last level is completed only (for 100%).");
 
+	// Add setting 'splitOnNewCostume', with 'split_group' as parent
+	settings.Add("splitOnNewCostume", true, "Split when unlocking a new costume", "split_group");
+	settings.SetToolTip("splitOnNewCostume", "The timer will split as soon as a new costume is unlocked. This only includes Amazing Bag Man, Quick-Change Spidey and Peter Parker (for 100%).");
+	
 
 	// Add setting group 'reset_group'
 	settings.Add("reset_group", true, "Resetting");
@@ -107,11 +122,16 @@ init
 		vars.watchers = new MemoryWatcherList{};
 	}
 
+	vars.isLoading = false;
+	vars.splitForNewCostume = false;
 	vars.dontStartUntilMainMenu = true;
   	vars.dontSplitUntilPlaying = true;
 	vars.selectedMainMenuItem = -1;
-	vars.splitForNewCostume = false;
-	vars.isLoading = false;
+	vars.currentSubMenuLevel = 0;
+	vars.secondSubMenuSelection = -1; // Item Collection == 4
+	vars.thirdSubMenuSelection = -1; // Item Hunt == 0 // Zip-Line == 1
+	vars.fourthSubMenuSelection = -1; // 30 seconds == 0 // 90 seconds == 1
+	
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
 	print("CurrentProcess is: " + processName);
@@ -146,6 +166,7 @@ update
 				new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
 				new MemoryWatcher<int>(memoryOffset + 0xA4E24) { Name = "MenuXPress" },
 				new MemoryWatcher<int>(memoryOffset + 0xE254) { Name = "MainMenuItem" },
+				new MemoryWatcher<int>(memoryOffset + 0xE214) { Name = "TrainingSubMenuItem" },
 				new MemoryWatcher<int>(memoryOffset + 0xA4DF4) { Name = "MenuTrianglePress" },
 				new MemoryWatcher<int>(memoryOffset + 0xA5708) { Name = "UnlockedCostumes" },
 				new MemoryWatcher<int>(memoryOffset + 0xB53C4) { Name = "LevelID" },
@@ -168,6 +189,7 @@ update
 			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 			current.MenuXPress = vars.watchers["MenuXPress"].Current;
 			current.MainMenuItem = vars.watchers["MainMenuItem"].Current;
+			current.TrainingSubMenuItem = vars.watchers["TrainingSubMenuItem"].Current;
 			current.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
 			current.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 			current.LevelID = vars.watchers["LevelID"].Current;
@@ -185,6 +207,7 @@ update
 				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 				old.MenuXPress = vars.watchers["MenuXPress"].Current;
 				old.MainMenuItem = vars.watchers["MainMenuItem"].Current;
+				old.TrainingSubMenuItem = vars.watchers["TrainingSubMenuItem"].Current;
 				old.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
 				old.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 				old.LevelID = vars.watchers["LevelID"].Current;
@@ -195,12 +218,45 @@ update
 			}
 		}
 		
+		if (vars.currentSubMenuLevel > 0) 
+		{
+			if (old.MenuXPress == 0 && current.MenuXPress == 1) 
+			{
+				if (vars.currentSubMenuLevel == 2)
+					vars.secondSubMenuSelection = old.TrainingSubMenuItem;
+				else if (vars.currentSubMenuLevel == 3)
+					vars.thirdSubMenuSelection = old.TrainingSubMenuItem;
+				else if (vars.currentSubMenuLevel == 4)
+					vars.fourthSubMenuSelection = old.TrainingSubMenuItem;
+				vars.currentSubMenuLevel = vars.currentSubMenuLevel + 1;
+			}
+			else if (old.MenuTrianglePress == 0 && current.MenuTrianglePress == 1) 
+			{
+				if (vars.currentSubMenuLevel == 3)
+					vars.secondSubMenuSelection = -1;
+				else if (vars.currentSubMenuLevel == 4)
+					vars.thirdSubMenuSelection = -1;
+				vars.currentSubMenuLevel = vars.currentSubMenuLevel - 1;
+			}
+		}
+		else 
+		{
+			vars.secondSubMenuSelection = -1;
+			vars.thirdSubMenuSelection = -1;
+			vars.fourthSubMenuSelection = -1;
+		}
+		
 		if (current.IsMainMenu == 1) 
 		{ 	
-			if (current.MainMenuItem < 8)
+			if (current.MainMenuItem < 8 && vars.currentSubMenuLevel == 0) 
+			{
 				vars.selectedMainMenuItem = -1;
-			else if (current.MainMenuItem >= 8 && old.MainMenuItem < 8)
+			}
+			else if (current.MainMenuItem >= 8 && old.MainMenuItem < 8 && vars.currentSubMenuLevel == 0) 
+			{
 				vars.selectedMainMenuItem = old.MainMenuItem;
+				vars.currentSubMenuLevel = 1;
+			}
 		}
 		
 		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && current.DeathMenu != 3);
@@ -239,7 +295,18 @@ update
 
 start 
 {
-	return !vars.dontStartUntilMainMenu && vars.selectedMainMenuItem == 1 && old.MainMenuItem != 1 && current.MenuXPress == 1;
+	if (!vars.dontStartUntilMainMenu)
+	{
+		if (vars.selectedMainMenuItem == 1 && old.MainMenuItem != 1 && current.MenuXPress == 1)
+		{
+			return settings["startOnNewGame"];
+		}
+		if (vars.selectedMainMenuItem == 4 && vars.secondSubMenuSelection == 4 && (vars.thirdSubMenuSelection == 0 || vars.fourthSubMenuSelection != -1))
+		{
+			return settings["startOnTraining"];
+		}
+	}
+	return false;
 }
 
 split
