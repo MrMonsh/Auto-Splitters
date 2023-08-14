@@ -2,7 +2,7 @@
 
 ## Variables
 
-We track the following nine variables: 
+We track the following eleven variables: 
 + IsLoading
 + IsPlaying
 + DeathMenu
@@ -12,6 +12,8 @@ We track the following nine variables:
 + LevelEnd 
 + PauseMenu
 + UnlockedCostumes
++ IsComicCover
++ LevelID
 
 ### IsLoading (offset 0xB556C)
 This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable.
@@ -87,3 +89,32 @@ This address tells us what costumes are currently unlocked. This is actually a B
 + Any other values work as additions of the aforementioned. Examples:
   + Value 3 would be (2 + 1) = (2099 + Default)
   + Value 545 would be (512 + 32 + 1) = (Peter Parker + Bag Man + Default)
+
+### IsComicCover (offset 0x1FFB3C)
+This address tells us whether we're currently seeing a Comic Cover or not.
++ Value 0 means we're currently not seeing a ComicCover, value 1 means we are.
+
+### LevelID (offset 0xB53C4)
+This address tells us what level we're currently in (or which level was last played if we're at the menu).
+
+#### LevelID Values
++ 73: Spidey vs Venom!
++ 98: Spidey vs Rhino!
++ 122: Subway
++ 162: Sewer Cavern
++ 175: Race to the Bugle
++ 181: Bank Approach
++ 193: Scale the Girders
++ 195: Tunnel Crawl / Venom's Puzzle
+  + Yes, two levels share the same ID. Why NeverSoft, why?
++ 234: Sewer Entrance
++ 285: Police Chopper Chase
++ 294: Get to the Bank!
++ 298: Police Evaded
++ 333: Spidey vs Scorpion!
++ 337: Building Top Chase
++ 344: Catch Venom
++ 380: Stop the Bomb!
++ 463: Missile Attack
++ 494: Hostage Situation
++ 695: Spidey vs Monster-Ock!
