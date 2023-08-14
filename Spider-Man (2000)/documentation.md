@@ -92,7 +92,10 @@ This address tells us what costumes are currently unlocked. This is actually a B
 
 ### IsComicCover (offset 0x1FFB3C)
 This address tells us whether we're currently seeing a Comic Cover or not.
-+ Value 0 means we're currently not seeing a ComicCover, value 1 means we are.
+
+#### IsComicCover Values
++ 116: Currently seeing a Comic Cover
++ Literally anything else: Not seeing a Comic Cover. Trust me bro
 
 ### LevelID (offset 0xB53C4)
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
