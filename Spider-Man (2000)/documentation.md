@@ -3,23 +3,6 @@
 ## Variables
 
 We track the following eleven variables: 
-
-<!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-+ [IsLoading](#IsLoading)
-+ [IsPlaying](#IsPlaying)
-+ [DeathMenu](#DeathMenu)
-+ [IsCutscene](#IsCutscene)
-+ [IsMainMenu](#IsMainMenu)
-+ [MainMenuItem](#MainMenuItem)
-+ [LevelEnd](#LevelEnd)
-+ [PauseMenu](#PauseMenu)
-+ [UnlockedCostumes](#UnlockedCostumes)
-+ [IsComicCover](#IsComicCover)
-+ [LevelID](#LevelID)
-
-<!-- /TOC -->
-
 + IsLoading
 + IsPlaying
 + DeathMenu
