@@ -260,6 +260,8 @@ update
 		}
 		
 		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && current.DeathMenu != 3);
+		if (vars.dontStartUntilMainMenu)
+			vars.currentSubMenuLevel = 0;
 		
 		if (vars.dontSplitUntilPlaying) 
 		{ 
