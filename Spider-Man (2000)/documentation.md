@@ -2,7 +2,7 @@
 
 ## Variables
 
-We track the following eleven variables: 
+We track the following 12 variables: 
 + IsDemo
 + IsLoading
 + IsPlaying
