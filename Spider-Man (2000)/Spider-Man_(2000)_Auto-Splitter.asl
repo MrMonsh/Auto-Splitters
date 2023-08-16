@@ -1,7 +1,8 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.1 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
+	int IsDemo: "psxfin.exe", 0x171A5C, 0xB5778;
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xB556C;
 	int IsPlaying: "psxfin.exe", 0x171A5C, 0xB5264;
 	int DeathMenu: "psxfin.exe", 0x171A5C, 0xB4F34;
@@ -20,6 +21,7 @@ state("psxfin", "v1.13")
 
 state("ePSXe", "v1.9.0")
 {
+	int IsDemo: "ePSXe.exe", 0x70D118;
 	int IsLoading: "ePSXe.exe", 0x70CF0C;
 	int IsPlaying : "ePSXe.exe", 0x70CC04;
 	int DeathMenu : "ePSXe.exe", 0x70C8D4;
@@ -159,6 +161,7 @@ update
 			// MemoryWatcher used to get the memory addresses of interest
 			vars.watchers = new MemoryWatcherList
 			{
+				new MemoryWatcher<int>(memoryOffset + 0xB5778) { Name = "IsDemo" },
 				new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
 				new MemoryWatcher<int>(memoryOffset + 0xB5264) { Name = "IsPlaying" },
 				new MemoryWatcher<int>(memoryOffset + 0xB4F34) { Name = "DeathMenu" },
@@ -182,6 +185,7 @@ update
 		if (vars.shouldUseWatchers)
 		{
 			vars.watchers.UpdateAll(game);
+			current.IsDemo = vars.watchers["IsDemo"].Current;
 			current.IsLoading = vars.watchers["IsLoading"].Current;
 			current.IsPlaying = vars.watchers["IsPlaying"].Current;
 			current.DeathMenu = vars.watchers["DeathMenu"].Current;
@@ -200,6 +204,7 @@ update
 			// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
 			if (vars.firstUpdate)
 			{
+				old.IsDemo = vars.watchers["IsDemo"].Current;
 				old.IsLoading = vars.watchers["IsLoading"].Current;
 				old.IsPlaying = vars.watchers["IsPlaying"].Current;
 				old.DeathMenu = vars.watchers["DeathMenu"].Current;
@@ -299,7 +304,7 @@ start
 {
 	if (!vars.dontStartUntilMainMenu)
 	{
-		if (vars.selectedMainMenuItem == 1 && old.MainMenuItem != 1 && current.MenuXPress == 1)
+		if (vars.selectedMainMenuItem == 1 && old.MainMenuItem != 1 && old.MenuXPress == 0 && current.MenuXPress == 1)
 		{
 			return settings["startOnNewGame"];
 		}
@@ -318,7 +323,7 @@ split
 		vars.splitForNewCostume = false;
 		return settings["splitOnNewCostume"];
 	}
-	else if (!vars.dontSplitUntilPlaying && 
+	else if (!vars.dontSplitUntilPlaying && current.IsDemo == 0 &&
 	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.LevelEnd == 0 && current.LevelEnd == 128)))
 	{
 		vars.dontSplitUntilPlaying = true;
