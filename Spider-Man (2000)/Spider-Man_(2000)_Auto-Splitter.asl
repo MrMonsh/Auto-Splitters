@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.2 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.3 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -228,7 +228,8 @@ update
 		{
 			if (old.MenuXPress == 0 && current.MenuXPress == 1) 
 			{
-				if (vars.currentSubMenuLevel == 1)
+				print("" + vars.currentSubMenuLevel + " " + old.MainMenuItem);
+				if (vars.currentSubMenuLevel == 1 && (old.MainMenuItem >= 8 || old.MainMenuItem < 0))
 					vars.firstSubMenuSelection = old.SubMenuItem;
 				else if (vars.currentSubMenuLevel == 2)
 					vars.secondSubMenuSelection = old.SubMenuItem;
@@ -314,10 +315,12 @@ start
 	{
 		if (vars.selectedMainMenuItem == 1 && vars.firstSubMenuSelection != -1)
 		{
+			print("Should start timer due to New Game selection!");
 			return settings["startOnNewGame"];
 		}
 		if (vars.selectedMainMenuItem == 4 && vars.secondSubMenuSelection == 4 && (vars.thirdSubMenuSelection == 0 || vars.fourthSubMenuSelection != -1))
 		{
+			print("Should start timer due to Training selection!");
 			return settings["startOnTraining"];
 		}
 	}
@@ -328,12 +331,14 @@ split
 {
 	if (vars.splitForNewCostume)
 	{
+		print("Should split due to new costume unlocked!");
 		vars.splitForNewCostume = false;
 		return settings["splitOnNewCostume"];
 	}
 	else if (!vars.dontSplitUntilPlaying && current.IsDemo == 0 &&
 	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.LevelEnd == 0 && current.LevelEnd == 128)))
 	{
+		print("Should split due to a level being completed!");
 		vars.dontSplitUntilPlaying = true;
 		return settings["splitOnAnyLevel"] || (settings["splitOnLastLevelOnly"] && current.LevelID == 695);
 	}
