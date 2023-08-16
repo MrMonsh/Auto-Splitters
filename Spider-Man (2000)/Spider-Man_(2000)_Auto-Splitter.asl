@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.1 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.2 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -10,7 +10,7 @@ state("psxfin", "v1.13")
   	int IsMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
 	int MenuXPress : "psxfin.exe", 0x171A5C, 0xA4E24;
 	int MainMenuItem: "psxfin.exe", 0x171A5C, 0xE254;
-	int TrainingSubMenuItem: "psxfin.exe", 0x171A5C, 0xE214;
+	int SubMenuItem: "psxfin.exe", 0x171A5C, 0xE214;
 	int MenuTrianglePress : "psxfin.exe", 0x171A5C, 0xA4DF4;
 	int UnlockedCostumes : "psxfin.exe", 0x171A5C, 0xA5708;
 	int LevelID : "psxfin.exe", 0x171A5C, 0xB53C4;
@@ -29,7 +29,7 @@ state("ePSXe", "v1.9.0")
   	int IsMainMenu : "ePSXe.exe", 0x70D13C;
 	int MenuXPress : "ePSXe.exe", 0x6FC7C4;
 	int MainMenuItem : "ePSXe.exe", 0x665BF4;
-	int TrainingSubMenuItem: "ePSXe.exe", 0x665BB4;
+	int SubMenuItem: "ePSXe.exe", 0x665BB4;
 	int MenuTrianglePress : "ePSXe.exe", 0x6FC794;
 	int UnlockedCostumes : "ePSXe.exe", 0x6FD0A8;
 	int LevelID : "ePSXe.exe", 0x70CD64;
@@ -130,6 +130,7 @@ init
   	vars.dontSplitUntilPlaying = true;
 	vars.selectedMainMenuItem = -1;
 	vars.currentSubMenuLevel = 0;
+	vars.firstSubMenuSelection = -1;
 	vars.secondSubMenuSelection = -1; // Item Collection == 4
 	vars.thirdSubMenuSelection = -1; // Item Hunt == 0 // Zip-Line == 1
 	vars.fourthSubMenuSelection = -1; // 30 seconds == 0 // 90 seconds == 1
@@ -169,7 +170,7 @@ update
 				new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
 				new MemoryWatcher<int>(memoryOffset + 0xA4E24) { Name = "MenuXPress" },
 				new MemoryWatcher<int>(memoryOffset + 0xE254) { Name = "MainMenuItem" },
-				new MemoryWatcher<int>(memoryOffset + 0xE214) { Name = "TrainingSubMenuItem" },
+				new MemoryWatcher<int>(memoryOffset + 0xE214) { Name = "SubMenuItem" },
 				new MemoryWatcher<int>(memoryOffset + 0xA4DF4) { Name = "MenuTrianglePress" },
 				new MemoryWatcher<int>(memoryOffset + 0xA5708) { Name = "UnlockedCostumes" },
 				new MemoryWatcher<int>(memoryOffset + 0xB53C4) { Name = "LevelID" },
@@ -193,7 +194,7 @@ update
 			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 			current.MenuXPress = vars.watchers["MenuXPress"].Current;
 			current.MainMenuItem = vars.watchers["MainMenuItem"].Current;
-			current.TrainingSubMenuItem = vars.watchers["TrainingSubMenuItem"].Current;
+			current.SubMenuItem = vars.watchers["SubMenuItem"].Current;
 			current.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
 			current.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 			current.LevelID = vars.watchers["LevelID"].Current;
@@ -212,7 +213,7 @@ update
 				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 				old.MenuXPress = vars.watchers["MenuXPress"].Current;
 				old.MainMenuItem = vars.watchers["MainMenuItem"].Current;
-				old.TrainingSubMenuItem = vars.watchers["TrainingSubMenuItem"].Current;
+				old.SubMenuItem = vars.watchers["SubMenuItem"].Current;
 				old.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
 				old.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 				old.LevelID = vars.watchers["LevelID"].Current;
@@ -227,25 +228,32 @@ update
 		{
 			if (old.MenuXPress == 0 && current.MenuXPress == 1) 
 			{
-				if (vars.currentSubMenuLevel == 2)
-					vars.secondSubMenuSelection = old.TrainingSubMenuItem;
+				if (vars.currentSubMenuLevel == 1)
+					vars.firstSubMenuSelection = old.SubMenuItem;
+				else if (vars.currentSubMenuLevel == 2)
+					vars.secondSubMenuSelection = old.SubMenuItem;
 				else if (vars.currentSubMenuLevel == 3)
-					vars.thirdSubMenuSelection = old.TrainingSubMenuItem;
+					vars.thirdSubMenuSelection = old.SubMenuItem;
 				else if (vars.currentSubMenuLevel == 4)
-					vars.fourthSubMenuSelection = old.TrainingSubMenuItem;
+					vars.fourthSubMenuSelection = old.SubMenuItem;
 				vars.currentSubMenuLevel = vars.currentSubMenuLevel + 1;
 			}
 			else if (old.MenuTrianglePress == 0 && current.MenuTrianglePress == 1) 
 			{
-				if (vars.currentSubMenuLevel == 3)
+				if (vars.currentSubMenuLevel == 2)
+					vars.firstSubMenuSelection = -1;
+				else if (vars.currentSubMenuLevel == 3)
 					vars.secondSubMenuSelection = -1;
 				else if (vars.currentSubMenuLevel == 4)
 					vars.thirdSubMenuSelection = -1;
+				else if (vars.currentSubMenuLevel == 5)
+					vars.fourthSubMenuSelection = -1;
 				vars.currentSubMenuLevel = vars.currentSubMenuLevel - 1;
 			}
 		}
 		else 
 		{
+			vars.firstSubMenuSelection = -1;
 			vars.secondSubMenuSelection = -1;
 			vars.thirdSubMenuSelection = -1;
 			vars.fourthSubMenuSelection = -1;
@@ -304,7 +312,7 @@ start
 {
 	if (!vars.dontStartUntilMainMenu)
 	{
-		if (vars.selectedMainMenuItem == 1 && old.MainMenuItem != 1 && old.MenuXPress == 0 && current.MenuXPress == 1)
+		if (vars.selectedMainMenuItem == 1 && vars.firstSubMenuSelection != -1)
 		{
 			return settings["startOnNewGame"];
 		}
