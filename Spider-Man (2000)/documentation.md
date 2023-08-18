@@ -18,10 +18,18 @@ We track the following 12 variables:
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [FAQ](#FAQ)
-- [Supported Emulator/Versions](#supported-emulator/versions)
-- [Installation Guide](#installation-guide)
-- [Contact](#contact)
+- [IsDemo](#isDemo)
+- [IsLoading](#isLoading)
+- [IsPlaying](#isPlaying)
+- [DeathMenu](#deathMenu)
+- [IsCutscene](#isCutscene)
+- [IsMainMenu](#isMainMenu)
+- [MainMenuItem](#mainMenuItem)
+- [LevelEnd](#levelEnd)
+- [PauseMenu](#pauseMenu)
+- [UnlockedCostumes](#unlockedCostumes)
+- [IsComicCover](#isComicCover)
+- [LevelID](#levelID)
 
 <!-- /TOC -->
 
