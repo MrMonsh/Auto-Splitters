@@ -138,7 +138,7 @@ This address tells us which is the current MAIN menu item we're stepping on.
 + 7: Gallery
 
 ## OutsideSubMenus
-**Offset:** 0x
+**Offset:** 0xB5540
 
 This address tells us whether we're currently seeing a Comic Cover or not.
 
