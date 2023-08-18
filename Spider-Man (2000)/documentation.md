@@ -2,7 +2,7 @@
 
 ## Variables
 
-We track the following 12 variables: 
+We track the following 13 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
 - [IsComicCover](#isComicCover)
@@ -14,6 +14,7 @@ We track the following 12 variables:
 - [LevelEnd](#levelEnd)
 - [LevelID](#levelID)
 - [MainMenuItem](#mainMenuItem)
+- [OutsideSubMenus](#outsideSubMenus)
 - [PauseMenu](#pauseMenu)
 - [UnlockedCostumes](#unlockedCostumes)
 <!-- /TOC -->
@@ -135,6 +136,15 @@ This address tells us which is the current MAIN menu item we're stepping on.
 + 5: Records
 + 6: Special
 + 7: Gallery
+
+## OutsideSubMenus
+**Offset:** 0x
+
+This address tells us whether we're currently seeing a Comic Cover or not.
+
+### OutsideSubMenus Values
++ 0: Currently inside a sub-menu
++ Literally anything else: Outside of any sub-menu (so, at the start of the main menu). _Trust me bro_
 
 ## PauseMenu
 **Offset:** 0xB49D4
