@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.4 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.5 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -267,6 +267,9 @@ update
 		
 		if (current.IsMainMenu == 1) 
 		{ 	
+			if (current.OutsideSubMenus > 0)
+				vars.currentSubMenuLevel = 0;
+				
 			var enteredSpecialMenu = old.MainMenuItem == 6 && current.MainMenuItem == 1;
 			if (!enteredSpecialMenu && current.MainMenuItem < 8 && vars.currentSubMenuLevel == 0 && (!vars.waitUntilReturnToMainMenu || current.OutsideSubMenus > 0)) 
 			{
@@ -345,7 +348,7 @@ split
 		vars.splitForNewCostume = false;
 		return settings["splitOnNewCostume"];
 	}
-	else if (!vars.dontSplitUntilPlaying && current.IsDemo == 0 &&
+	else if (!vars.dontSplitUntilPlaying && current.IsDemo == 0 && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
 	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.LevelEnd == 0 && current.LevelEnd == 128)))
 	{
 		print("Should split due to a level being completed!");
@@ -357,7 +360,8 @@ split
 
 reset 
 {
-	return  settings["resetOnQuit"] && ((old.PauseMenu == 3 && current.IsPlaying == 0) || (current.DeathMenu == 2 && old.IsMainMenu == 0 && current.IsMainMenu == 1));
+	var isDead = current.DeathMenu == 2 || current.DeathMenu == 9;
+	return  settings["resetOnQuit"] && ((old.PauseMenu == 3 && current.IsPlaying == 0) || (isDead && old.IsMainMenu == 0 && current.IsMainMenu == 1));
 }
 
 isLoading 
