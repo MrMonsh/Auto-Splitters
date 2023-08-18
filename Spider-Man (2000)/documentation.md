@@ -27,16 +27,19 @@ We track the following 12 variables:
 
 ## IsDemo
 **Offset:** 0xB5778
+
 This address tells us if the game is currently playing a demo or not.
 + Value 0 means we're currently not playing a demo, value 1 means we are.
 
 ## IsLoading
 **Offset:** 0xB556C
+
 This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable.
 + Value 0 means the game is not currently loading, value 1 means game's loading.
 
 ## IsPlaying
 **Offset:** 0xB5264
+
 This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
 + Value 0 means we're currently not playing anything, value 1 means we're playing.
 
