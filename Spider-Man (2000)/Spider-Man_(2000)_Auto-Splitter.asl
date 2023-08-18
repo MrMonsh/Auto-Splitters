@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.3 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.4 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -8,6 +8,7 @@ state("psxfin", "v1.13")
 	int DeathMenu: "psxfin.exe", 0x171A5C, 0xB4F34;
 	int IsCutscene : "psxfin.exe", 0x171A5C, 0xB4E84;
   	int IsMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
+	int OutsideSubMenus : "psxfin.exe", 0x171A5C, 0xB5540;
 	int MenuXPress : "psxfin.exe", 0x171A5C, 0xA4E24;
 	int MainMenuItem: "psxfin.exe", 0x171A5C, 0xE254;
 	int SubMenuItem: "psxfin.exe", 0x171A5C, 0xE214;
@@ -27,6 +28,7 @@ state("ePSXe", "v1.9.0")
 	int DeathMenu : "ePSXe.exe", 0x70C8D4;
 	int IsCutscene : "ePSXe.exe", 0x70C824;
   	int IsMainMenu : "ePSXe.exe", 0x70D13C;
+	int OutsideSubMenus : "ePSXe.exe", 0x70CEE0;
 	int MenuXPress : "ePSXe.exe", 0x6FC7C4;
 	int MainMenuItem : "ePSXe.exe", 0x665BF4;
 	int SubMenuItem: "ePSXe.exe", 0x665BB4;
@@ -134,6 +136,7 @@ init
 	vars.secondSubMenuSelection = -1; // Item Collection == 4
 	vars.thirdSubMenuSelection = -1; // Item Hunt == 0 // Zip-Line == 1
 	vars.fourthSubMenuSelection = -1; // 30 seconds == 0 // 90 seconds == 1
+	vars.waitUntilReturnToMainMenu = false; // For Sub-Menus we're not interested in tracking
 	
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
@@ -168,6 +171,7 @@ update
 				new MemoryWatcher<int>(memoryOffset + 0xB4F34) { Name = "DeathMenu" },
 				new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "IsCutscene" },
 				new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
+				new MemoryWatcher<int>(memoryOffset + 0xB5540) { Name = "OutsideSubMenus" },
 				new MemoryWatcher<int>(memoryOffset + 0xA4E24) { Name = "MenuXPress" },
 				new MemoryWatcher<int>(memoryOffset + 0xE254) { Name = "MainMenuItem" },
 				new MemoryWatcher<int>(memoryOffset + 0xE214) { Name = "SubMenuItem" },
@@ -192,6 +196,7 @@ update
 			current.DeathMenu = vars.watchers["DeathMenu"].Current;
 			current.IsCutscene = vars.watchers["IsCutscene"].Current;
 			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
+			current.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
 			current.MenuXPress = vars.watchers["MenuXPress"].Current;
 			current.MainMenuItem = vars.watchers["MainMenuItem"].Current;
 			current.SubMenuItem = vars.watchers["SubMenuItem"].Current;
@@ -211,6 +216,7 @@ update
 				old.DeathMenu = vars.watchers["DeathMenu"].Current;
 				old.IsCutscene = vars.watchers["IsCutscene"].Current;
 				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
+				old.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
 				old.MenuXPress = vars.watchers["MenuXPress"].Current;
 				old.MainMenuItem = vars.watchers["MainMenuItem"].Current;
 				old.SubMenuItem = vars.watchers["SubMenuItem"].Current;
@@ -228,8 +234,7 @@ update
 		{
 			if (old.MenuXPress == 0 && current.MenuXPress == 1) 
 			{
-				print("" + vars.currentSubMenuLevel + " " + old.MainMenuItem);
-				if (vars.currentSubMenuLevel == 1 && (old.MainMenuItem >= 8 || old.MainMenuItem < 0))
+				if (vars.currentSubMenuLevel == 1)
 					vars.firstSubMenuSelection = old.SubMenuItem;
 				else if (vars.currentSubMenuLevel == 2)
 					vars.secondSubMenuSelection = old.SubMenuItem;
@@ -262,14 +267,19 @@ update
 		
 		if (current.IsMainMenu == 1) 
 		{ 	
-			if (current.MainMenuItem < 8 && vars.currentSubMenuLevel == 0) 
+			var enteredSpecialMenu = old.MainMenuItem == 6 && current.MainMenuItem == 1;
+			if (!enteredSpecialMenu && current.MainMenuItem < 8 && vars.currentSubMenuLevel == 0 && (!vars.waitUntilReturnToMainMenu || current.OutsideSubMenus > 0)) 
 			{
 				vars.selectedMainMenuItem = -1;
+				vars.waitUntilReturnToMainMenu = false;
 			}
-			else if (current.MainMenuItem >= 8 && old.MainMenuItem < 8 && vars.currentSubMenuLevel == 0) 
+			else if (vars.currentSubMenuLevel == 0 && !vars.waitUntilReturnToMainMenu && (enteredSpecialMenu || (old.MainMenuItem < 8 && current.MainMenuItem >= 8))) 
 			{
 				vars.selectedMainMenuItem = old.MainMenuItem;
-				vars.currentSubMenuLevel = 1;
+				if (vars.selectedMainMenuItem == 1 || vars.selectedMainMenuItem == 4)
+					vars.currentSubMenuLevel = 1;
+				else
+					vars.waitUntilReturnToMainMenu = true;
 			}
 		}
 		
