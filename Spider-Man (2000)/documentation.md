@@ -54,7 +54,7 @@ This address tells us if the game is currently playing a demo or not.
 ## IsLoading
 **Offset:** 0xB556C
 
-This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable.
+This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable (which I do).
 + Value 0 means the game is not currently loading, value 1 means game's loading.
 
 ## IsPlaying
