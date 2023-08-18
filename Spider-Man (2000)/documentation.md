@@ -3,21 +3,7 @@
 ## Variables
 
 We track the following 12 variables: 
-+ IsDemo
-+ IsLoading
-+ IsPlaying
-+ DeathMenu
-+ IsCutscene
-+ IsMainMenu 
-+ MainMenuItem
-+ LevelEnd 
-+ PauseMenu
-+ UnlockedCostumes
-+ IsComicCover
-+ LevelID
-
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
 - [IsDemo](#isDemo)
 - [IsLoading](#isLoading)
 - [IsPlaying](#isPlaying)
@@ -30,7 +16,6 @@ We track the following 12 variables:
 - [UnlockedCostumes](#unlockedCostumes)
 - [IsComicCover](#isComicCover)
 - [LevelID](#levelID)
-
 <!-- /TOC -->
 
 ## IsDemo
