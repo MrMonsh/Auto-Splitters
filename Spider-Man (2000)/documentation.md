@@ -30,6 +30,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 + 3: At Save Menu / Save selection
 + 7: After manually quitting a level (without dying)
 + 8: Loading after manually restarting a level (without dying)
++ 9: At Death Menu / Loading a level but specifically after dying to Monster-Ock
 
 ## IsComicCover
 **Offset:** 0x1FFB3C
