@@ -33,6 +33,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 + 9: At Death Menu / Loading a level but specifically for the following scenarios:
   + Dying to Monster-Ock
   + Letting MJ drown on Spidey vs. Venom Again!
+  + Letting a Hostage die on Hostage Situation / Stop the Bomb!
 
 ## IsComicCover
 **Offset:** 0x1FFB3C
