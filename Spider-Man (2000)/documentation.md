@@ -26,7 +26,7 @@ We track the following 12 variables:
 <!-- /TOC -->
 
 ## IsDemo
-**Offset:** 0xB5778
+<u>**Offset:**</u> 0xB5778
 
 This address tells us if the game is currently playing a demo or not.
 + Value 0 means we're currently not playing a demo, value 1 means we are.
