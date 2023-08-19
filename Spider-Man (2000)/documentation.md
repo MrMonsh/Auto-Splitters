@@ -20,7 +20,7 @@ We track the following 13 variables:
 <!-- /TOC -->
 
 ## DeathMenu
-**Offset:** 0xB4F34
+**[Offset]:** 0xB4F34
 
 This address tells us if we're currently at the Death Menu and/or loading a level after dying. Once it picks a value it won't go back to 0 until you start playing a level again (after loads).
 
@@ -36,7 +36,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
   + Letting a Hostage die on Hostage Situation / Stop the Bomb!
 
 ## IsComicCover
-**Offset:** 0x1FFB3C
+**[Offset:]** 0x1FFB3C
 
 This address tells us whether we're currently seeing a Comic Cover or not.
 
