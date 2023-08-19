@@ -14,8 +14,8 @@ We track the following 15 variables:
 - [LevelEnd](#levelEnd)
 - [LevelID](#levelID)
 - [MainMenuItem](#mainMenuItem)
-- [MenuXPress](#menuXPress)
 - [MenuTrianglePress](#menuTrianglePress)
+- [MenuXPress](#menuXPress)
 - [OutsideSubMenus](#outsideSubMenus)
 - [PauseMenu](#pauseMenu)
 - [UnlockedCostumes](#unlockedCostumes)
@@ -143,17 +143,17 @@ This address tells us which is the current MAIN menu item we're stepping on.
 + 6: Special
 + 7: Gallery
 
-## MenuXPress
-**Offset:** 0xA4E24
-
-This address tells us if the X button is currently pressed.
-+ Value 0 means that the X button is not currently pressed, value 1 means the X button is currently pressed.
-
 ## MenuTrianglePress
 **Offset:** 0xA4DF4
 
 This address tells us if the triangle button is currently pressed.
 + Value 0 means that the triangle button is not currently pressed, value 1 means the triangle button is currently pressed.
+
+## MenuXPress
+**Offset:** 0xA4E24
+
+This address tells us if the X button is currently pressed.
++ Value 0 means that the X button is not currently pressed, value 1 means the X button is currently pressed.
 
 ## OutsideSubMenus
 **Offset:** 0xB5540
