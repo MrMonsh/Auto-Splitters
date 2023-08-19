@@ -40,16 +40,18 @@ This timer will function similar to your current timer, but the difference is th
 
 ## Installation Guide
 
-1. Open your LiveSplit.
-2. Right-click on the LiveSplit window, then select "Edit Splits".
-3. Under "Game Name", write the name of the game exactly like this: "Spider-Man (2000)".
-4. On the line mentioning the auto-splitter, click on "Activate" first, then click on the now-enabled "Settings" button.
-5. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets). 
-	+ On the topic of changing the "Timer Start" advanced settings, I'd personally leave it as-is, given that its set to start on Game Start select at Main Menu (which is how the current ruleset works). I added this just for future-proofing.
-7. Click "OK" on the settings window, then click "OK" on the Splits window.
-8. You're done! Now you can boot up the emulator and run to your heart's content.
+1. Open your livesplit
+2. Select "Edit Layout"
+3. Click on the "+" button, then select "Control > Scriptable Auto Splitter".
+4. Select the newly added "Scriptable Auto Splitter", then browse your files and link it to the Spider-Man_(2000)_Auto-Splitter.asl file.
+5. ***(OPTIONAL)** Select which functions from the Auto-Splitter you'd like to use. 
+6. **(OPTIONAL)** Change the advanced settings for when the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
+	+ In the event you're running anything other than 100%, the default settings should work just fine for you. For 100% you probably want to fine tune the settings. Just use common sense or ask me if in doubt :)
+8. Click "OK".
+9. You're done! Now you can boot up the emulator and run to your heart's content.
+	+ As a side note, you should make sure that there's no other auto-splitters (ie. from other games) that are active at the same time as this one, otherwise they'll most likely conflict with each other and you'll get confusing results.
 
-Now, Spider-Man (2000) currently only takes Time with Loads into account for your final time on the leaderboard, so having a Loadless Timer (which would pause during loads between levels) is as of yet *not necessary at all*.
+Now, Spider-Man (2000) currently only takes RTA time into account for your final time on the emulator leaderboard, so having a Loadless Timer (which would pause during loads between levels) is as of yet *not necessary at all*.
 
 However, in the event you'd still like to show a Loadless Timer/Time without Loads side to side with your default timer for comparison, you can follow these extra steps to achieve that with this tool:
 1. Right-click again on the LiveSplit window, then select "Edit Layout".
