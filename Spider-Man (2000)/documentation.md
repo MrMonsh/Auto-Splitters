@@ -1,8 +1,8 @@
-# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.4 - by MrMonsh
+# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.5 - by MrMonsh
 
 ## Variables
 
-We track the following 13 variables: 
+We track the following 15 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
 - [IsComicCover](#isComicCover)
@@ -13,6 +13,8 @@ We track the following 13 variables:
 - [IsMainMenu](#isMainMenu)
 - [LevelEnd](#levelEnd)
 - [LevelID](#levelID)
+- [MenuXPress](#menuXPress)
+- [MenuTrianglePress](#menuTrianglePress)
 - [MainMenuItem](#mainMenuItem)
 - [OutsideSubMenus](#outsideSubMenus)
 - [PauseMenu](#pauseMenu)
@@ -140,6 +142,18 @@ This address tells us which is the current MAIN menu item we're stepping on.
 + 5: Records
 + 6: Special
 + 7: Gallery
+
+## MenuXPress
+**Offset:** 0xA4E24
+
+This address tells us if the X button is currently pressed.
++ Value 0 means that the X button is not currently pressed, value 1 means the X button is currently pressed.
+
+## MenuTrianglePress
+**Offset:** 0xA4DF4
+
+This address tells us if the triangle button is currently pressed.
++ Value 0 means that the triangle button is not currently pressed, value 1 means the triangle button is currently pressed.
 
 ## OutsideSubMenus
 **Offset:** 0xB5540
