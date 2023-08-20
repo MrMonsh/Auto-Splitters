@@ -158,7 +158,7 @@ This address tells us if the X button is currently pressed.
 ## OutsideSubMenus
 **Offset:** 0xB5540
 
-This address tells us whether we're currently seeing a Comic Cover or not.
+This address tells us whether we're currently inside a sub-menu or not.
 
 ### OutsideSubMenus Values
 + 0: Currently inside a sub-menu
