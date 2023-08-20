@@ -158,7 +158,7 @@ This address tells us if the X button is currently pressed.
 ## OutsideSubMenus
 **Offset:** 0xB5540
 
-This address tells us whether we're currently outside of a sub-menu or not.
+This address tells us whether we're currently outside of any sub-menues or not.
 
 ### OutsideSubMenus Values
 + 0: Currently inside a sub-menu
