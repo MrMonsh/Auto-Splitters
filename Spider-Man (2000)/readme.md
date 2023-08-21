@@ -30,18 +30,21 @@ This timer will function similar to your current timer, but the difference is th
  	+ with DxWnd
   	+ with D3DWindower
   	+ with dgVoodoo
-+ pSX/psxFin 
-	+ v1.13
-+ ePSXe 
-	+ v1.9.0
-+ RetroArch 
-	+ Beetle PSX core
-	+ Beetle PSX HW core
-	+ PCSX Rearmed core
-	+ Duckstation core
-+ DuckStation
-	+ NoGUI version
-	+ QT Front-End version
++ PS1 Emulators:
+	+ pSX/psxFin 
+		+ v1.13
+	+ ePSXe 
+		+ v1.9.0
+	+ RetroArch*
+		+ Beetle PSX core
+		+ Beetle PSX HW core
+		+ PCSX Rearmed core
+		+ Duckstation core
+	+ DuckStation
+		+ NoGUI version
+		+ QT Front-End version
+
++ **Important Note:** Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
 
 ## Installation Guide
 
