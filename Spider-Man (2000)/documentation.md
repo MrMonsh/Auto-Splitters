@@ -11,8 +11,8 @@ We track the following 16 variables:
 - [IsLoading](#isLoading)
 - [IsPlaying](#isPlaying)
 - [IsMainMenu](#isMainMenu)
-- [LevelEnd](#levelEnd)
-- [LevelID (OBSOLETE)](#levelID)
+- [LevelEnd (OBSOLETE)](#levelEnd)
+- [LevelID](#levelID)
 - [MainMenuItem](#mainMenuItem)
 - [MenuTrianglePress](#menuTrianglePress)
 - [MenuXPress](#menuXPress)
@@ -81,12 +81,13 @@ This address tells us whether we're currently at the Main Menu or not.
 **Offset:** 0x1FFF9F
 
 This address tells us if we've reached the end of a level, either by reaching the usual blue tinted screen or the end of a cutscene.
++ **This address/value is OBSOLETE and no longer used for the auto-splitter**, as it's perfectly covered by DeathMenu when reaching value 3.
 
 ### LevelEnd Values
 + 0: Default
 + 128: Reached Blue Tinted Screen/End of Level
 
-## LevelID (OBSOLETE)
+## LevelID
 **Offset:** 0xB53C4
 
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
