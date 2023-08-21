@@ -23,7 +23,7 @@
 **A:** A Load Remover is a tool that will allow you to have a second timer in your LiveSplit layout that uses "Game Time". 
 This timer will function similar to your current timer, but the difference is that this one will stop while the game is loading, meaning load times will not count towards your final time of the run.
 
-## Supported Emulator/Versions
+## Supported Emulators/Versions
 
 + Windows PC version
 	+ Stand-alone
