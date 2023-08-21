@@ -25,6 +25,11 @@ This timer will function similar to your current timer, but the difference is th
 
 ## Supported Emulator/Versions
 
++ Windows PC version
+	+ Stand-alone
+ 	+ with DxWnd
+  	+ with D3DWindower
+  	+ with dgVoodoo
 + pSX/psxFin 
 	+ v1.13
 + ePSXe 
