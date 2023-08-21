@@ -12,7 +12,7 @@ We track the following 16 variables:
 - [IsPlaying](#isPlaying)
 - [IsMainMenu](#isMainMenu)
 - [LevelEnd](#levelEnd)
-- [LevelID](#levelID)
+- [LevelID (OBSOLETE)](#levelID)
 - [MainMenuItem](#mainMenuItem)
 - [MenuTrianglePress](#menuTrianglePress)
 - [MenuXPress](#menuXPress)
@@ -86,7 +86,7 @@ This address tells us if we've reached the end of a level, either by reaching th
 + 0: Default
 + 128: Reached Blue Tinted Screen/End of Level
 
-## LevelID
+## LevelID (OBSOLETE)
 **Offset:** 0xB53C4
 
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
