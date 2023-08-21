@@ -1,4 +1,16 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.5 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.6 - by MrMonsh
+
+state("SpideyPC", "N/A")
+{
+	int IsPlaying: "SpideyPC.exe", 0x2A9034;
+	int DeathMenu: "SpideyPC.exe", 0x20CFA4;
+	int IsCutscene : "SpideyPC.exe", 0x2151F8;
+  	int IsMainMenu : "SpideyPC.exe", 0x6C7B58;
+	int OutsideSubMenus : "SpideyPC.exe", 0x6C123C;
+	int UnlockedCostumes : "SpideyPC.exe", 0x2828D8;
+	int LevelID : "SpideyPC.exe", 0x2B4670;
+	byte PauseMenu: "SpideyPC.exe", 0x1FAECC;
+}
 
 state("psxfin", "v1.13")
 {
@@ -15,7 +27,6 @@ state("psxfin", "v1.13")
 	int MenuTrianglePress : "psxfin.exe", 0x171A5C, 0xA4DF4;
 	int UnlockedCostumes : "psxfin.exe", 0x171A5C, 0xA5708;
 	int LevelID : "psxfin.exe", 0x171A5C, 0xB53C4;
-	byte LevelEnd : "psxfin.exe", 0x171A5C, 0x1FFF9F;
 	byte PauseMenu: "psxfin.exe", 0x171A5C, 0xB49D4;
 	byte IsComicCover : "psxfin.exe", 0x171A5C, 0x1FFB3C;
 }
@@ -35,7 +46,6 @@ state("ePSXe", "v1.9.0")
 	int MenuTrianglePress : "ePSXe.exe", 0x6FC794;
 	int UnlockedCostumes : "ePSXe.exe", 0x6FD0A8;
 	int LevelID : "ePSXe.exe", 0x70CD64;
-	byte LevelEnd : "ePSXe.exe", 0x85793F;
 	byte PauseMenu : "ePSXe.exe", 0x70C374;
 	byte IsComicCover : "ePSXe.exe", 0x8574DC;
 }
@@ -51,15 +61,15 @@ startup
 {
 	// Add setting group 'start_group'
 	settings.Add("start_group", true, "Starting");
-	settings.SetToolTip("start_group", "Choose how you want the timer to start. You can choose more than one option.");
+	settings.SetToolTip("start_group", "Choose how you want the timer to start. You can choose more than one option. [PS1 version only]");
 	
 	// Add setting 'startOnNewGame', with 'start_group' as parent
 	settings.Add("startOnNewGame", true, "Start when selecting New Game", "start_group");
-	settings.SetToolTip("startOnNewGame", "The timer will start as soon as you start a new game.");
+	settings.SetToolTip("startOnNewGame", "The timer will start as soon as you start a new game. [PS1 version only]");
 	
 	// Add setting 'startOnTraining', with 'start_group' as parent
 	settings.Add("startOnTraining", true, "Start when selecting a training level", "start_group");
-	settings.SetToolTip("startOnTraining", "The timer will start as soon as you select either Item Hunt or Zip-Line Training (for 100%).");
+	settings.SetToolTip("startOnTraining", "The timer will start as soon as you select either Item Hunt or Zip-Line Training (for 100%). [PS1 version only]");
 	
 	
 	// Add setting group 'split_group'
@@ -100,10 +110,20 @@ init
 	var firstModuleMemorySize = modules.First().ModuleMemorySize;
 	var processName = memory.ProcessName.ToLower();
 	vars.shouldUseWatchers = false;
+	vars.hasDemos = true;
+	vars.hasLoads = true;
+	vars.hasMenus = true;
 	vars.foundMemoryOffset = false;
 	vars.firstUpdate = true;
 
-	if (processName.Contains("psxfin")) // pSX/psxfin
+	if (processName.Contains("spideypc")) // Windows PC version
+	{
+		version = "N/A";
+		vars.hasDemos = false;
+		vars.hasLoads = false;
+		vars.hasMenus = false;
+	}
+	else if (processName.Contains("psxfin")) // pSX/psxfin
 	{
 		if (firstModuleMemorySize == 3313664)
 			version = "v1.13";
@@ -178,7 +198,6 @@ update
 				new MemoryWatcher<int>(memoryOffset + 0xA4DF4) { Name = "MenuTrianglePress" },
 				new MemoryWatcher<int>(memoryOffset + 0xA5708) { Name = "UnlockedCostumes" },
 				new MemoryWatcher<int>(memoryOffset + 0xB53C4) { Name = "LevelID" },
-				new MemoryWatcher<byte>(memoryOffset + 0x1FFF9F) { Name = "LevelEnd" },
 				new MemoryWatcher<byte>(memoryOffset + 0xB49D4) { Name = "PauseMenu" },
 				new MemoryWatcher<byte>(memoryOffset + 0x1FFB3C) { Name = "IsComicCover" }
 			};
@@ -203,7 +222,6 @@ update
 			current.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
 			current.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 			current.LevelID = vars.watchers["LevelID"].Current;
-			current.LevelEnd = vars.watchers["LevelEnd"].Current;
 			current.PauseMenu = vars.watchers["PauseMenu"].Current;
 			current.IsComicCover = vars.watchers["IsComicCover"].Current;
 			
@@ -223,14 +241,13 @@ update
 				old.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
 				old.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 				old.LevelID = vars.watchers["LevelID"].Current;
-				old.LevelEnd = vars.watchers["LevelEnd"].Current;
 				old.PauseMenu = vars.watchers["PauseMenu"].Current;
 				old.IsComicCover = vars.watchers["IsComicCover"].Current;
 				vars.firstUpdate = false;
 			}
 		}
 		
-		if (vars.currentSubMenuLevel > 0) 
+		if (vars.hasMenus && vars.currentSubMenuLevel > 0) 
 		{
 			if (old.MenuXPress == 0 && current.MenuXPress == 1) 
 			{
@@ -265,7 +282,7 @@ update
 			vars.fourthSubMenuSelection = -1;
 		}
 		
-		if (current.IsMainMenu == 1) 
+		if (vars.hasMenus && current.IsMainMenu == 1) 
 		{ 	
 			if (current.OutsideSubMenus > 0)
 				vars.currentSubMenuLevel = 0;
@@ -286,9 +303,12 @@ update
 			}
 		}
 		
-		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && current.DeathMenu != 3);
-		if (vars.dontStartUntilMainMenu)
-			vars.currentSubMenuLevel = 0;
+		if (vars.hasMenus)
+		{
+			vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && current.DeathMenu != 3);
+			if (vars.dontStartUntilMainMenu)
+				vars.currentSubMenuLevel = 0;
+		}
 		
 		if (vars.dontSplitUntilPlaying) 
 		{ 
@@ -296,7 +316,7 @@ update
 		}
 		else if (!vars.dontSplitUntilPlaying)
 		{
-			if (current.IsPlaying == 0 && (current.IsLoading == 1 || current.DeathMenu == 2 || old.PauseMenu == 1 || old.PauseMenu == 3 || (old.IsMainMenu == 0 && current.IsMainMenu == 1))) 
+			if (current.IsPlaying == 0 && ((vars.hasLoads && current.IsLoading == 1) || current.DeathMenu == 2 || old.PauseMenu == 1 || old.PauseMenu == 3 || (old.IsMainMenu == 0 && current.IsMainMenu == 1))) 
 			{
 				vars.dontSplitUntilPlaying = true;
 			}
@@ -308,14 +328,17 @@ update
 			vars.splitForNewCostume = newCostume == 32 || newCostume == 256 || newCostume == 512;
 		}
 		
-		if (vars.isLoading)
+		if (vars.hasLoads)
 		{
-			if (current.IsLoading == 0 && (current.IsPlaying == 1 || current.IsComicCover == 116 || current.IsCutscene == 1 || current.IsMainMenu == 1))
-				vars.isLoading = false;
-		}
-		else 
-		{
-			vars.isLoading = current.IsLoading == 1;
+			if (vars.isLoading)
+			{
+				if (current.IsLoading == 0 && (current.IsPlaying == 1 || current.IsComicCover == 116 || current.IsCutscene == 1 || current.IsMainMenu == 1))
+					vars.isLoading = false;
+			}
+			else 
+			{
+				vars.isLoading = current.IsLoading == 1;
+			}
 		}
 	}
 
@@ -324,17 +347,20 @@ update
 
 start 
 {
-	if (!vars.dontStartUntilMainMenu)
+	if (vars.hasMenus)
 	{
-		if (vars.selectedMainMenuItem == 1 && vars.firstSubMenuSelection != -1)
+		if (!vars.dontStartUntilMainMenu)
 		{
-			print("Should start timer due to New Game selection!");
-			return settings["startOnNewGame"];
-		}
-		if (vars.selectedMainMenuItem == 4 && vars.secondSubMenuSelection == 4 && (vars.thirdSubMenuSelection == 0 || vars.fourthSubMenuSelection != -1))
-		{
-			print("Should start timer due to Training selection!");
-			return settings["startOnTraining"];
+			if (vars.selectedMainMenuItem == 1 && vars.firstSubMenuSelection != -1)
+			{
+				print("Should start timer due to New Game selection!");
+				return settings["startOnNewGame"];
+			}
+			if (vars.selectedMainMenuItem == 4 && vars.secondSubMenuSelection == 4 && (vars.thirdSubMenuSelection == 0 || vars.fourthSubMenuSelection != -1))
+			{
+				print("Should start timer due to Training selection!");
+				return settings["startOnTraining"];
+			}
 		}
 	}
 	return false;
@@ -348,8 +374,8 @@ split
 		vars.splitForNewCostume = false;
 		return settings["splitOnNewCostume"];
 	}
-	else if (!vars.dontSplitUntilPlaying && current.IsDemo == 0 && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
-	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.LevelEnd == 0 && current.LevelEnd == 128)))
+	else if (!vars.dontSplitUntilPlaying && (!vars.hasDemos || current.IsDemo == 0) && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
+	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.DeathMenu == 0 && current.DeathMenu == 3)))
 	{
 		print("Should split due to a level being completed!");
 		vars.dontSplitUntilPlaying = true;
@@ -371,7 +397,7 @@ isLoading
 
 exit 
 {
-	print("Emulator Closed");
+	print("Process Closed");
 	if (settings["resetOnGameClosed"])
 		vars.timerModel.Reset();
 }
