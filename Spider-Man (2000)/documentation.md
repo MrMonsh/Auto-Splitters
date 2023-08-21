@@ -1,4 +1,4 @@
-# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.5 - by MrMonsh
+# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.6 - by MrMonsh
 
 ## Variables
 
@@ -29,7 +29,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 ### DeathMenu Values
 + 0: At Main Menu after resetting the console / Playing a level normally
 + 2: At Death Menu / Loading a level after dying
-+ 3: At Save Menu / Save selection
++ 3: Blue Tint Screen / Loading after beating a level / At Save Menu
 + 7: After manually quitting a level (without dying)
 + 8: Loading after manually restarting a level (without dying)
 + 9: At Death Menu / Loading a level but specifically for the following scenarios:
