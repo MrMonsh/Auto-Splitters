@@ -37,7 +37,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
   + Dying to Monster-Ock
   + Letting MJ drown on Spidey vs. Venom Again!
   + Letting a Hostage die on Hostage Situation / Stop the Bomb!
-+ 10: After selecting "Quit back to Training" instead of going back to Main Menu on a training level
++ 10: After dying and selecting "Quit to Training" instead of going back directly to Main Menu on a training level
 
 ## IsComicCover
 **Offset:** 0x1FFB3C
