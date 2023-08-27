@@ -47,7 +47,7 @@ This timer will function similar to your current timer, but the difference is th
 		+ NoGUI version
 		+ QT Front-End version
 
-### Important Notes
+### ⚠️ Important Notes
 
 1. Windows PC will not be getting the auto-start feature, only auto-splits and auto-resets. Load removal is pointless since it's got no loads.
 2. DC Emulators will not be getting the auto-start feature, only auto-splits, auto-resets and load removal.
