@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.6 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.7 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -10,6 +10,19 @@ state("SpideyPC", "N/A")
 	int UnlockedCostumes : "SpideyPC.exe", 0x2828D8;
 	int LevelID : "SpideyPC.exe", 0x2B4670;
 	byte PauseMenu: "SpideyPC.exe", 0x1FAECC;
+}
+
+state("demul", "N/A") 
+{
+	int IsDemo: "demul.exe", 0x1A87E8, 0x20F648;
+	int IsLoading: "demul.exe", 0x1A87E8, 0x27F604;
+	int IsPlaying: "demul.exe", 0x1A87E8, 0x2000D4;
+	int DeathMenu: "demul.exe", 0x1A87E8, 0x1CB7F8;
+	int IsCutscene : "demul.exe", 0x1A87E8, 0x350944;
+  	int IsMainMenu : "demul.exe", 0x1A87E8, 0x20F6B8;
+	int UnlockedCostumes : "demul.exe", 0x1A87E8, 0x20F90C;
+	int LevelID : "demul.exe", 0x1A87E8, 0x202258;
+	byte PauseMenu: "demul.exe", 0x1A87E8, 0x200114;
 }
 
 state("psxfin", "v1.13")
@@ -113,6 +126,7 @@ init
 	vars.hasDemos = true;
 	vars.hasLoads = true;
 	vars.hasMenus = true;
+	vars.hasComicCovers = true;
 	vars.foundMemoryOffset = false;
 	vars.firstUpdate = true;
 
@@ -122,6 +136,15 @@ init
 		vars.hasDemos = false;
 		vars.hasLoads = false;
 		vars.hasMenus = false;
+		vars.hasComicCovers = false;
+	}
+	else if (processName.Contains("demul")) // DEMUL
+	{
+		version = "N/A";
+		vars.hasDemos = true;
+		vars.hasLoads = true;
+		vars.hasMenus = false;
+		vars.hasComicCovers = false;
 	}
 	else if (processName.Contains("psxfin")) // pSX/psxfin
 	{
@@ -138,24 +161,28 @@ init
 		version = "N/A";
 		vars.shouldUseWatchers = true;
 		vars.watchers = new MemoryWatcherList{};
+		vars.memorySize = (UIntPtr)0x200000;
   	}
 	else if ((processName.Length > 10) && (processName.Substring(0, 11) == "duckstation"))
 	{
 		version = "N/A";
 		vars.shouldUseWatchers = true;
 		vars.watchers = new MemoryWatcherList{};
+		vars.memorySize = (UIntPtr)0x200000;
 	}
 
 	vars.isLoading = false;
 	vars.splitForNewCostume = false;
 	vars.dontStartUntilMainMenu = true;
   	vars.dontSplitUntilPlaying = true;
-	vars.selectedMainMenuItem = -1;
 	vars.currentSubMenuLevel = 0;
-	vars.firstSubMenuSelection = -1;
-	vars.secondSubMenuSelection = -1; // Item Collection == 4
-	vars.thirdSubMenuSelection = -1; // Item Hunt == 0 // Zip-Line == 1
-	vars.fourthSubMenuSelection = -1; // 30 seconds == 0 // 90 seconds == 1
+	vars.menuSelection = new List<int>();
+	for (var i = 0; i <= 10; i++)
+	{
+		vars.menuSelection.Add(-1);
+	}
+	// vars.menuSelection[0] == Main Menu Selection 
+	// vars.menuSelection[1] == First Sub Menu Selection...and so on
 	vars.waitUntilReturnToMainMenu = false; // For Sub-Menus we're not interested in tracking
 	
 	
@@ -175,7 +202,7 @@ update
 		
 		foreach (var page in game.MemoryPages(true)) 
 		{
-			if ((page.RegionSize != (UIntPtr)0x200000) || (page.Type != MemPageType.MEM_MAPPED))
+			if ((page.RegionSize != vars.memorySize) || (page.Type != MemPageType.MEM_MAPPED))
 				continue;
 			memoryOffset = page.BaseAddress;
 			vars.foundMemoryOffset = true;
@@ -209,40 +236,59 @@ update
 		if (vars.shouldUseWatchers)
 		{
 			vars.watchers.UpdateAll(game);
-			current.IsDemo = vars.watchers["IsDemo"].Current;
-			current.IsLoading = vars.watchers["IsLoading"].Current;
 			current.IsPlaying = vars.watchers["IsPlaying"].Current;
 			current.DeathMenu = vars.watchers["DeathMenu"].Current;
 			current.IsCutscene = vars.watchers["IsCutscene"].Current;
 			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
-			current.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
-			current.MenuXPress = vars.watchers["MenuXPress"].Current;
-			current.MainMenuItem = vars.watchers["MainMenuItem"].Current;
-			current.SubMenuItem = vars.watchers["SubMenuItem"].Current;
-			current.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
 			current.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 			current.LevelID = vars.watchers["LevelID"].Current;
 			current.PauseMenu = vars.watchers["PauseMenu"].Current;
-			current.IsComicCover = vars.watchers["IsComicCover"].Current;
+			
+			if (vars.hasDemos)
+				current.IsDemo = vars.watchers["IsDemo"].Current;	
+			if (vars.hasLoads)
+			{
+				current.IsLoading = vars.watchers["IsLoading"].Current;
+				if (vars.hasComicCovers)
+					current.IsComicCover = vars.watchers["IsComicCover"].Current;
+			}
+			if (vars.hasMenus)
+			{
+				current.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
+				current.MenuXPress = vars.watchers["MenuXPress"].Current;
+				current.MainMenuItem = vars.watchers["MainMenuItem"].Current;
+				current.SubMenuItem = vars.watchers["SubMenuItem"].Current;
+				current.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
+			}
 			
 			// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
 			if (vars.firstUpdate)
 			{
-				old.IsDemo = vars.watchers["IsDemo"].Current;
-				old.IsLoading = vars.watchers["IsLoading"].Current;
 				old.IsPlaying = vars.watchers["IsPlaying"].Current;
 				old.DeathMenu = vars.watchers["DeathMenu"].Current;
 				old.IsCutscene = vars.watchers["IsCutscene"].Current;
 				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
-				old.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
-				old.MenuXPress = vars.watchers["MenuXPress"].Current;
-				old.MainMenuItem = vars.watchers["MainMenuItem"].Current;
-				old.SubMenuItem = vars.watchers["SubMenuItem"].Current;
-				old.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
 				old.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 				old.LevelID = vars.watchers["LevelID"].Current;
 				old.PauseMenu = vars.watchers["PauseMenu"].Current;
-				old.IsComicCover = vars.watchers["IsComicCover"].Current;
+				
+				if (vars.hasDemos)
+					old.IsDemo = vars.watchers["IsDemo"].Current;
+				if (vars.hasLoads)
+				{
+					old.IsLoading = vars.watchers["IsLoading"].Current;
+					if (vars.hasComicCovers)
+						old.IsComicCover = vars.watchers["IsComicCover"].Current;
+				}
+				if (vars.hasMenus)
+				{
+					old.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
+					old.MenuXPress = vars.watchers["MenuXPress"].Current;
+					old.MainMenuItem = vars.watchers["MainMenuItem"].Current;
+					old.SubMenuItem = vars.watchers["SubMenuItem"].Current;
+					old.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
+				}
+				
 				vars.firstUpdate = false;
 			}
 		}
@@ -251,35 +297,21 @@ update
 		{
 			if (old.MenuXPress == 0 && current.MenuXPress == 1) 
 			{
-				if (vars.currentSubMenuLevel == 1)
-					vars.firstSubMenuSelection = old.SubMenuItem;
-				else if (vars.currentSubMenuLevel == 2)
-					vars.secondSubMenuSelection = old.SubMenuItem;
-				else if (vars.currentSubMenuLevel == 3)
-					vars.thirdSubMenuSelection = old.SubMenuItem;
-				else if (vars.currentSubMenuLevel == 4)
-					vars.fourthSubMenuSelection = old.SubMenuItem;
+				vars.menuSelection[vars.currentSubMenuLevel] = old.SubMenuItem;
 				vars.currentSubMenuLevel = vars.currentSubMenuLevel + 1;
 			}
 			else if (old.MenuTrianglePress == 0 && current.MenuTrianglePress == 1) 
 			{
-				if (vars.currentSubMenuLevel == 2)
-					vars.firstSubMenuSelection = -1;
-				else if (vars.currentSubMenuLevel == 3)
-					vars.secondSubMenuSelection = -1;
-				else if (vars.currentSubMenuLevel == 4)
-					vars.thirdSubMenuSelection = -1;
-				else if (vars.currentSubMenuLevel == 5)
-					vars.fourthSubMenuSelection = -1;
+				vars.menuSelection[vars.currentSubMenuLevel - 1] = -1;
 				vars.currentSubMenuLevel = vars.currentSubMenuLevel - 1;
 			}
 		}
 		else 
 		{
-			vars.firstSubMenuSelection = -1;
-			vars.secondSubMenuSelection = -1;
-			vars.thirdSubMenuSelection = -1;
-			vars.fourthSubMenuSelection = -1;
+			for (var i = 0; i <= 10; i++)
+			{
+				vars.menuSelection[i] = -1;
+			}
 		}
 		
 		if (vars.hasMenus && current.IsMainMenu == 1) 
@@ -290,13 +322,13 @@ update
 			var enteredSpecialMenu = old.MainMenuItem == 6 && current.MainMenuItem == 1;
 			if (!enteredSpecialMenu && current.MainMenuItem < 8 && vars.currentSubMenuLevel == 0 && (!vars.waitUntilReturnToMainMenu || current.OutsideSubMenus > 0)) 
 			{
-				vars.selectedMainMenuItem = -1;
+				vars.menuSelection[0] = -1;
 				vars.waitUntilReturnToMainMenu = false;
 			}
 			else if (vars.currentSubMenuLevel == 0 && !vars.waitUntilReturnToMainMenu && (enteredSpecialMenu || (old.MainMenuItem < 8 && current.MainMenuItem >= 8))) 
 			{
-				vars.selectedMainMenuItem = old.MainMenuItem;
-				if (vars.selectedMainMenuItem == 1 || vars.selectedMainMenuItem == 4)
+				vars.menuSelection[0] = old.MainMenuItem;
+				if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
 					vars.currentSubMenuLevel = 1;
 				else
 					vars.waitUntilReturnToMainMenu = true;
@@ -332,7 +364,7 @@ update
 		{
 			if (vars.isLoading)
 			{
-				if (current.IsLoading == 0 && (current.IsPlaying == 1 || current.IsComicCover == 116 || current.IsCutscene == 1 || current.IsMainMenu == 1))
+				if (current.IsLoading == 0 && (current.IsPlaying == 1 || (vars.hasComicCovers && current.IsComicCover == 116) || current.IsCutscene == 1 || current.IsMainMenu == 1))
 					vars.isLoading = false;
 			}
 			else 
@@ -351,12 +383,12 @@ start
 	{
 		if (!vars.dontStartUntilMainMenu)
 		{
-			if (vars.selectedMainMenuItem == 1 && vars.firstSubMenuSelection != -1)
+			if (vars.menuSelection[0] == 1 && vars.menuSelection[1] != -1)
 			{
 				print("Should start timer due to New Game selection!");
 				return settings["startOnNewGame"];
 			}
-			if (vars.selectedMainMenuItem == 4 && vars.secondSubMenuSelection == 4 && (vars.thirdSubMenuSelection == 0 || vars.fourthSubMenuSelection != -1))
+			if (vars.menuSelection[0] == 4 && vars.menuSelection[2] == 4 && (vars.menuSelection[3] == 0 || vars.menuSelection[4] != -1))
 			{
 				print("Should start timer due to Training selection!");
 				return settings["startOnTraining"];
@@ -387,7 +419,7 @@ split
 reset 
 {
 	var isDead = current.DeathMenu == 2 || current.DeathMenu == 9;
-	return  settings["resetOnQuit"] && ((old.PauseMenu == 3 && current.IsPlaying == 0) || (isDead && old.IsMainMenu == 0 && current.IsMainMenu == 1));
+	return  settings["resetOnQuit"] && ((old.PauseMenu == 3 && current.PauseMenu == 0) || (isDead && old.IsMainMenu == 0 && current.IsMainMenu == 1));
 }
 
 isLoading 
