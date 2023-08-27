@@ -48,9 +48,9 @@ This timer will function similar to your current timer, but the difference is th
 		+ QT Front-End version
 
 ### Important Notes
-+ **Important Note #1:** Windows PC will not be getting the auto-start feature, only auto-splits and auto-resets. Load removal is pointless since it's got no loads.
-+ **Important Note #2:** DC Emulators will not be getting the auto-start feature, only auto-splits, auto-resets and load removal.
-+ **Important Note #3:** Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
+1. Windows PC will not be getting the auto-start feature, only auto-splits and auto-resets. Load removal is pointless since it's got no loads.
+2. DC Emulators will not be getting the auto-start feature, only auto-splits, auto-resets and load removal.
+3. Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
 
 ## Installation Guide
 
