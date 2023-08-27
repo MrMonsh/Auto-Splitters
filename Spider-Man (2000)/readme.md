@@ -55,12 +55,13 @@ This timer will function similar to your current timer, but the difference is th
 
 ## Installation Guide
 
-1. Open your livesplit
-2. Select "Edit Layout"
-3. Click on the "+" button, then select "Control > Scriptable Auto Splitter".
-4. Select the newly added "Scriptable Auto Splitter", then browse your files and link it to the Spider-Man_(2000)_Auto-Splitter.asl file.
-5. **(OPTIONAL)** Select which functions from the Auto-Splitter you'd like to use. 
-6. **(OPTIONAL)** Change the advanced settings for when the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
+1. Download the Spider-Man_(2000)_Auto-Splitter.asl file from [this repository](https://github.com/MrMonsh/Auto-Splitters/blob/main/Spider-Man%20(2000)/Spider-Man_(2000)_Auto-Splitter.asl).
+2. Open your livesplit.
+3. Select "Edit Layout".
+4. Click on the "+" button, then select "Control > Scriptable Auto Splitter".
+5. Select the newly added "Scriptable Auto Splitter", then browse your files and link it to the Spider-Man_(2000)_Auto-Splitter.asl file.
+6. **(OPTIONAL)** Select which functions from the Auto-Splitter you'd like to use. 
+7. **(OPTIONAL)** Change the advanced settings for when the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
 	+ In the event you're running anything other than 100%, the default settings should work just fine for you. For 100% you probably want to fine tune the settings. Just use common sense or ask me if in doubt :)
 8. Click "OK".
 9. You're done! Now you can boot up the emulator and run to your heart's content.
