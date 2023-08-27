@@ -23,7 +23,7 @@ We track the following 16 variables:
 <!-- /TOC -->
 
 ## DeathMenu
-**Offset:** 0xB4F34
+**PS1 Offset:** 0xB4F34
 
 This address tells us if we're currently at the Death Menu and/or loading a level after dying. Once it picks a value it won't go back to 0 until you start playing a level again (after loads).
 
@@ -40,7 +40,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 + 10: After dying and selecting "Quit to Training" instead of going back directly to Main Menu on a training level
 
 ## IsComicCover
-**Offset:** 0x1FFB3C
+**PS1 Offset:** 0x1FFB3C
 
 This address tells us whether we're currently seeing a Comic Cover or not.
 
@@ -49,37 +49,37 @@ This address tells us whether we're currently seeing a Comic Cover or not.
 + Literally anything else: Not seeing a Comic Cover. _Trust me bro_
 
 ## IsCutscene
-**Offset:** 0xB4E84
+**PS1 Offset:** 0xB4E84
 
 This address tells us exactly when we are playing a _pre-rendered_ cutscene. This means that mid-level 3D cutscenes do **NOT** count for this variable.
 + Value 0 means we're currently outside of pre-rendered cutscenes, value 1 means we're currently watching one.
 
 ## IsDemo
-**Offset:** 0xB5778
+**PS1 Offset:** 0xB5778
 
 This address tells us if the game is currently playing a demo or not.
 + Value 0 means we're currently not playing a demo, value 1 means we are.
 
 ## IsLoading
-**Offset:** 0xB556C
+**PS1 Offset:** 0xB556C
 
 This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable (which I do).
 + Value 0 means the game is not currently loading, value 1 means game's loading.
 
 ## IsPlaying
-**Offset:** 0xB5264
+**PS1 Offset:** 0xB5264
 
 This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
 + Value 0 means we're currently not playing anything, value 1 means we're playing.
 
 ## IsMainMenu
-**Offset:** 0xB579C
+**PS1 Offset:** 0xB579C
 
 This address tells us whether we're currently at the Main Menu or not.
 + Value 0 means we're currently outside of the Main Menu, value 1 means we're currently at the Main Menu.
 
 ## LevelEnd
-**Offset:** 0x1FFF9F
+**PS1 Offset:** 0x1FFF9F
 
 This address tells us if we've reached the end of a level, either by reaching the usual blue tinted screen or the end of a cutscene.
 + **This address/value is OBSOLETE and no longer used for the auto-splitter**, as it's perfectly covered by DeathMenu when reaching value 3.
@@ -89,7 +89,7 @@ This address tells us if we've reached the end of a level, either by reaching th
 + 128: Reached Blue Tinted Screen/End of Level
 
 ## LevelID
-**Offset:** 0xB53C4
+**PS1 Offset:** 0xB53C4
 
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
 
@@ -132,7 +132,7 @@ This address tells us what level we're currently in (or which level was last pla
 + 695: Spidey vs Monster-Ock!
 
 ## MainMenuItem
-**Offset:** 0xE254
+**PS1 Offset:** 0xE254
 
 This address tells us which is the current MAIN menu item we're stepping on.
 
@@ -147,19 +147,19 @@ This address tells us which is the current MAIN menu item we're stepping on.
 + 7: Gallery
 
 ## MenuTrianglePress
-**Offset:** 0xA4DF4
+**PS1 Offset:** 0xA4DF4
 
 This address tells us if the triangle button is currently pressed.
 + Value 0 means that the triangle button is not currently pressed, value 1 means the triangle button is currently pressed.
 
 ## MenuXPress
-**Offset:** 0xA4E24
+**PS1 Offset:** 0xA4E24
 
 This address tells us if the X button is currently pressed.
 + Value 0 means that the X button is not currently pressed, value 1 means the X button is currently pressed.
 
 ## OutsideSubMenus
-**Offset:** 0xB5540
+**PS1 Offset:** 0xB5540
 
 This address tells us whether we're currently outside of any sub-menues or not.
 
@@ -168,7 +168,7 @@ This address tells us whether we're currently outside of any sub-menues or not.
 + Literally anything else: Outside of any sub-menu (so, at the start of the main menu). _Trust me bro_
 
 ## PauseMenu
-**Offset:** 0xB49D4
+**PS1 Offset:** 0xB49D4
 
 This address tells us if we're currently inside the Pause Menu while on a level.
 
@@ -178,7 +178,7 @@ This address tells us if we're currently inside the Pause Menu while on a level.
 + 3: At the "Quit" confirmation screen
 
 ## SubMenuItem
-**Offset:** 0xE214
+**PS1 Offset:** 0xE214
 
 This address tells us which is the current SUB menu item we're stepping on.
 
@@ -189,7 +189,7 @@ This address tells us which is the current SUB menu item we're stepping on.
 + and so on...
 
 ## UnlockedCostumes
-**Offset:** 0xA5708
+**PS1 Offset:** 0xA5708
 
 This address tells us what costumes are currently unlocked. This is actually a Binary Bit flag consisting of 10 consecutive bits.
 
