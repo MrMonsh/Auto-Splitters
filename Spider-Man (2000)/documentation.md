@@ -195,14 +195,17 @@ This address tells us what costumes are currently unlocked. This is actually a B
 
 ### UnlockedCostumes Values
 + 0: Literally 0 costumes unlocked, including default (never happens unless hax)
+  + The only exception is on N64, where you'll always have the default costume unlocked no matter what.
   + When you go to Costume Selection, all costumes will be locked, but the game will still allow you to continue using whichever costume you're currently wearing to avoid breaking itself.
   + Since the game isn't prepared for this scenario, once you do this the default costume will never be able to be unlocked again on this save (unless you hack the value again).
 + 1: Default Costume
+  + N64 will ignore this flag, you'll always have the default costume unlocked no matter what.
 + 2: Spider-Man 2099
 + 4: Symbiote Spider-Man
 + 8: Captain Universe
 + 16: Spidey Unlimited
 + 32: Amazing Bag Man
+  + On N64 (where this costume is absent) this flag is still present; it's just unused.
 + 64: Scarlet Spidey
 + 128: Ben Reilly
 + 256: Quick-Change Spidey
