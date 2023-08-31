@@ -32,7 +32,10 @@ This timer will function similar to your current timer, but the difference is th
   	+ with dgVoodoo
 + DC Emulators:
 	+ DEMUL
-		+ v0.7 
+    		+ v0.5.5
+        	+ v0.5.6
+           	+ v0.5.7
+           	+ v0.7
 + PS1 Emulators:
 	+ pSX/psxFin 
 		+ v1.13
