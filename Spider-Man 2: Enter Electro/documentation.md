@@ -2,10 +2,11 @@
 
 ## Variables
 
-We track the following 13 variables: 
+We track the following 14 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
 - [IsCutscene](#isCutscene)
+- [IsBugleHeadline](#isBugleHeadline)
 - [IsDemo](#isDemo)
 - [IsLoading](#isLoading)
 - [IsPlaying](#isPlaying)
@@ -32,6 +33,12 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 + 8: Loading after manually restarting a level (without dying)
 + 9: At Death Menu / Loading a level after dying
 + 10: After manually selecting "Quit to Training" instead of going back directly to Main Menu (without dying)
+
+## IsBugleHeadline
+**Offset:** 0xC1F24
+
+This address tells us if the game is currently showing a Bugle Headline or not. Goes back to 0 when starting a cutscene.
++ Value 0 means we're currently not seeing a Bugle Headline, value 1 means we are.
 
 ## IsCutscene
 **Offset:** 0xC1EE0
