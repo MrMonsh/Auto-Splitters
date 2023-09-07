@@ -9,6 +9,7 @@ We track the following 10 variables:
 - [IsLoading](#isLoading)
 - [IsPlaying](#isPlaying)
 - [IsMainMenu](#isMainMenu)
+- [LevelID](#levelID)
 - [MenuXPress](#menuXPress)
 - [OutsideSubMenus](#outsideSubMenus)
 - [PauseMenu](#pauseMenu)
