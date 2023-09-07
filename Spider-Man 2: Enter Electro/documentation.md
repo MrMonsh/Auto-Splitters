@@ -4,8 +4,79 @@
 
 We track the following 1 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+- [IsCutscene](#isCutscene)
+- [IsDemo](#isDemo)
+- [IsLoading](#isLoading)
+- [IsPlaying](#isPlaying)
+- [IsMainMenu](#isMainMenu)
+- [MenuTrianglePress](#menuTrianglePress)
+- [MenuXPress](#menuXPress)
+- [PauseMenu](#pauseMenu)
 - [UnlockedCostumes](#unlockedCostumes)
 <!-- /TOC -->
+
+## IsCutscene
+**Offset:** 0x?????
+
+This address tells us exactly when we are playing a _pre-rendered_ cutscene. This means that mid-level 3D cutscenes do **NOT** count for this variable.
++ Value 0 means we're currently outside of pre-rendered cutscenes, value 1 means we're currently watching one.
+
+## IsDemo
+**Offset:** 0x?????
+
+This address tells us if the game is currently playing a demo or not.
++ Value 0 means we're currently not playing a demo, value 1 means we are.
+
+## IsLoading
+**Offset:** 0x?????
+
+This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable (which I do).
++ Value 0 means the game is not currently loading, value 1 means game's loading.
+
+## IsPlaying
+**Offset:** 0x?????
+
+This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
++ Value 0 means we're currently not playing anything, value 1 means we're playing.
+
+## IsMainMenu
+**Offset:** 0x?????
+
+This address tells us whether we're currently at the Main Menu or not.
++ Value 0 means we're currently outside of the Main Menu, value 1 means we're currently at the Main Menu.
+
+
+## MenuTrianglePress
+**Offset:** 0x??????
+
+This address tells us if the triangle button is currently pressed.
+
+### MenuTrianglePress Values
++ 0: Button Not Pressed
++ 1: Button Pressed
++ 256: Button Not Pressed
++ 257: Button Pressed
+
+## MenuXPress
+**Offset:** 0x?????
+
+This address tells us if the X button is currently pressed.
+
+### MenuXPress Values
++ 0: Button Not Pressed
++ 1: Button Pressed
++ 256: Button Not Pressed
++ 257: Button Pressed
+
+## PauseMenu
+**Offset:** 0x?????
+
+This address tells us if we're currently inside the Pause Menu while on a level.
+
+### PauseMenu Values
++ 0: Not on Pause Menu
++ 1: Pause Menu is active
++ 3: At the "Quit" confirmation screen
 
 ## UnlockedCostumes
 **Offset:** 0xB31F8
