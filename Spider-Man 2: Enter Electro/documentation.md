@@ -2,7 +2,7 @@
 
 ## Variables
 
-We track the following 12 variables: 
+We track the following 13 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
 - [IsCutscene](#isCutscene)
