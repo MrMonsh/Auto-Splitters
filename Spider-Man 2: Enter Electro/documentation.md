@@ -9,8 +9,8 @@ We track the following 14 variables:
 - [IsBugleHeadline](#isBugleHeadline)
 - [IsDemo](#isDemo)
 - [IsLoading](#isLoading)
-- [IsPlaying](#isPlaying)
 - [IsMainMenu](#isMainMenu)
+- [IsPlaying](#isPlaying)
 - [LevelID](#levelID)
 - [MenuTrianglePress](#menuTrianglePress)
 - [MenuXPress](#menuXPress)
@@ -58,17 +58,17 @@ This address tells us if the game is currently playing a demo or not.
 This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable (which I do).
 + Value 0 means the game is not currently loading, value 1 means game's loading.
 
-## IsPlaying
-**Offset:** 0xC21F0
-
-This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
-+ Value 0 means we're currently not playing anything, value 1 means we're playing.
-
 ## IsMainMenu
 **Offset:** 0xC28F8
 
 This address tells us whether we're currently at the Main Menu or not.
 + Value 0 means we're currently outside of the Main Menu, value 1 means we're currently at the Main Menu.
+
+## IsPlaying
+**Offset:** 0xC21F0
+
+This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
++ Value 0 means we're currently not playing anything, value 1 means we're playing.
 
 ## LevelID
 **Offset:** 0xC2364
