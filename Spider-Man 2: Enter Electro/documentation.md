@@ -52,7 +52,46 @@ This address tells us whether we're currently at the Main Menu or not.
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
 
 ### LevelID Values
-+ 61: 
++ 30: Demo 1 (Henchmen)
++ 48: Challenge: L1 Targeting
++ 49: Challenge: Stealth
++ 67: Challenge: Zip Line
++ 72: Training: L1 Targeting
++ 74: Challenge: Attack
++ 75: Training: Stealth
++ 86: Challenge: Web Yank
++ 92: Training: Zip Line
++ 96: Challenge: Web Swinging
++ 104: Training: Web Yank
++ 127: Training: Web Swinging
++ 137: Spidey vs. Hammerhead
++ 146: Training: Attack
++ 222: Wind Tunnel
++ 228: Warehouse 66
++ 231: Spidey vs. Sandman Again
++ 233: Hangar 18
++ 280: To Catch a Thief
++ 288: Spidey vs. Electro
++ 291: The Best Laid Plans
++ 307: Spidey vs. Shocker
++ 324: Rooftops by Night
++ 330: Spidey vs. Lizard
++ 350: In Darkest Night
++ 381: Training: L2 Targeting
++ 391: Konichi-wa Spider-san
++ 402: Catch that Train!
++ 410: Enter the Web-Head
++ 420: Challenge: L2 Targeting
++ 472: Smoke Screen
++ 493: Heart of Darkness
++ 507: Training: Instant Action
++ 516: Burglary Interrupted
++ 569: Gangland
++ 644: The Gauntlet
++ 645: Spidey in the Machine
++ 651: The Corkscrew
++ 742: Rock of Ages
++ 761: Mission: Spidey
 
 ## MenuXPress
 **Offset:** 0xB29F8
