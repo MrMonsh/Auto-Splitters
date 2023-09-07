@@ -9,8 +9,8 @@ We track the following 16 variables:
 - [IsCutscene](#isCutscene)
 - [IsDemo](#isDemo)
 - [IsLoading](#isLoading)
-- [IsPlaying](#isPlaying)
 - [IsMainMenu](#isMainMenu)
+- [IsPlaying](#isPlaying)
 - [LevelEnd (OBSOLETE)](#levelEnd)
 - [LevelID](#levelID)
 - [MainMenuItem](#mainMenuItem)
@@ -66,17 +66,17 @@ This address tells us if the game is currently playing a demo or not.
 This address tells us if the game's currently loading. However, it's a bit inconsistent so I wouldn't rely on it unless paired with an alternative variable (which I do).
 + Value 0 means the game is not currently loading, value 1 means game's loading.
 
-## IsPlaying
-**PS1 Offset:** 0xB5264
-
-This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
-+ Value 0 means we're currently not playing anything, value 1 means we're playing.
-
 ## IsMainMenu
 **PS1 Offset:** 0xB579C
 
 This address tells us whether we're currently at the Main Menu or not.
 + Value 0 means we're currently outside of the Main Menu, value 1 means we're currently at the Main Menu.
+
+## IsPlaying
+**PS1 Offset:** 0xB5264
+
+This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
++ Value 0 means we're currently not playing anything, value 1 means we're playing.
 
 ## LevelEnd
 **PS1 Offset:** 0x1FFF9F
