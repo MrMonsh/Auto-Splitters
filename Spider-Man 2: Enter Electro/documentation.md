@@ -46,6 +46,14 @@ This address tells us if we're currently in the middle of playing _something_, w
 This address tells us whether we're currently at the Main Menu or not.
 + Value 0 means we're currently outside of the Main Menu, value 1 means we're currently at the Main Menu.
 
+## LevelID
+**Offset:** 0xC2364
+
+This address tells us what level we're currently in (or which level was last played if we're at the menu).
+
+### LevelID Values
++ 61: 
+
 ## MenuXPress
 **Offset:** 0xB29F8
 
