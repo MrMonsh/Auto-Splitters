@@ -4,6 +4,7 @@
 
 We track the following 12 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+- [DeathMenu](#deathMenu)
 - [IsCutscene](#isCutscene)
 - [IsDemo](#isDemo)
 - [IsLoading](#isLoading)
@@ -17,6 +18,20 @@ We track the following 12 variables:
 - [SubMenuItem](#subMenuItem)
 - [UnlockedCostumes](#unlockedCostumes)
 <!-- /TOC -->
+
+## DeathMenu
+**Offset:** 0xC1F90
+
+This address tells us if we're currently at the Death Menu and/or loading a level after dying. Once it picks a value it won't go back to 0 until you start playing a level again (after loads).
+
+### DeathMenu Values
++ 0: At Main Menu after resetting the console / Playing a level normally
++ 2: At Death Menu / Loading a level after dying
++ 3: Blue Tint Screen / Loading after beating a level / At Save Menu
++ 7: After manually quitting a level (without dying)
++ 8: Loading after manually restarting a level (without dying)
++ 9: At Death Menu / Loading a level after dying
++ 10: After manually aselecting "Quit to Training" instead of going back directly to Main Menu (without dying)
 
 ## IsCutscene
 **Offset:** 0xC1EE0
