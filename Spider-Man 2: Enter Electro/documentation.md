@@ -9,7 +9,6 @@ We track the following 1 variables:
 - [IsLoading](#isLoading)
 - [IsPlaying](#isPlaying)
 - [IsMainMenu](#isMainMenu)
-- [MenuTrianglePress](#menuTrianglePress)
 - [MenuXPress](#menuXPress)
 - [PauseMenu](#pauseMenu)
 - [UnlockedCostumes](#unlockedCostumes)
@@ -44,18 +43,6 @@ This address tells us if we're currently in the middle of playing _something_, w
 
 This address tells us whether we're currently at the Main Menu or not.
 + Value 0 means we're currently outside of the Main Menu, value 1 means we're currently at the Main Menu.
-
-
-## MenuTrianglePress
-**Offset:** 0x??????
-
-This address tells us if the triangle button is currently pressed.
-
-### MenuTrianglePress Values
-+ 0: Button Not Pressed
-+ 1: Button Pressed
-+ 256: Button Not Pressed
-+ 257: Button Pressed
 
 ## MenuXPress
 **Offset:** 0x?????
