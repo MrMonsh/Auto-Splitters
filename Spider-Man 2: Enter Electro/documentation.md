@@ -53,9 +53,11 @@ This address tells us whether we're currently at the Main Menu or not.
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
 
 ### LevelID Values
-+ 30: Demo 1 (Henchmen)
++ 30: Demo 1 (Henchmen Fight)
 + 48: Challenge: L1 Targeting
 + 49: Challenge: Stealth
++ 50: Demo 2 (Smoke Screen)
++ 54: Demo 3 (To Catch a Thief)
 + 67: Challenge: Zip Line
 + 72: Training: L1 Targeting
 + 74: Challenge: Attack
