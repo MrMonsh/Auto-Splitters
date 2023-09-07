@@ -2,7 +2,7 @@
 
 ## Variables
 
-We track the following 11 variables: 
+We track the following 12 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [IsCutscene](#isCutscene)
 - [IsDemo](#isDemo)
@@ -10,6 +10,7 @@ We track the following 11 variables:
 - [IsPlaying](#isPlaying)
 - [IsMainMenu](#isMainMenu)
 - [LevelID](#levelID)
+- [MenuTrianglePress](#menuTrianglePress)
 - [MenuXPress](#menuXPress)
 - [OutsideSubMenus](#outsideSubMenus)
 - [PauseMenu](#pauseMenu)
@@ -95,6 +96,17 @@ This address tells us what level we're currently in (or which level was last pla
 + 651: The Corkscrew
 + 742: Rock of Ages
 + 761: Mission: Spidey
+
+## MenuTrianglePress
+**Offset:** 0xB29C8
+
+This address tells us if the triangle button is currently pressed.
+
+### MenuTrianglePress Values
++ 0: Button Not Pressed
++ 1: Button Pressed
++ 256: Button Not Pressed
++ 257: Button Pressed
 
 ## MenuXPress
 **Offset:** 0xB29F8
