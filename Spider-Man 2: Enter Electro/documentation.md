@@ -10,6 +10,7 @@ We track the following 8 variables:
 - [IsPlaying](#isPlaying)
 - [IsMainMenu](#isMainMenu)
 - [MenuXPress](#menuXPress)
+- [OutsideSubMenus](#outsideSubMenus)
 - [PauseMenu](#pauseMenu)
 - [UnlockedCostumes](#unlockedCostumes)
 <!-- /TOC -->
@@ -54,6 +55,15 @@ This address tells us if the X button is currently pressed.
 + 1: Button Pressed
 + 256: Button Not Pressed
 + 257: Button Pressed
+
+## OutsideSubMenus
+**Offset:** 0xC25EC
+
+This address tells us whether we're currently outside of any sub-menues or not.
+
+### OutsideSubMenus Values
++ 0: Currently inside a sub-menu
++ Literally anything else: Outside of any sub-menu (so, at the start of the main menu). _Trust me bro_
 
 ## PauseMenu
 **Offset:** 0xC18C4
