@@ -2,7 +2,7 @@
 
 ## Variables
 
-We track the following 10 variables: 
+We track the following 11 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [IsCutscene](#isCutscene)
 - [IsDemo](#isDemo)
