@@ -31,7 +31,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 + 7: After manually quitting a level (without dying)
 + 8: Loading after manually restarting a level (without dying)
 + 9: At Death Menu / Loading a level after dying
-+ 10: After manually aselecting "Quit to Training" instead of going back directly to Main Menu (without dying)
++ 10: After manually selecting "Quit to Training" instead of going back directly to Main Menu (without dying)
 
 ## IsCutscene
 **Offset:** 0xC1EE0
