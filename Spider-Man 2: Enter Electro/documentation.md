@@ -119,6 +119,21 @@ This address tells us what level we're currently in (or which level was last pla
 + 742: Rock of Ages
 + 761: Mission: Spidey
 
+## MainMenuItem
+**Offset:** 0x859C
+
+This address tells us which is the current MAIN menu item we're stepping on.
+
+### MainMenuItem Values
++ 0: Continue
++ 1: New game
++ 2: Memory Card
++ 3: Options
++ 4: Training
++ 5: Records
++ 6: Special
++ 7: Gallery
+
 ## MenuTrianglePress
 **Offset:** 0xB29C8
 
