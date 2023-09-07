@@ -75,6 +75,17 @@ This address tells us if we're currently inside the Pause Menu while on a level.
 + 1: Pause Menu is active
 + 3: At the "Quit" confirmation screen
 
+## SubMenuItem
+**Offset:** 0xE214
+
+This address tells us which is the current SUB menu item we're stepping on.
+
+### SubMenuItem Values
++ 0: First item from the top
++ 1: Second item from the top
++ 2: Third item from the top
++ and so on...
+
 ## UnlockedCostumes
 **Offset:** 0xB31F8
 
