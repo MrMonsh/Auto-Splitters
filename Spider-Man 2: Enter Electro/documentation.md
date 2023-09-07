@@ -12,6 +12,7 @@ We track the following 8 variables:
 - [MenuXPress](#menuXPress)
 - [OutsideSubMenus](#outsideSubMenus)
 - [PauseMenu](#pauseMenu)
+- [SubMenuItem](#subMenuItem)
 - [UnlockedCostumes](#unlockedCostumes)
 <!-- /TOC -->
 
