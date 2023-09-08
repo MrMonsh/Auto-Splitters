@@ -5,8 +5,8 @@
 We track the following 16 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
-- [IsCutscene](#isCutscene)
 - [IsBugleHeadline](#isBugleHeadline)
+- [IsCutscene](#isCutscene)
 - [IsDemo](#isDemo)
 - [IsLoading](#isLoading)
 - [IsMainMenu](#isMainMenu)
