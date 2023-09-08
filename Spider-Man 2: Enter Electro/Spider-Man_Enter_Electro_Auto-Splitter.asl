@@ -1,4 +1,4 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.2 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.3 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -8,6 +8,7 @@ state("psxfin", "v1.13")
 	int IsCutscene : "psxfin.exe", 0x171A5C, 0xC1EE0;
 	int OutsideSubMenus : "psxfin.exe", 0x171A5C, 0xC25EC;
 	int MenuXPress : "psxfin.exe", 0x171A5C, 0xB29F8;
+	int MenuStartPress : "psxfin.exe", 0x171A5C, 0xB2AA8;
 	int MainMenuItem: "psxfin.exe", 0x171A5C, 0x859C;
 	int SubMenuItem: "psxfin.exe", 0x171A5C, 0xE214;
 	int MenuTrianglePress : "psxfin.exe", 0x171A5C, 0xB29C8;
@@ -28,6 +29,7 @@ state("ePSXe", "v1.9.0")
 	int IsCutscene : "ePSXe.exe", 0x719880;
 	int OutsideSubMenus : "ePSXe.exe", 0x719F8C;
 	int MenuXPress : "ePSXe.exe", 0x70A398;
+	int MenuStartPress : "ePSXe.exe", 0x70A448;
 	int MainMenuItem : "ePSXe.exe", 0x65FF3C;
 	int SubMenuItem: "ePSXe.exe", 0x665BB4;
 	int MenuTrianglePress : "ePSXe.exe", 0x70A368;
@@ -176,6 +178,7 @@ update
 				new MemoryWatcher<int>(memoryOffset + 0xC1EE0) { Name = "IsCutscene" },
 				new MemoryWatcher<int>(memoryOffset + 0xC25EC) { Name = "OutsideSubMenus" },
 				new MemoryWatcher<int>(memoryOffset + 0xB29F8) { Name = "MenuXPress" },
+				new MemoryWatcher<int>(memoryOffset + 0xB2AA8) { Name = "MenuStartPress" },
 				new MemoryWatcher<int>(memoryOffset + 0x859C) { Name = "MainMenuItem" },
 				new MemoryWatcher<int>(memoryOffset + 0xE214) { Name = "SubMenuItem" },
 				new MemoryWatcher<int>(memoryOffset + 0xB29C8) { Name = "MenuTrianglePress" },
@@ -208,6 +211,7 @@ update
 			current.IsBugleHeadline = vars.watchers["IsBugleHeadline"].Current;
 			current.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
 			current.MenuXPress = vars.watchers["MenuXPress"].Current;
+			current.MenuStartPress = vars.watchers["MenuStartPress"].Current;
 			current.MainMenuItem = vars.watchers["MainMenuItem"].Current;
 			current.SubMenuItem = vars.watchers["SubMenuItem"].Current;
 			current.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
@@ -228,6 +232,7 @@ update
 				old.IsBugleHeadline = vars.watchers["IsBugleHeadline"].Current;
 				old.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
 				old.MenuXPress = vars.watchers["MenuXPress"].Current;
+				old.MenuStartPress = vars.watchers["MenuStartPress"].Current;
 				old.MainMenuItem = vars.watchers["MainMenuItem"].Current;
 				old.SubMenuItem = vars.watchers["SubMenuItem"].Current;
 				old.MenuTrianglePress = vars.watchers["MenuTrianglePress"].Current;
@@ -236,14 +241,17 @@ update
 			}
 		}
 		
+		var menuXPressed = (old.MenuXPress == 0 || old.MenuXPress == 256) && (current.MenuXPress == 1 || current.MenuXPress == 257);
+		var menuStartPressed = (old.MenuStartPress == 0 || old.MenuStartPress == 256) && (current.MenuStartPress == 1 || current.MenuStartPress == 257);
+		var menuTrianglePressed = (old.MenuTrianglePress == 0 || old.MenuTrianglePress == 256) && (current.MenuTrianglePress == 1 || current.MenuTrianglePress == 257);
 		if (vars.currentSubMenuLevel > 0) 
 		{
-			if (old.MenuXPress == 0 && current.MenuXPress == 1) 
+			if (menuXPressed || menuStartPressed)
 			{
 				vars.menuSelection[vars.currentSubMenuLevel] = old.SubMenuItem;
 				vars.currentSubMenuLevel = vars.currentSubMenuLevel + 1;
 			}
-			else if (old.MenuTrianglePress == 0 && current.MenuTrianglePress == 1) 
+			else if (menuTrianglePressed) 
 			{
 				vars.menuSelection[vars.currentSubMenuLevel - 1] = -1;
 				vars.currentSubMenuLevel = vars.currentSubMenuLevel - 1;
@@ -269,7 +277,7 @@ update
 			}
 			else if (vars.currentSubMenuLevel == 0 && !vars.waitUntilReturnToMainMenu) 
 			{
-				if (old.MenuXPress == 0 && current.MenuXPress == 1) 
+				if (menuXPressed || menuStartPressed) 
 				{
 					vars.menuSelection[0] = old.MainMenuItem;
 					if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
