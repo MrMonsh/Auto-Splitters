@@ -1,4 +1,4 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.4 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.5 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -270,7 +270,7 @@ update
 			}
 		}
 		
-		if (current.IsMainMenu == 1 && current.IsStartScreen == 0) 
+		if (current.IsMainMenu == 1 && current.IsStartScreen == 0 && current.IsCutscene == 0) 
 		{ 	
 			if (current.OutsideSubMenus > 0)
 				vars.currentSubMenuLevel = 0;
