@@ -2,7 +2,7 @@
 
 ## Variables
 
-We track the following 15 variables: 
+We track the following 16 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
 - [IsCutscene](#isCutscene)
@@ -13,6 +13,7 @@ We track the following 15 variables:
 - [IsPlaying](#isPlaying)
 - [IsSavePrompt](#isSavePrompt)
 - [LevelID](#levelID)
+- [MenuStartPress](#menuStartPress)
 - [MenuTrianglePress](#menuTrianglePress)
 - [MenuXPress](#menuXPress)
 - [OutsideSubMenus](#outsideSubMenus)
@@ -143,6 +144,17 @@ This address tells us which is the current MAIN menu item we're stepping on.
 + 5: Records
 + 6: Special
 + 7: Gallery
+
+## MenuStartPress
+**Offset:** 0xB2AA8
+
+This address tells us if the start button is currently pressed.
+
+### MenuStartPress Values
++ 0: Button Not Pressed
++ 1: Button Pressed
++ 256: Button Not Pressed
++ 257: Button Pressed
 
 ## MenuTrianglePress
 **Offset:** 0xB29C8
