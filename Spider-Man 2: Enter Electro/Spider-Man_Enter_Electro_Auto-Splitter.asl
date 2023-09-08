@@ -1,4 +1,4 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.3 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.4 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -6,6 +6,7 @@ state("psxfin", "v1.13")
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xC2618;
 	int DeathMenu: "psxfin.exe", 0x171A5C, 0xC1F90;
 	int IsCutscene : "psxfin.exe", 0x171A5C, 0xC1EE0;
+	int IsStartScreen: "psxfin.exe", 0x171A5C, 0xC1F7C;
 	int OutsideSubMenus : "psxfin.exe", 0x171A5C, 0xC25EC;
 	int MenuXPress : "psxfin.exe", 0x171A5C, 0xB29F8;
 	int MenuStartPress : "psxfin.exe", 0x171A5C, 0xB2AA8;
@@ -27,6 +28,7 @@ state("ePSXe", "v1.9.0")
 	int IsLoading: "ePSXe.exe", 0x719FB8;
 	int DeathMenu : "ePSXe.exe", 0x719930;
 	int IsCutscene : "ePSXe.exe", 0x719880;
+	int IsStartScreen: "ePSXe.exe", 0x71991C;
 	int OutsideSubMenus : "ePSXe.exe", 0x719F8C;
 	int MenuXPress : "ePSXe.exe", 0x70A398;
 	int MenuStartPress : "ePSXe.exe", 0x70A448;
@@ -176,6 +178,7 @@ update
 				new MemoryWatcher<int>(memoryOffset + 0xC2618) { Name = "IsLoading" },
 				new MemoryWatcher<int>(memoryOffset + 0xC1F90) { Name = "DeathMenu" },
 				new MemoryWatcher<int>(memoryOffset + 0xC1EE0) { Name = "IsCutscene" },
+				new MemoryWatcher<int>(memoryOffset + 0xC1F7C) { Name = "IsStartScreen" },
 				new MemoryWatcher<int>(memoryOffset + 0xC25EC) { Name = "OutsideSubMenus" },
 				new MemoryWatcher<int>(memoryOffset + 0xB29F8) { Name = "MenuXPress" },
 				new MemoryWatcher<int>(memoryOffset + 0xB2AA8) { Name = "MenuStartPress" },
@@ -202,12 +205,13 @@ update
 			current.DeathMenu = vars.watchers["DeathMenu"].Current;
 			current.IsCutscene = vars.watchers["IsCutscene"].Current;
 			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
+			current.IsSavePrompt = vars.watchers["IsSavePrompt"].Current;
+			current.IsStartScreen = vars.watchers["IsStartScreen"].Current;
 			current.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 			current.LevelID = vars.watchers["LevelID"].Current;
 			current.PauseMenu = vars.watchers["PauseMenu"].Current;
 			current.IsDemo = vars.watchers["IsDemo"].Current;	
 			current.IsLoading = vars.watchers["IsLoading"].Current;
-			current.IsSavePrompt = vars.watchers["IsSavePrompt"].Current;
 			current.IsBugleHeadline = vars.watchers["IsBugleHeadline"].Current;
 			current.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
 			current.MenuXPress = vars.watchers["MenuXPress"].Current;
@@ -224,6 +228,7 @@ update
 				old.IsCutscene = vars.watchers["IsCutscene"].Current;
 				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
 				old.IsSavePrompt = vars.watchers["IsSavePrompt"].Current;
+				old.IsStartScreen = vars.watchers["IsStartScreen"].Current;
 				old.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 				old.LevelID = vars.watchers["LevelID"].Current;
 				old.PauseMenu = vars.watchers["PauseMenu"].Current;
@@ -265,7 +270,7 @@ update
 			}
 		}
 		
-		if (current.IsMainMenu == 1) 
+		if (current.IsMainMenu == 1 && current.IsStartScreen == 0) 
 		{ 	
 			if (current.OutsideSubMenus > 0)
 				vars.currentSubMenuLevel = 0;
