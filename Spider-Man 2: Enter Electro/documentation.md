@@ -1,8 +1,8 @@
-# Spider-Man 2: Enter Electro Auto-Splitter & Load Remover v0.5.3 - by MrMonsh
+# Spider-Man 2: Enter Electro Auto-Splitter & Load Remover v0.5.4 - by MrMonsh
 
 ## Variables
 
-We track the following 16 variables: 
+We track the following 17 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
 - [IsBugleHeadline](#isBugleHeadline)
@@ -12,6 +12,7 @@ We track the following 16 variables:
 - [IsMainMenu](#isMainMenu)
 - [IsPlaying](#isPlaying)
 - [IsSavePrompt](#isSavePrompt)
+- [IsStartScreen](#isStartScreen)
 - [LevelID](#levelID)
 - [MenuStartPress](#menuStartPress)
 - [MenuTrianglePress](#menuTrianglePress)
@@ -80,6 +81,15 @@ This address tells us if we're currently in at the "Do you want to save?" prompt
 ### IsSavePrompt Values
 + 0: Not Save Prompt
 + 160: Currently at Save Prompt
+
+## IsStartScreen
+**Offset:** 0xC28F8
+
+This address tells us whether we're currently at the Start Screen or not.
+
+### IsStartScreen Values
++ 0: Past the Start Screen
++ 1: Currently at the Start Screen / Watching a Demo triggered while at the Start Screen
 
 ## LevelID
 **Offset:** 0xC2364
