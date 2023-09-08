@@ -2,7 +2,7 @@
 
 ## Variables
 
-We track the following 14 variables: 
+We track the following 15 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
 - [IsCutscene](#isCutscene)
@@ -11,6 +11,7 @@ We track the following 14 variables:
 - [IsLoading](#isLoading)
 - [IsMainMenu](#isMainMenu)
 - [IsPlaying](#isPlaying)
+- [IsSavePrompt](#isSavePrompt)
 - [LevelID](#levelID)
 - [MenuTrianglePress](#menuTrianglePress)
 - [MenuXPress](#menuXPress)
@@ -69,6 +70,15 @@ This address tells us whether we're currently at the Main Menu or not.
 
 This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
 + Value 0 means we're currently not playing anything, value 1 means we're playing.
+
+## IsSavePrompt
+**Offset:** 0x105110
+
+This address tells us if we're currently in at the "Do you want to save?" prompt or not.
+
+### IsSavePrompt Values
++ 0: Not Save Prompt
++ 160: Currently at Save Prompt
 
 ## LevelID
 **Offset:** 0xC2364
