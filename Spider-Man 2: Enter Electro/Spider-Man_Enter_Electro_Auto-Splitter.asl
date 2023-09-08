@@ -1,4 +1,4 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.1 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -51,15 +51,15 @@ startup
 {
 	// Add setting group 'start_group'
 	settings.Add("start_group", true, "Starting");
-	settings.SetToolTip("start_group", "Choose how you want the timer to start. You can choose more than one option. [PS1 version only]");
+	settings.SetToolTip("start_group", "Choose how you want the timer to start. You can choose more than one option.");
 	
 	// Add setting 'startOnNewGame', with 'start_group' as parent
 	settings.Add("startOnNewGame", true, "Start when selecting New Game", "start_group");
-	settings.SetToolTip("startOnNewGame", "The timer will start as soon as you start a new game. [PS1 version only]");
+	settings.SetToolTip("startOnNewGame", "The timer will start as soon as you start a new game.");
 	
-	// Add setting 'startOnTraining', with 'start_group' as parent
-	settings.Add("startOnTraining", true, "Start when selecting a training level", "start_group");
-	settings.SetToolTip("startOnTraining", "The timer will start as soon as you select either Item Hunt or Zip-Line Training (for 100%). [PS1 version only]");
+	// Add setting 'startOnAttackChallenge', with 'start_group' as parent
+	settings.Add("startOnAttackChallenge", true, "Start when selecting the Attack Challenge", "start_group");
+	settings.SetToolTip("startOnAttackChallenge", "The timer will start as soon as you select the Attack Challenge (for 100%).");
 	
 	
 	// Add setting group 'split_group'
@@ -323,10 +323,10 @@ start
 			print("Should start timer due to New Game selection!");
 			return settings["startOnNewGame"];
 		}
-		if (vars.menuSelection[0] == 4 && vars.menuSelection[2] == 4 && (vars.menuSelection[3] == 0 || vars.menuSelection[4] != -1))
+		if (vars.menuSelection[0] == 4 && vars.menuSelection[2] == 1 && vars.menuSelection[3] == 6)
 		{
-			print("Should start timer due to Training selection!");
-			return settings["startOnTraining"];
+			print("Should start timer due to Attack Challenge selection!");
+			return settings["startOnAttackChallenge"];
 		}
 	}
 	return false;
