@@ -5,6 +5,7 @@
 - [PS1 Emulators](#pS1-Emulators)
   - [pSX/psxFin](#pSXpsxFin)
   - [mednafen](#mednafen)
+  - [BizHawk](#bizHawk)
   - [ePSXe](#ePSXe)
 - [DC Emulators](#dC-Emulators)
   - [DEMUL](#dEMUL) 
@@ -15,18 +16,30 @@
 ## PS1 Emulators
 
 ### pSX/psxFin
++ __Process Name:__ "psxfin"
+
 + v1.13
   + Memory Start: 0390D020
   + Memory End: 03B0D020
 
 ### mednafen
 + v1.26.1 win64
-  + Memory Start: 0x2553280
-  + Memory End: 0x2753280
+  + Memory Start:  "mednafen.exe" + 0x2553280
+  + Memory End:  "mednafen.exe" + 0x2753280
  
 + v1.26.1 win32
-  + Memory Start: 0x1C94560
-  + Memory End: 0x1E94560
+  + Memory Start:  "mednafen.exe" + 0x1C94560
+  + Memory End:  "mednafen.exe" + 0x1E94560
+ 
+### BizHawk
++ v2.4.2
+  + Memory Start: "octoshock.dll" + 0x30DF90
+  + Memory End: "octoshock.dll" + 0x50DF90
+ 
++ v2.5.2, v2.6.1
+  + Memory Start: "octoshock.dll" + 0x310F80
+  + Memory End: "octoshock.dll" + 0x510F80
+
 
 ### ePSXe
 + v1.7.0
