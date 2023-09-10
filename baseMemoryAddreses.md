@@ -1,5 +1,7 @@
 # Base Memory Addresses Documentation
 
+These addresses belong to either old emulator versions or to emulators that no longer see active development, meaning they should be static and always be the same regardless of the environment.
+
 ## Table of Contents
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [PS1 Emulators](#pS1-Emulators)
