@@ -2,7 +2,7 @@
 
 ## Table of Contents
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-- [DC Emulators](#dC_Emulators)
+- [DC Emulators](#dCEmulators)
 <!-- /TOC -->
 
 ## PS1 Emulators
