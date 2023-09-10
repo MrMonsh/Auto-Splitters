@@ -8,3 +8,7 @@ Currently hosting auto-splitters for:
 
 ## Documentation
 + [Base Memory Addresses](https://github.com/MrMonsh/Auto-Splitters/blob/main/baseMemoryAddreses.md)
+
+## Useful Links (from the Speedrun Tool Development discord server)
++ [ASM Signature Scanning Introduction](https://docs.google.com/document/d/1l5ni-jmV2exvKfcucJjU5Y2-dA6JkVcJIIJxDbu6l_Q/preview#heading=h.mu1pugpvprnp) - by 2838
++ [Retroarch core memory hunting](https://docs.google.com/document/d/1n9P7nf2PkGCAu8VWxXEVqAmZHt9OFW0WJwSwRMfB8gI/edit) - by ßen
