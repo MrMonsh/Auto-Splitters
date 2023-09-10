@@ -1,4 +1,4 @@
-# Base Memory Addesses Documentation
+# Base Memory Addresses Documentation
 
 ## pSX/psxFin
 + Memory Start: 0390D020
