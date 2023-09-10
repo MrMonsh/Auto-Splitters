@@ -2,10 +2,18 @@
 
 ## Table of Contents
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+- [PS1 Emulators](#pS1-Emulators)
+  - [pSX/psxFin](#pSX/psxFin)
 - [DC Emulators](#dC-Emulators)
+- [N64 Emulators](#n64-Emulators)
 <!-- /TOC -->
 
 ## PS1 Emulators
+
+### pSX/psxFin
++ v1.13
+  + Memory Start: 0390D020
+  + Memory End: 03B0D020
 
 ### mednafen
 + v1.26.1 win64
@@ -15,11 +23,6 @@
 + v1.26.1 win32
   + Memory Start: 0x1C94560
   + Memory End: 0x1E94560
-
-### pSX/psxFin
-+ v1.13
-  + Memory Start: 0390D020
-  + Memory End: 03B0D020
 
 ### ePSXe
 + v1.7.0
