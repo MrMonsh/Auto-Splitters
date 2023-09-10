@@ -23,6 +23,8 @@
   + Memory End: 03B0D020
 
 ### mednafen
++ __Process Name:__ "mednafen"
+
 + v1.26.1 win64
   + Memory Start:  "mednafen.exe" + 0x2553280
   + Memory End:  "mednafen.exe" + 0x2753280
@@ -32,6 +34,8 @@
   + Memory End:  "mednafen.exe" + 0x1E94560
  
 ### BizHawk
++ __Process Name:__ "EmuHawk"
+
 + v2.4.2
   + Memory Start: "octoshock.dll" + 0x30DF90
   + Memory End: "octoshock.dll" + 0x50DF90
@@ -42,6 +46,8 @@
 
 
 ### ePSXe
++ __Process Name:__ "ePSXe"
+
 + v1.7.0
   + Memory Start: "ePSXe.exe" + 0x54C020
   + Memory End: "ePSXe.exe" + 0x74C020
@@ -65,6 +71,8 @@
 ## DC Emulators
 
 ### DEMUL
++ __Process Name:__ "demul"
+
 + v0.5.5, v0.5.6, v0.5.7, v0.7
   + Memory Start: 2C000000
   + Memory End: 2D000000
@@ -72,6 +80,8 @@
 ## N64 Emulators
 
 ### Project64
++ __Process Name:__ "project64"
+
 + v1.6
   + Memory Start: "Project64.exe" + 0xD6A1C
   + Memory End: "Project64.exe" + 0x??????
