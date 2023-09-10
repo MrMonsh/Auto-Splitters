@@ -4,8 +4,12 @@
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [PS1 Emulators](#pS1-Emulators)
   - [pSX/psxFin](#pSX/psxFin)
+  - [mednafen](#mednafen)
+  - [ePSXe](#ePSXe)
 - [DC Emulators](#dC-Emulators)
+  - [DEMUL](#dEMUL) 
 - [N64 Emulators](#n64-Emulators)
+  - [Project64](#project64)
 <!-- /TOC -->
 
 ## PS1 Emulators
