@@ -37,7 +37,7 @@
 
 ## N64 Emulators
 
-### Project64 1.6
+### Project64
 + v1.6
   + Memory Start: "Project64.exe" + 0xD6A1C
   + Memory End: "Project64.exe" + 0x??????
