@@ -129,7 +129,8 @@ This address tells us what level we're currently in (or which level was last pla
 + 381: Training: L2 Targeting
 + 391: Konichi-wa Spider-san
 + 402: Catch that Train!
-+ 410: Enter the Web-Head
++ 408: Enter the Web-Head (Pre 9/11 version)
++ 410: Enter the Web-Head (Final version)
 + 420: Challenge: L2 Targeting
 + 472: Smoke Screen
 + 493: Heart of Darkness
