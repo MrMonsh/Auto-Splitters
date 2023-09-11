@@ -50,7 +50,7 @@ This address tells us exactly when we are playing a _pre-rendered_ cutscene. Thi
 + Value 0 means we're currently outside of pre-rendered cutscenes, value 1 means we're currently watching one.
 
 ## IsDemo
-**Offset:** 0xC28EC
+**Offset:** 0xC21F0
 
 This address tells us if the game is currently playing a demo or not.
 + Value 0 means we're currently not playing a demo, value 1 means we are.
