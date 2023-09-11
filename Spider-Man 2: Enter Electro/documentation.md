@@ -113,12 +113,14 @@ This address tells us what level we're currently in (or which level was last pla
 + 127: Training: Web Swinging
 + 137: Spidey vs. Hammerhead
 + 146: Training: Attack
-+ 222: Wind Tunnel
++ 222: Wind Tunnel / Crash Flight!
 + 228: Warehouse 66
 + 231: Spidey vs. Sandman Again
 + 233: Hangar 18
 + 280: To Catch a Thief
 + 288: Spidey vs. Electro
++ 290: Top of the World
+  + This only exists in the pre 9/11 version of the game
 + 291: The Best Laid Plans
 + 307: Spidey vs. Shocker
 + 324: Rooftops by Night
@@ -134,9 +136,9 @@ This address tells us what level we're currently in (or which level was last pla
 + 507: Training: Instant Action
 + 516: Burglary Interrupted
 + 569: Gangland
-+ 644: The Gauntlet
++ 644: The Gauntlet / Aces High
 + 645: Spidey in the Machine
-+ 651: The Corkscrew
++ 651: The Corkscrew / Downward Spiral
 + 742: Rock of Ages
 + 761: Mission: Spidey
 
