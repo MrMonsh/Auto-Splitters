@@ -116,7 +116,8 @@ This address tells us what level we're currently in (or which level was last pla
 + 222: Wind Tunnel / Crash Flight!
 + 228: Warehouse 66
 + 231: Spidey vs. Sandman Again
-+ 233: Hangar 18
++ 233: Hangar 18 (Final version)
++ 238: Hangar 18 (Pre 9/11 version)
 + 280: To Catch a Thief
 + 288: Spidey vs. Electro
 + 290: Top of the World
