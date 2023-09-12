@@ -120,9 +120,8 @@ This address tells us what level we're currently in (or which level was last pla
 + 238: Hangar 18 (Pre 9/11 version)
 + 280: To Catch a Thief
 + 288: Spidey vs. Electro
-+ 290: Top of the World
-  + This only exists in the pre 9/11 version of the game
-+ 291: The Best Laid Plans
++ 290: Top of the World (Pre 9/11 version)
++ 291: The Best Laid Plans (Final version)
 + 307: Spidey vs. Shocker
 + 324: Rooftops by Night
 + 330: Spidey vs. Lizard
