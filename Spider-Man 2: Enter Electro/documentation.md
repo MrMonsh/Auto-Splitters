@@ -110,6 +110,7 @@ This address tells us what level we're currently in (or which level was last pla
 + 92: Training: Zip Line
 + 96: Challenge: Web Swinging
 + 104: Training: Web Yank
++ 123: Credits
 + 127: Training: Web Swinging
 + 137: Spidey vs. Hammerhead
 + 146: Training: Attack
