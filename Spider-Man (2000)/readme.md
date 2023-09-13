@@ -36,7 +36,7 @@ This timer will function similar to your current timer, but the difference is th
    		+ v0.5.6
  		+ v0.5.7
  		+ v0.7
-+ PS1 Emulators:
++ PS1 Emulators (NTSC-U ONLY):
 	+ pSX/psxFin 
 		+ v1.13
 	+ ePSXe 
