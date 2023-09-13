@@ -1,8 +1,8 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.7 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.8 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
-	int IsDemo: "psxfin.exe", 0x171A5C, 0xC21F0;
+	int IsDemo: "psxfin.exe", 0x171A5C, 0xC28EC;
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xC2618;
 	int DeathMenu: "psxfin.exe", 0x171A5C, 0xC1F90;
 	int IsCutscene : "psxfin.exe", 0x171A5C, 0xC1EE0;
@@ -24,7 +24,7 @@ state("psxfin", "v1.13")
 
 state("ePSXe", "v1.9.0")
 {
-	int IsDemo: "ePSXe.exe", 0x719B90;
+	int IsDemo: "ePSXe.exe", 0x71A28C;
 	int IsLoading: "ePSXe.exe", 0x719FB8;
 	int DeathMenu : "ePSXe.exe", 0x719930;
 	int IsCutscene : "ePSXe.exe", 0x719880;
@@ -174,7 +174,7 @@ update
 			// MemoryWatcher used to get the memory addresses of interest
 			vars.watchers = new MemoryWatcherList
 			{
-				new MemoryWatcher<int>(memoryOffset + 0xC21F0) { Name = "IsDemo" },
+				new MemoryWatcher<int>(memoryOffset + 0xC28EC) { Name = "IsDemo" },
 				new MemoryWatcher<int>(memoryOffset + 0xC2618) { Name = "IsLoading" },
 				new MemoryWatcher<int>(memoryOffset + 0xC1F90) { Name = "DeathMenu" },
 				new MemoryWatcher<int>(memoryOffset + 0xC1EE0) { Name = "IsCutscene" },
