@@ -38,6 +38,9 @@ This timer will function similar to your current timer, but the difference is th
 	+ DuckStation
 		+ NoGUI version
 		+ QT Front-End version
+ 
+### ⚠️ Important Notice ⚠️
+This auto-splitter will only work for the NTSC-U retail version of the game. Neither PAL or the pre-9/11 versions of the game will work correctly with this tool for the time being.
 
 ## Installation Guide
 
