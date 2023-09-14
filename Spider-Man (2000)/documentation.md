@@ -1,8 +1,8 @@
-# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.7 - by MrMonsh
+# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.8 - by MrMonsh
 
 ## Variables
 
-We track the following 16 variables: 
+We track the following 18 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 - [DeathMenu](#deathMenu)
 - [IsComicCover](#isComicCover)
@@ -11,9 +11,11 @@ We track the following 16 variables:
 - [IsLoading](#isLoading)
 - [IsMainMenu](#isMainMenu)
 - [IsPlaying](#isPlaying)
+- [IsStartScreen](#isStartScreen)
 - [LevelEnd (OBSOLETE)](#levelEnd)
 - [LevelID](#levelID)
 - [MainMenuItem](#mainMenuItem)
+- [MenuStartPress](#menuStartPress)
 - [MenuTrianglePress](#menuTrianglePress)
 - [MenuXPress](#menuXPress)
 - [OutsideSubMenus](#outsideSubMenus)
