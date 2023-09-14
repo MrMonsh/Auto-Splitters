@@ -94,6 +94,7 @@ This address tells us if we've reached the end of a level, either by reaching th
 This address tells us what level we're currently in (or which level was last played if we're at the menu).
 
 ### LevelID Values
++ 29: Credits
 + 61: Spidey vs Carnage!
 + 73: Spidey vs Venom!
 + 97: Item Hunt
