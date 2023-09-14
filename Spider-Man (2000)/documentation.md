@@ -166,8 +166,8 @@ This address tells us if the start button is currently pressed.
 ### MenuStartPress Values
 + 0: Button Not Pressed
 + 1: Button Pressed
-+ 256: Button Not Pressed
-+ 257: Button Pressed
++ 256: Button Not Pressed (at screens where the button isn't used)
++ 257: Button Pressed (at screens where the button isn't used)
 
 ## MenuTrianglePress
 **PS1 Offset:** 0xA4DF4
@@ -177,8 +177,8 @@ This address tells us if the triangle button is currently pressed.
 ### MenuTrianglePress Values
 + 0: Button Not Pressed
 + 1: Button Pressed
-+ 256: Button Not Pressed
-+ 257: Button Pressed
++ 256: Button Not Pressed (at screens where the button isn't used)
++ 257: Button Pressed (at screens where the button isn't used)
 
 ## MenuXPress
 **PS1 Offset:** 0xA4E24
@@ -188,8 +188,8 @@ This address tells us if the X button is currently pressed.
 ### MenuXPress Values
 + 0: Button Not Pressed
 + 1: Button Pressed
-+ 256: Button Not Pressed
-+ 257: Button Pressed
++ 256: Button Not Pressed (at screens where the button isn't used)
++ 257: Button Pressed (at screens where the button isn't used)
 
 
 ## OutsideSubMenus
