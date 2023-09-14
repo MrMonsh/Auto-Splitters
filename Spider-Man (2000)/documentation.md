@@ -81,7 +81,7 @@ This address tells us if we're currently in the middle of playing _something_, w
 + Value 0 means we're currently not playing anything, value 1 means we're playing.
 
 ## IsStartScreen
-**Offset:** 0xB4EE8
+**PS1 Offset:** 0xB4EE8
 
 This address tells us whether we're currently at the Start Screen or not.
 
@@ -159,7 +159,7 @@ This address tells us which is the current MAIN menu item we're stepping on.
 + 7: Gallery
 
 ## MenuStartPress
-**Offset:** 0xA4ED4
+**PS1 Offset:** 0xA4ED4
 
 This address tells us if the start button is currently pressed.
 
