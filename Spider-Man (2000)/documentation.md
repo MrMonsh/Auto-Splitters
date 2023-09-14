@@ -78,6 +78,15 @@ This address tells us whether we're currently at the Main Menu or not.
 This address tells us if we're currently in the middle of playing _something_, whether it is a regular level, a training room or a demo.
 + Value 0 means we're currently not playing anything, value 1 means we're playing.
 
+## IsStartScreen
+**Offset:** 0xB4EE8
+
+This address tells us whether we're currently at the Start Screen or not.
+
+### IsStartScreen Values
++ 0: Past the Start Screen
++ 1: Currently at the Start Screen / Watching a Demo triggered while at the Start Screen
+
 ## LevelEnd
 **PS1 Offset:** 0x1FFF9F
 
@@ -147,17 +156,39 @@ This address tells us which is the current MAIN menu item we're stepping on.
 + 6: Special
 + 7: Gallery
 
+## MenuStartPress
+**Offset:** 0xA4ED4
+
+This address tells us if the start button is currently pressed.
+
+### MenuStartPress Values
++ 0: Button Not Pressed
++ 1: Button Pressed
++ 256: Button Not Pressed
++ 257: Button Pressed
+
 ## MenuTrianglePress
 **PS1 Offset:** 0xA4DF4
 
 This address tells us if the triangle button is currently pressed.
-+ Value 0 means that the triangle button is not currently pressed, value 1 means the triangle button is currently pressed.
+
+### MenuTrianglePress Values
++ 0: Button Not Pressed
++ 1: Button Pressed
++ 256: Button Not Pressed
++ 257: Button Pressed
 
 ## MenuXPress
 **PS1 Offset:** 0xA4E24
 
 This address tells us if the X button is currently pressed.
-+ Value 0 means that the X button is not currently pressed, value 1 means the X button is currently pressed.
+
+### MenuXPress Values
++ 0: Button Not Pressed
++ 1: Button Pressed
++ 256: Button Not Pressed
++ 257: Button Pressed
+
 
 ## OutsideSubMenus
 **PS1 Offset:** 0xB5540
