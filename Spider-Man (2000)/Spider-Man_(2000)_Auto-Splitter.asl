@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.9 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.10 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -426,7 +426,7 @@ split
 		vars.splitForNewCostume = false;
 		return settings["splitOnNewCostume"];
 	}
-	else if (!vars.dontSplitUntilPlaying && (!vars.hasDemos || current.IsDemo == 0) && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
+	else if (!vars.dontSplitUntilPlaying && current.LevelID != 29 && (!vars.hasDemos || current.IsDemo == 0) && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
 	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.DeathMenu == 0 && current.DeathMenu == 3)))
 	{
 		print("Should split due to a level being completed!");
