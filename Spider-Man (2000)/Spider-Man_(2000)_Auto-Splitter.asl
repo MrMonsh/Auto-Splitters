@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.12 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.13 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -129,11 +129,6 @@ init
 	var firstModuleMemorySize = modules.First().ModuleMemorySize;
 	var processName = memory.ProcessName.ToLower();
 	vars.shouldUseWatchers = false;
-	vars.hasDemos = true;
-	vars.hasLoads = true;
-	vars.hasMenus = true;
-	vars.hasComicCovers = true;
-	vars.hasSaveMenu = false;
 	vars.foundMemoryOffset = false;
 	vars.firstUpdate = true;
 
@@ -141,21 +136,11 @@ init
 	{
 		version = "N/A";
 		vars.platform = "WinPC";
-		vars.hasDemos = false;
-		vars.hasLoads = false;
-		vars.hasMenus = false;
-		vars.hasComicCovers = false;
-		vars.hasSaveMenu = false;
 	}
 	else if (processName.Contains("demul")) // DEMUL
 	{
 		version = "N/A";
 		vars.platform = "DC";
-		vars.hasDemos = true;
-		vars.hasLoads = true;
-		vars.hasMenus = false;
-		vars.hasComicCovers = true;
-		vars.hasSaveMenu = true;
 	}
 	else if (processName.Contains("psxfin")) // pSX/psxfin
 	{
@@ -184,6 +169,40 @@ init
 		vars.shouldUseWatchers = true;
 		vars.watchers = new MemoryWatcherList{};
 		vars.memorySize = (UIntPtr)0x200000;
+	}
+
+	switch (vars.platform)
+	{
+		case "PS1":
+			vars.hasDemos = true;
+			vars.hasLoads = true;
+			vars.hasMenus = true;
+			vars.hasComicCovers = true;
+			vars.hasSaveMenu = false;
+		case "WinPC":
+			vars.hasDemos = false;
+			vars.hasLoads = false;
+			vars.hasMenus = false;
+			vars.hasComicCovers = false;
+			vars.hasSaveMenu = false;
+		case "DC":
+			vars.hasDemos = true;
+			vars.hasLoads = true;
+			vars.hasMenus = false;
+			vars.hasComicCovers = true;
+			vars.hasSaveMenu = true;
+		case "N64":
+			vars.hasDemos = false;
+			vars.hasLoads = false;
+			vars.hasMenus = false;
+			vars.hasComicCovers = false;
+			vars.hasSaveMenu = false;
+		case "MacPC":
+			vars.hasDemos = false;
+			vars.hasLoads = false;
+			vars.hasMenus = false;
+			vars.hasComicCovers = false;
+			vars.hasSaveMenu = false;
 	}
 
 	vars.isLoading = false;
