@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.10 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.11 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -140,6 +140,7 @@ init
 	if (processName.Contains("spideypc")) // Windows PC version
 	{
 		version = "N/A";
+		vars.platform = "WinPC";
 		vars.hasDemos = false;
 		vars.hasLoads = false;
 		vars.hasMenus = false;
@@ -149,6 +150,7 @@ init
 	else if (processName.Contains("demul")) // DEMUL
 	{
 		version = "N/A";
+		vars.platform = "DC";
 		vars.hasDemos = true;
 		vars.hasLoads = true;
 		vars.hasMenus = false;
@@ -157,17 +159,20 @@ init
 	}
 	else if (processName.Contains("psxfin")) // pSX/psxfin
 	{
+		vars.platform = "PS1";
 		if (firstModuleMemorySize == 3313664)
 			version = "v1.13";
 	}
 	else if (processName.Contains("epsxe")) // ePSXe 
 	{
+		vars.platform = "PS1";
 		if (firstModuleMemorySize == 10301440)
 			version = "v1.9.0";
 	}
 	else if (processName.Contains("retroarch")) 
 	{
 		version = "N/A";
+		vars.platform = "PS1";
 		vars.shouldUseWatchers = true;
 		vars.watchers = new MemoryWatcherList{};
 		vars.memorySize = (UIntPtr)0x200000;
@@ -175,6 +180,7 @@ init
 	else if ((processName.Length > 10) && (processName.Substring(0, 11) == "duckstation"))
 	{
 		version = "N/A";
+		vars.platform = "PS1";
 		vars.shouldUseWatchers = true;
 		vars.watchers = new MemoryWatcherList{};
 		vars.memorySize = (UIntPtr)0x200000;
@@ -383,7 +389,7 @@ update
 		{
 			if (vars.isLoading)
 			{
-				var isComicCover = vars.hasComicCovers && ((vars.platform == DC && current.IsComicCover == 172) || current.IsComicCover == 116);
+				var isComicCover = vars.hasComicCovers && ((vars.platform == "DC" && current.IsComicCover == 172) || current.IsComicCover == 116);
 				if (current.IsLoading == 0 && (current.IsPlaying == 1 || current.IsCutscene == 1 || current.IsMainMenu == 1 || isComicCover || (vars.hasSaveMenu && current.IsSaveMenu == 224))
 					vars.isLoading = false;
 			}
