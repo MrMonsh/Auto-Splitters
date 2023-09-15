@@ -1,4 +1,4 @@
-# Spider-Man 2: Enter Electro Auto-Splitter & Load Remover v0.5.8 - by MrMonsh
+# Spider-Man 2: Enter Electro Auto-Splitter & Load Remover v0.5.9 - by MrMonsh
 
 ## Variables
 
