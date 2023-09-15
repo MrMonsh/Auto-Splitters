@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.8 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.9 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -22,7 +22,9 @@ state("demul", "N/A")
   	int IsMainMenu : "demul.exe", 0x1A87E8, 0x20F6B8;
 	int UnlockedCostumes : "demul.exe", 0x1A87E8, 0x20F90C;
 	int LevelID : "demul.exe", 0x1A87E8, 0x202258;
-	byte PauseMenu: "demul.exe", 0x1A87E8, 0x200114;
+	byte PauseMenu : "demul.exe", 0x1A87E8, 0x200114;
+	byte IsSaveMenu : "demul.exe", 0x1A87E8, 0xFC9944;
+	byte IsComicCover : "demul.exe", 0x1A87E8, 0x27F910;
 }
 
 state("psxfin", "v1.13")
@@ -131,6 +133,7 @@ init
 	vars.hasLoads = true;
 	vars.hasMenus = true;
 	vars.hasComicCovers = true;
+	vars.hasSaveMenu = false;
 	vars.foundMemoryOffset = false;
 	vars.firstUpdate = true;
 
@@ -141,6 +144,7 @@ init
 		vars.hasLoads = false;
 		vars.hasMenus = false;
 		vars.hasComicCovers = false;
+		vars.hasSaveMenu = false;
 	}
 	else if (processName.Contains("demul")) // DEMUL
 	{
@@ -148,7 +152,8 @@ init
 		vars.hasDemos = true;
 		vars.hasLoads = true;
 		vars.hasMenus = false;
-		vars.hasComicCovers = false;
+		vars.hasComicCovers = true;
+		vars.hasSaveMenu = true;
 	}
 	else if (processName.Contains("psxfin")) // pSX/psxfin
 	{
@@ -378,7 +383,8 @@ update
 		{
 			if (vars.isLoading)
 			{
-				if (current.IsLoading == 0 && (current.IsPlaying == 1 || (vars.hasComicCovers && current.IsComicCover == 116) || current.IsCutscene == 1 || current.IsMainMenu == 1))
+				var isComicCover = vars.hasComicCovers && ((vars.platform == DC && current.IsComicCover == 172) || current.IsComicCover == 116);
+				if (current.IsLoading == 0 && (current.IsPlaying == 1 || current.IsCutscene == 1 || current.IsMainMenu == 1 || isComicCover || (vars.hasSaveMenu && current.IsSaveMenu == 224))
 					vars.isLoading = false;
 			}
 			else 
