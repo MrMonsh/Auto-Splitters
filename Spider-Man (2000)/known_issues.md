@@ -1,5 +1,4 @@
-# Known Issues v0.9.11
-* (Bug!) Auto-start won't function after completing a run.
+# Known Issues v0.9.12
 * MAC and N64 Emu versions of the game are not supported... ***yet***.
 * PAL versions of the game are not supported (and have no current plans to include them).
   * That being said, I might add an automatic pop-up stating as much whenever the auto-splitter detects you're using a PAL version of the game.
