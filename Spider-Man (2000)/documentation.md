@@ -1,4 +1,4 @@
-# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.12 - by MrMonsh
+# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.13 - by MrMonsh
 
 ## Variables
 
