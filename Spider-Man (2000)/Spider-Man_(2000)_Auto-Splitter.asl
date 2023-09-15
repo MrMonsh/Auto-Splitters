@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.11 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.12 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -361,11 +361,11 @@ update
 						vars.waitUntilReturnToMainMenu = true;
 				}
 			}
-
-			vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && current.DeathMenu != 3);
-			if (vars.dontStartUntilMainMenu)
-				vars.currentSubMenuLevel = 0;
 		}
+
+		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && (current.DeathMenu != 3 || current.LevelID == 695));
+		if (vars.dontStartUntilMainMenu)
+			vars.currentSubMenuLevel = 0;
 		
 		if (vars.dontSplitUntilPlaying) 
 		{ 
