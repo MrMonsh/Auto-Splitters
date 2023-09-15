@@ -390,7 +390,7 @@ update
 			if (vars.isLoading)
 			{
 				var isComicCover = vars.hasComicCovers && ((vars.platform == "DC" && current.IsComicCover == 172) || current.IsComicCover == 116);
-				if (current.IsLoading == 0 && (current.IsPlaying == 1 || current.IsCutscene == 1 || current.IsMainMenu == 1 || isComicCover || (vars.hasSaveMenu && current.IsSaveMenu == 224))
+				if (current.IsLoading == 0 && (current.IsPlaying == 1 || current.IsCutscene == 1 || current.IsMainMenu == 1 || isComicCover || (vars.hasSaveMenu && current.IsSaveMenu == 224)))
 					vars.isLoading = false;
 			}
 			else 
