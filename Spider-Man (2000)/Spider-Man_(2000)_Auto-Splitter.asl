@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.13 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.14 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -171,7 +171,8 @@ init
 		vars.memorySize = (UIntPtr)0x200000;
 	}
 
-	switch (vars.platform)
+	string platform = vars.platform;
+	switch (platform)
 	{
 		case "PS1":
 			vars.hasDemos = true;
@@ -179,30 +180,35 @@ init
 			vars.hasMenus = true;
 			vars.hasComicCovers = true;
 			vars.hasSaveMenu = false;
+			break;
 		case "WinPC":
 			vars.hasDemos = false;
 			vars.hasLoads = false;
 			vars.hasMenus = false;
 			vars.hasComicCovers = false;
 			vars.hasSaveMenu = false;
+			break;
 		case "DC":
 			vars.hasDemos = true;
 			vars.hasLoads = true;
 			vars.hasMenus = false;
 			vars.hasComicCovers = true;
 			vars.hasSaveMenu = true;
+			break;
 		case "N64":
 			vars.hasDemos = false;
 			vars.hasLoads = false;
 			vars.hasMenus = false;
 			vars.hasComicCovers = false;
 			vars.hasSaveMenu = false;
+			break;
 		case "MacPC":
 			vars.hasDemos = false;
 			vars.hasLoads = false;
 			vars.hasMenus = false;
 			vars.hasComicCovers = false;
 			vars.hasSaveMenu = false;
+			break;
 	}
 
 	vars.isLoading = false;
