@@ -1,40 +1,52 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.9.14 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.10.0 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
-	int IsPlaying: "SpideyPC.exe", 0x2A9034;
 	int DeathMenu: "SpideyPC.exe", 0x20CFA4;
 	int IsCutscene : "SpideyPC.exe", 0x2151F8;
-  	int IsMainMenu : "SpideyPC.exe", 0x6C7B58;
 	int OutsideSubMenus : "SpideyPC.exe", 0x6C123C;
 	int UnlockedCostumes : "SpideyPC.exe", 0x2828D8;
 	int LevelID : "SpideyPC.exe", 0x2B4670;
+	byte IsPlaying: "SpideyPC.exe", 0x2A9034;
 	byte PauseMenu: "SpideyPC.exe", 0x1FAECC;
+	byte IsMainMenu : "SpideyPC.exe", 0x6C7B58;
+}
+
+state("project64", "v1.6") 
+{
+	int DeathMenu : "Project64.exe", 0xD6A1C, 0xF5EE8;
+	int IsCutscene : "Project64.exe", 0xD6A1C, 0xFF040;
+	int LevelID : "Project64.exe", 0xD6A1C, 0xF95B8;
+	int MainMenuItem : "Project64.exe", 0xD6A1C, 0x1099E0;
+	int UnlockedCostumes : "Project64.exe", 0xD6A1C, 0xECD7C;
+	byte IsPlaying : "Project64.exe", 0xD6A1C, 0xF5594;
+	byte PauseMenu : "Project64.exe", 0xD6A1C, 0xF5A04;
+  	byte IsMainMenu : "Project64.exe", 0xD6A1C, 0x18A925;
 }
 
 state("demul", "N/A") 
 {
-	int IsDemo: "demul.exe", 0x1A87E8, 0x20F648;
 	int IsLoading: "demul.exe", 0x1A87E8, 0x27F604;
-	int IsPlaying: "demul.exe", 0x1A87E8, 0x2000D4;
 	int DeathMenu: "demul.exe", 0x1A87E8, 0x1CB7F8;
 	int IsCutscene : "demul.exe", 0x1A87E8, 0x350944;
-  	int IsMainMenu : "demul.exe", 0x1A87E8, 0x20F6B8;
 	int UnlockedCostumes : "demul.exe", 0x1A87E8, 0x20F90C;
 	int LevelID : "demul.exe", 0x1A87E8, 0x202258;
+	byte IsPlaying: "demul.exe", 0x1A87E8, 0x2000D4;
 	byte PauseMenu : "demul.exe", 0x1A87E8, 0x200114;
+	byte IsMainMenu : "demul.exe", 0x1A87E8, 0x20F6B8;
 	byte IsSaveMenu : "demul.exe", 0x1A87E8, 0xFC9944;
 	byte IsComicCover : "demul.exe", 0x1A87E8, 0x27F910;
 }
 
+state("nullDC", "N/A") 
+{
+}
+
 state("psxfin", "v1.13")
 {
-	int IsDemo: "psxfin.exe", 0x171A5C, 0xB5778;
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xB556C;
-	int IsPlaying: "psxfin.exe", 0x171A5C, 0xB5264;
 	int DeathMenu: "psxfin.exe", 0x171A5C, 0xB4F34;
 	int IsCutscene : "psxfin.exe", 0x171A5C, 0xB4E84;
-  	int IsMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
 	int IsStartScreen : "psxfin.exe", 0x171A5C, 0xB4EE8;
 	int OutsideSubMenus : "psxfin.exe", 0x171A5C, 0xB5540;
 	int MenuXPress : "psxfin.exe", 0x171A5C, 0xA4E24;
@@ -44,18 +56,17 @@ state("psxfin", "v1.13")
 	int MenuTrianglePress : "psxfin.exe", 0x171A5C, 0xA4DF4;
 	int UnlockedCostumes : "psxfin.exe", 0x171A5C, 0xA5708;
 	int LevelID : "psxfin.exe", 0x171A5C, 0xB53C4;
+	byte IsPlaying: "psxfin.exe", 0x171A5C, 0xB5264;
 	byte PauseMenu: "psxfin.exe", 0x171A5C, 0xB49D4;
+	byte IsMainMenu : "psxfin.exe", 0x171A5C, 0xB579C;
 	byte IsComicCover : "psxfin.exe", 0x171A5C, 0x1FFB3C;
 }
 
 state("ePSXe", "v1.9.0")
 {
-	int IsDemo: "ePSXe.exe", 0x70D118;
 	int IsLoading: "ePSXe.exe", 0x70CF0C;
-	int IsPlaying : "ePSXe.exe", 0x70CC04;
 	int DeathMenu : "ePSXe.exe", 0x70C8D4;
 	int IsCutscene : "ePSXe.exe", 0x70C824;
-  	int IsMainMenu : "ePSXe.exe", 0x70D13C;
 	int IsStartScreen : "ePSXe.exe", 0x70C888;
 	int OutsideSubMenus : "ePSXe.exe", 0x70CEE0;
 	int MenuXPress : "ePSXe.exe", 0x6FC7C4;
@@ -65,7 +76,9 @@ state("ePSXe", "v1.9.0")
 	int MenuTrianglePress : "ePSXe.exe", 0x6FC794;
 	int UnlockedCostumes : "ePSXe.exe", 0x6FD0A8;
 	int LevelID : "ePSXe.exe", 0x70CD64;
+	byte IsPlaying : "ePSXe.exe", 0x70CC04;
 	byte PauseMenu : "ePSXe.exe", 0x70C374;
+	byte IsMainMenu : "ePSXe.exe", 0x70D13C;
 	byte IsComicCover : "ePSXe.exe", 0x8574DC;
 }
 
@@ -129,6 +142,7 @@ init
 	var firstModuleMemorySize = modules.First().ModuleMemorySize;
 	var processName = memory.ProcessName.ToLower();
 	vars.shouldUseWatchers = false;
+	vars.shouldUseBaseAddress = false;
 	vars.foundMemoryOffset = false;
 	vars.firstUpdate = true;
 
@@ -141,6 +155,22 @@ init
 	{
 		version = "N/A";
 		vars.platform = "DC";
+		
+		//vars.shouldUseWatchers = true;
+		//vars.shouldUseBaseAddress = true;
+		//vars.watchers = new MemoryWatcherList{};
+		//vars.baseAddress = (IntPtr)0x2C000000;
+	}
+	else if ((processName.Length > 10) && (processName.Substring(0, 6) == "nullDC")) // NullDC
+	{
+		version = "";
+		vars.platform = "DC";
+	}
+	else if (processName.Contains("project64")) // Project64
+	{
+		vars.platform = "N64";
+		if (firstModuleMemorySize == 1392640)
+			version = "v1.6";
 	}
 	else if (processName.Contains("psxfin")) // pSX/psxfin
 	{
@@ -170,40 +200,34 @@ init
 		vars.watchers = new MemoryWatcherList{};
 		vars.memorySize = (UIntPtr)0x200000;
 	}
-
-	string platform = vars.platform;
-	switch (platform)
+	
+	switch ((string)vars.platform)
 	{
 		case "PS1":
-			vars.hasDemos = true;
 			vars.hasLoads = true;
 			vars.hasMenus = true;
 			vars.hasComicCovers = true;
 			vars.hasSaveMenu = false;
 			break;
 		case "WinPC":
-			vars.hasDemos = false;
 			vars.hasLoads = false;
 			vars.hasMenus = false;
 			vars.hasComicCovers = false;
 			vars.hasSaveMenu = false;
 			break;
 		case "DC":
-			vars.hasDemos = true;
 			vars.hasLoads = true;
 			vars.hasMenus = false;
 			vars.hasComicCovers = true;
 			vars.hasSaveMenu = true;
 			break;
 		case "N64":
-			vars.hasDemos = false;
 			vars.hasLoads = false;
 			vars.hasMenus = false;
 			vars.hasComicCovers = false;
 			vars.hasSaveMenu = false;
 			break;
 		case "MacPC":
-			vars.hasDemos = false;
 			vars.hasLoads = false;
 			vars.hasMenus = false;
 			vars.hasComicCovers = false;
@@ -240,37 +264,58 @@ update
 	{
 		IntPtr memoryOffset = IntPtr.Zero;
 		
-		foreach (var page in game.MemoryPages(true)) 
+		if (vars.shouldUseBaseAddress)
 		{
-			if ((page.RegionSize != vars.memorySize) || (page.Type != MemPageType.MEM_MAPPED))
-				continue;
-			memoryOffset = page.BaseAddress;
+			memoryOffset = vars.baseAddress;
 			vars.foundMemoryOffset = true;
 			justFoundMemoryOffset = true;
-			print("Found MemoryOffset!");
+			print("Set BaseAddress for memory offsets!");
 			
-			// MemoryWatcher used to get the memory addresses of interest
 			vars.watchers = new MemoryWatcherList
 			{
-				new MemoryWatcher<int>(memoryOffset + 0xB5778) { Name = "IsDemo" },
-				new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
-				new MemoryWatcher<int>(memoryOffset + 0xB5264) { Name = "IsPlaying" },
-				new MemoryWatcher<int>(memoryOffset + 0xB4F34) { Name = "DeathMenu" },
-				new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "IsCutscene" },
-				new MemoryWatcher<int>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
-				new MemoryWatcher<int>(memoryOffset + 0xB4EE8) { Name = "IsStartScreen" },
-				new MemoryWatcher<int>(memoryOffset + 0xB5540) { Name = "OutsideSubMenus" },
-				new MemoryWatcher<int>(memoryOffset + 0xA4E24) { Name = "MenuXPress" },
-				new MemoryWatcher<int>(memoryOffset + 0xE254) { Name = "MainMenuItem" },
-				new MemoryWatcher<int>(memoryOffset + 0xE214) { Name = "SubMenuItem" },
-				new MemoryWatcher<int>(memoryOffset + 0xA4ED4) { Name = "MenuStartPress" },
-				new MemoryWatcher<int>(memoryOffset + 0xA4DF4) { Name = "MenuTrianglePress" },
-				new MemoryWatcher<int>(memoryOffset + 0xA5708) { Name = "UnlockedCostumes" },
-				new MemoryWatcher<int>(memoryOffset + 0xB53C4) { Name = "LevelID" },
-				new MemoryWatcher<byte>(memoryOffset + 0xB49D4) { Name = "PauseMenu" },
-				new MemoryWatcher<byte>(memoryOffset + 0x1FFB3C) { Name = "IsComicCover" }
+				new MemoryWatcher<int>(memoryOffset + 0x27F604) { Name = "IsLoading" },
+				new MemoryWatcher<int>(memoryOffset + 0x1CB7F8) { Name = "DeathMenu" },
+				new MemoryWatcher<int>(memoryOffset + 0x350944) { Name = "IsCutscene" },
+				new MemoryWatcher<int>(memoryOffset + 0x20F90C) { Name = "UnlockedCostumes" },
+				new MemoryWatcher<int>(memoryOffset + 0x202258) { Name = "LevelID" },
+				new MemoryWatcher<byte>(memoryOffset + 0x2000D4) { Name = "IsPlaying" },
+				new MemoryWatcher<byte>(memoryOffset + 0x200114) { Name = "PauseMenu" },
+				new MemoryWatcher<byte>(memoryOffset + 0x20F6B8) { Name = "IsMainMenu" }
 			};
-			break;
+		}
+		else 
+		{
+			foreach (var page in game.MemoryPages(true)) 
+			{
+				if ((page.RegionSize != vars.memorySize) || (page.Type != MemPageType.MEM_MAPPED))
+					continue;
+				memoryOffset = page.BaseAddress;
+				vars.foundMemoryOffset = true;
+				justFoundMemoryOffset = true;
+				print("Found MemoryOffset!");
+				
+				// MemoryWatcher used to get the memory addresses of interest
+				vars.watchers = new MemoryWatcherList
+				{
+					new MemoryWatcher<int>(memoryOffset + 0xB556C) { Name = "IsLoading" },
+					new MemoryWatcher<int>(memoryOffset + 0xB4F34) { Name = "DeathMenu" },
+					new MemoryWatcher<int>(memoryOffset + 0xB4E84) { Name = "IsCutscene" },
+					new MemoryWatcher<int>(memoryOffset + 0xB4EE8) { Name = "IsStartScreen" },
+					new MemoryWatcher<int>(memoryOffset + 0xB5540) { Name = "OutsideSubMenus" },
+					new MemoryWatcher<int>(memoryOffset + 0xA4E24) { Name = "MenuXPress" },
+					new MemoryWatcher<int>(memoryOffset + 0xE254) { Name = "MainMenuItem" },
+					new MemoryWatcher<int>(memoryOffset + 0xE214) { Name = "SubMenuItem" },
+					new MemoryWatcher<int>(memoryOffset + 0xA4ED4) { Name = "MenuStartPress" },
+					new MemoryWatcher<int>(memoryOffset + 0xA4DF4) { Name = "MenuTrianglePress" },
+					new MemoryWatcher<int>(memoryOffset + 0xA5708) { Name = "UnlockedCostumes" },
+					new MemoryWatcher<int>(memoryOffset + 0xB53C4) { Name = "LevelID" },
+					new MemoryWatcher<byte>(memoryOffset + 0xB5264) { Name = "IsPlaying" },
+					new MemoryWatcher<byte>(memoryOffset + 0xB49D4) { Name = "PauseMenu" },
+					new MemoryWatcher<byte>(memoryOffset + 0xB579C) { Name = "IsMainMenu" },
+					new MemoryWatcher<byte>(memoryOffset + 0x1FFB3C) { Name = "IsComicCover" }
+				};
+				break;
+			}
 		}
 	}
 	else 
@@ -286,8 +331,6 @@ update
 			current.LevelID = vars.watchers["LevelID"].Current;
 			current.PauseMenu = vars.watchers["PauseMenu"].Current;
 			
-			if (vars.hasDemos)
-				current.IsDemo = vars.watchers["IsDemo"].Current;	
 			if (vars.hasLoads)
 			{
 				current.IsLoading = vars.watchers["IsLoading"].Current;
@@ -316,8 +359,6 @@ update
 				old.LevelID = vars.watchers["LevelID"].Current;
 				old.PauseMenu = vars.watchers["PauseMenu"].Current;
 				
-				if (vars.hasDemos)
-					old.IsDemo = vars.watchers["IsDemo"].Current;
 				if (vars.hasLoads)
 				{
 					old.IsLoading = vars.watchers["IsLoading"].Current;
@@ -387,7 +428,7 @@ update
 				}
 			}
 		}
-
+		
 		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && (current.DeathMenu != 3 || current.LevelID == 695));
 		if (vars.dontStartUntilMainMenu)
 			vars.currentSubMenuLevel = 0;
@@ -457,8 +498,8 @@ split
 		vars.splitForNewCostume = false;
 		return settings["splitOnNewCostume"];
 	}
-	else if (!vars.dontSplitUntilPlaying && current.LevelID != 29 && (!vars.hasDemos || current.IsDemo == 0) && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
-	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.DeathMenu == 0 && current.DeathMenu == 3)))
+	else if (!vars.dontSplitUntilPlaying && current.LevelID != 29 && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
+	((vars.platform != "N64" && old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.DeathMenu == 0 && current.DeathMenu == 3)))
 	{
 		print("Should split due to a level being completed!");
 		vars.dontSplitUntilPlaying = true;
@@ -470,7 +511,7 @@ split
 reset 
 {
 	var isDead = current.DeathMenu == 2 || current.DeathMenu == 9;
-	return  settings["resetOnQuit"] && ((old.PauseMenu == 3 && current.PauseMenu == 0) || (isDead && old.IsMainMenu == 0 && current.IsMainMenu == 1));
+	return settings["resetOnQuit"] && ((old.PauseMenu == 3 && current.PauseMenu == 0) || (isDead && old.IsMainMenu == 0 && current.IsMainMenu == 1) || (vars.platform == "N64" && old.PauseMenu == 1 && current.IsPlaying == 0));
 }
 
 isLoading 
