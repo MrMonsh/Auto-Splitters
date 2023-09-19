@@ -59,7 +59,6 @@ This timer will function similar to your current timer, but the difference is th
 
 ## Installation Guide
 
-1. Download the Spider-Man_(2000)_Auto-Splitter.asl file from [this repository](https://github.com/MrMonsh/Auto-Splitters/blob/main/Spider-Man%20(2000)/Spider-Man_(2000)_Auto-Splitter.asl).
 1. Open your LiveSplit.
 2. Right-click on the LiveSplit window, then select "Edit Splits".
 3. Under "Game Name", write the name of the game exactly like this: "Spider-Man (2000)" (or "Spider-Man (2000) Category Extensions").
