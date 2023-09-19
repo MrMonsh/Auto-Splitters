@@ -1,4 +1,4 @@
-# Spider-Man (2000) Auto-Splitter & Load Remover v0.9.14 - by MrMonsh
+# Spider-Man (2000) Auto-Splitter & Load Remover v0.10.0 - by MrMonsh
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -32,10 +32,10 @@ This timer will function similar to your current timer, but the difference is th
   	+ with dgVoodoo
 + DC Emulators:
 	+ DEMUL
-		+ v0.5.5
-   		+ v0.5.6
- 		+ v0.5.7
  		+ v0.7
++ N64 Emulators:
+	+ Project64
+ 		+ v1.6
 + PS1 Emulators (NTSC-U ONLY):
 	+ pSX/psxFin 
 		+ v1.13
@@ -54,7 +54,8 @@ This timer will function similar to your current timer, but the difference is th
 
 1. Windows PC will not be getting the auto-start feature, only auto-splits and auto-resets. Load removal is pointless since it's got no loads.
 2. DC Emulators will not be getting the auto-start feature, only auto-splits, auto-resets and load removal. That being said, load removal for DC is still buggy, so use at your own risk.
-3. Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
+3. N64 Emulators currently don't have neither the auto-start feature nor load removal, only auto-splits and auto-resets. The missing features might be implemented at a later date.
+4. Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
 
 ## Installation Guide
 
