@@ -65,7 +65,6 @@ This timer will function similar to your current timer, but the difference is th
 4. On the line mentioning the auto-splitter, click on "Activate" first, then click on the now-enabled "Settings" button.
 5. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets). 
 6. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
-	+ On the topic of changing the "Timer Start" advanced settings, I'd personally leave it as-is, given that its set to start on Game Start select at Main Menu (which is how the current ruleset works). I added this just for future-proofing.
 7. Click "OK" on the settings window, then click "OK" on the Splits window.
 8. You're done! Now you can boot up the emulator and run to your heart's content.
 
