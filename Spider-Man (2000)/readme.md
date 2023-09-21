@@ -69,7 +69,7 @@ This timer will function similar to your current timer, but the difference is th
 8. Click "OK" on the settings window, then click "OK" on the Splits window.
 9. You're done! Now you can boot up the emulator and run to your heart's content.
 
-Now, Spider-Man (2000) currently only takes Time with Loads into account for your final time on the leaderboard, so having a Loadless Timer (which would pause during loads between levels) is as of yet *not necessary at all*.
+Now, Spider-Man (2000) currently only takes Time with Loads into account for your final time on the leaderboard if you're running on emulator/PC, so having a Loadless Timer (which would pause during loads between levels) is as of yet *not necessary at all*.
 
 However, in the event you'd still like to show a Loadless Timer/Time without Loads side to side with your default timer for comparison, you can follow these extra steps to achieve that with this tool:
 1. Right-click again on the LiveSplit window, then select "Edit Layout".
