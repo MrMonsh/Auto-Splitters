@@ -65,8 +65,9 @@ This timer will function similar to your current timer, but the difference is th
 4. On the line mentioning the auto-splitter, click on "Activate" first, then click on the now-enabled "Settings" button.
 5. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets). 
 6. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
-7. Click "OK" on the settings window, then click "OK" on the Splits window.
-8. You're done! Now you can boot up the emulator and run to your heart's content.
+	+ For anything other than 100%, I'd personally leave the settings as they are by default, otherwise just read what each setting does and you'll know which ones to use.
+8. Click "OK" on the settings window, then click "OK" on the Splits window.
+9. You're done! Now you can boot up the emulator and run to your heart's content.
 
 Now, Spider-Man (2000) currently only takes Time with Loads into account for your final time on the leaderboard, so having a Loadless Timer (which would pause during loads between levels) is as of yet *not necessary at all*.
 
