@@ -33,7 +33,7 @@ This address tells us if we're currently at the Death Menu and/or loading a leve
 + 2: At Death Menu / Loading a level after dying
 + 3: Blue Tint Screen / Loading after beating a level / At Save Menu
 + 6: Restarts current level INSTANTLY (without re-loading)
-  + Never seen this value happen without hacks, fun to play with though
+  + Never seen this particular value happen without hacks. Fun to play with though
 + 7: After manually quitting a level (without dying)
 + 8: Loading after manually restarting a level (without dying)
 + 9: At Death Menu / Loading a level after dying
