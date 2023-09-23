@@ -1,8 +1,7 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.9 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.10 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
-	int IsDemo: "psxfin.exe", 0x171A5C, 0xC28EC;
 	int IsLoading: "psxfin.exe", 0x171A5C, 0xC2618;
 	int DeathMenu: "psxfin.exe", 0x171A5C, 0xC1F90;
 	int IsCutscene : "psxfin.exe", 0x171A5C, 0xC1EE0;
@@ -24,7 +23,6 @@ state("psxfin", "v1.13")
 
 state("ePSXe", "v1.9.0")
 {
-	int IsDemo: "ePSXe.exe", 0x71A28C;
 	int IsLoading: "ePSXe.exe", 0x719FB8;
 	int DeathMenu : "ePSXe.exe", 0x719930;
 	int IsCutscene : "ePSXe.exe", 0x719880;
@@ -174,7 +172,6 @@ update
 			// MemoryWatcher used to get the memory addresses of interest
 			vars.watchers = new MemoryWatcherList
 			{
-				new MemoryWatcher<int>(memoryOffset + 0xC28EC) { Name = "IsDemo" },
 				new MemoryWatcher<int>(memoryOffset + 0xC2618) { Name = "IsLoading" },
 				new MemoryWatcher<int>(memoryOffset + 0xC1F90) { Name = "DeathMenu" },
 				new MemoryWatcher<int>(memoryOffset + 0xC1EE0) { Name = "IsCutscene" },
@@ -210,7 +207,6 @@ update
 			current.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 			current.LevelID = vars.watchers["LevelID"].Current;
 			current.PauseMenu = vars.watchers["PauseMenu"].Current;
-			current.IsDemo = vars.watchers["IsDemo"].Current;	
 			current.IsLoading = vars.watchers["IsLoading"].Current;
 			current.IsBugleHeadline = vars.watchers["IsBugleHeadline"].Current;
 			current.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
@@ -232,7 +228,6 @@ update
 				old.UnlockedCostumes = vars.watchers["UnlockedCostumes"].Current;
 				old.LevelID = vars.watchers["LevelID"].Current;
 				old.PauseMenu = vars.watchers["PauseMenu"].Current;
-				old.IsDemo = vars.watchers["IsDemo"].Current;
 				old.IsLoading = vars.watchers["IsLoading"].Current;
 				old.IsBugleHeadline = vars.watchers["IsBugleHeadline"].Current;
 				old.OutsideSubMenus = vars.watchers["OutsideSubMenus"].Current;
@@ -296,7 +291,7 @@ update
 			}
 		}
 		//print("CurrentSubMenuLevel: " + vars.currentSubMenuLevel + " / Selection 0: " + vars.menuSelection[0]);
-
+		
 		var isLastLevel = current.LevelID == 290 || current.LevelID == 291;
 		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && (current.DeathMenu != 3 || isLastLevel));
 		if (vars.dontStartUntilMainMenu)
@@ -360,7 +355,7 @@ split
 		vars.splitForNewCostume = false;
 		return settings["splitOnNewCostume"];
 	}
-	else if (!vars.dontSplitUntilPlaying && current.IsDemo == 0 && current.LevelID != 123 && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
+	else if (!vars.dontSplitUntilPlaying && current.LevelID != 123 && (current.DeathMenu == 0 || current.DeathMenu == 3) &&
 	((old.IsCutscene == 0 && current.IsCutscene == 1) || (old.PauseMenu == 0 && old.DeathMenu == 0 && current.DeathMenu == 3)))
 	{
 		print("Should split due to a level being completed!");
