@@ -1,2 +1,2 @@
-# Known Bugs v0.5.10
-* Auto-start sometimes doesn't work for no apparent reason. Needs debugging
+# Known Bugs v0.6.0
+* Auto-start doesn't work after you quit to training or quit to challenge
