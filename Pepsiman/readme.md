@@ -25,7 +25,7 @@ This timer will function similar to your current timer, but the difference is th
 
 **Q:** Will this work for runs real hardware/console?
 
-**A:** Unfortunately, this auto-splitter can only hook itself into processes running on your PC, meaning it can't do anything with real console runs and that it'll only work for emulator.
+**A:** Unfortunately, this auto-splitter can only hook itself into processes running on your PC, meaning that it can't do anything with real console runs and that it'll only work for emulator.
 
 ## Supported Emulator/Versions
 
