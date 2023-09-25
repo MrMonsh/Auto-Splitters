@@ -1,4 +1,4 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.5.10 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.6.0 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -267,21 +267,10 @@ update
 		
 		if (current.IsMainMenu == 1 && current.IsStartScreen == 0 && current.IsCutscene == 0) 
 		{ 	
-			if (current.OutsideSubMenus > 0)
-				vars.currentSubMenuLevel = 0;
-			
-			print("MainMenuItem: " + current.MainMenuItem + " / SubMenuLevel: " + vars.currentSubMenuLevel + " / OutsideSubMenus: " + current.OutsideSubMenus);
-			if (current.MainMenuItem < 8 && vars.currentSubMenuLevel == 0 && current.OutsideSubMenus > 0) 
+			if (vars.currentSubMenuLevel == 0 && !vars.waitUntilReturnToMainMenu) 
 			{
-				vars.menuSelection[0] = -1;
-				vars.waitUntilReturnToMainMenu = false;
-			}
-			else if (vars.currentSubMenuLevel == 0 && !vars.waitUntilReturnToMainMenu) 
-			{
-				print("Entered!");
 				if (menuXPressed || menuStartPressed) 
 				{
-					print("Pressed!");
 					vars.menuSelection[0] = old.MainMenuItem;
 					if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
 						vars.currentSubMenuLevel = 1;
@@ -289,8 +278,14 @@ update
 						vars.waitUntilReturnToMainMenu = true;
 				}
 			}
+			else if (current.OutsideSubMenus > 0) 
+			{
+				vars.menuSelection[0] = -1;
+				vars.currentSubMenuLevel = 0;
+				if (vars.waitUntilReturnToMainMenu)
+					vars.waitUntilReturnToMainMenu = false;
+			}
 		}
-		//print("CurrentSubMenuLevel: " + vars.currentSubMenuLevel + " / Selection 0: " + vars.menuSelection[0]);
 		
 		var isLastLevel = current.LevelID == 290 || current.LevelID == 291;
 		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && (current.DeathMenu != 3 || isLastLevel));
