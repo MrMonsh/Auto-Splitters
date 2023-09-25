@@ -3,7 +3,7 @@
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [FAQ](#FAQ)
-- [Supported Emulators/Versions](#supported-emulators/versions)
+- [Supported Emulators](#supported-emulators)
 - [Installation Guide](#installation-guide)
 - [Contact](#contact)
 
