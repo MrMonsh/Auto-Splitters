@@ -17,12 +17,15 @@
 **A:** An Auto-Splitter is a tool that will start, split, stop and reset the timer automatically for you, allowing you to focus less on the timer and more on what's important: Drinking Pepsi!
 
 
-
-
 **Q:** What's a Load Remover?
 
 **A:** A Load Remover is a tool that will allow you to have a second timer in your LiveSplit layout that uses "Game Time". 
 This timer will function similar to your current timer, but the difference is that this one will stop while the game is loading, meaning load times will not count towards your final time of the run.
+
+
+**Q:** Will this work for runs real hardware/console?
+
+**A:** Unfortunately, this auto-splitter can only hook itself into processes running on your PC, meaning it can't do anything with real console runs and it'll only work for emulator.
 
 ## Supported Emulator/Versions
 
