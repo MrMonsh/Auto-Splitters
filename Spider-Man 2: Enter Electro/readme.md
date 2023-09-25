@@ -23,21 +23,20 @@
 **A:** A Load Remover is a tool that will allow you to have a second timer in your LiveSplit layout that uses "Game Time". 
 This timer will function similar to your current timer, but the difference is that this one will stop while the game is loading, meaning load times will not count towards your final time of the run.
 
-## Supported Emulators/Versions
+## Supported Emulators
 
-+ PS1 Emulators:
-	+ pSX/psxFin 
-		+ v1.13
-	+ ePSXe 
-		+ v1.9.0
-	+ RetroArch
-		+ Beetle PSX core
-		+ Beetle PSX HW core
-		+ PCSX Rearmed core
-		+ Duckstation core
-	+ DuckStation
-		+ NoGUI version
-		+ QT Front-End version
++ pSX/psxFin 
+	+ v1.13
++ ePSXe 
+	+ v1.9.0
++ RetroArch
+	+ Beetle PSX core
+	+ Beetle PSX HW core
+	+ PCSX Rearmed core
+	+ Duckstation core
++ DuckStation
+	+ NoGUI version
+	+ QT Front-End version
  
 ### ⚠️ Important Notice ⚠️
 This auto-splitter will only work for the NTSC-U retail version of the game. Neither PAL or the pre-9/11 versions of the game will work correctly with this tool for the time being.
