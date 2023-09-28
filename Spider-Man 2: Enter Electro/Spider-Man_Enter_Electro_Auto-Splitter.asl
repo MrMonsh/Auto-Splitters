@@ -1,4 +1,4 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v1.0.0 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v1.0.1 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -244,49 +244,48 @@ update
 			var menuTrianglePressed = (old.MenuTrianglePress == 0 || old.MenuTrianglePress == 256) && (current.MenuTrianglePress == 1 || current.MenuTrianglePress == 257);
 			
 			if (current.OutsideSubMenus > 0 && (vars.currentSubMenuLevel > 0 || vars.waitUntilReturnToMainMenu)) 
-				{
-					for (var i = 0; i <= 10; i++)
-					{
-						vars.menuSelection[i] = -1;
-					}
-					vars.currentSubMenuLevel = 0;
-					if (vars.waitUntilReturnToMainMenu)
-						vars.waitUntilReturnToMainMenu = false;
-				}
-				else if (!vars.waitUntilReturnToMainMenu) 
-				{
-					var menuLevelZero = Convert.ToInt32(vars.currentSubMenuLevel == 0);
-					var menuLevelOnePlus = Convert.ToInt32(vars.currentSubMenuLevel > 0);
-					if (menuXPressed || menuStartPressed) 
-					{
-						vars.menuSelection[vars.currentSubMenuLevel] = (old.MainMenuItem * menuLevelZero) + (old.SubMenuItem * menuLevelOnePlus);
-						if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
-							vars.currentSubMenuLevel++;
-						else
-							vars.waitUntilReturnToMainMenu = true;
-					}
-					else if (menuTrianglePressed) 
-					{
-						if (vars.currentSubMenuLevel > 0)
-						{
-							vars.menuSelection[vars.currentSubMenuLevel - 1] = -1;
-							vars.currentSubMenuLevel--;
-						}
-					}
-				}
-			}
-			
-			if (old.DeathMenu == 0 && (current.DeathMenu == 2 || current.DeathMenu == 7 || current.DeathMenu == 9 || current.DeathMenu == 10))
 			{
-				vars.currentSubMenuLevel = 0;
 				for (var i = 0; i <= 10; i++)
 				{
 					vars.menuSelection[i] = -1;
 				}
-				
-				if (current.DeathMenu == 10)
-					vars.waitUntilReturnToMainMenu = true;
+				vars.currentSubMenuLevel = 0;
+				if (vars.waitUntilReturnToMainMenu)
+					vars.waitUntilReturnToMainMenu = false;
 			}
+			else if (!vars.waitUntilReturnToMainMenu) 
+			{
+				var menuLevelZero = Convert.ToInt32(vars.currentSubMenuLevel == 0);
+				var menuLevelOnePlus = Convert.ToInt32(vars.currentSubMenuLevel > 0);
+				if (menuXPressed || menuStartPressed) 
+				{
+					vars.menuSelection[vars.currentSubMenuLevel] = (old.MainMenuItem * menuLevelZero) + (old.SubMenuItem * menuLevelOnePlus);
+					if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
+						vars.currentSubMenuLevel++;
+					else
+						vars.waitUntilReturnToMainMenu = true;
+				}
+				else if (menuTrianglePressed) 
+				{
+					if (vars.currentSubMenuLevel > 0)
+					{
+						vars.menuSelection[vars.currentSubMenuLevel - 1] = -1;
+						vars.currentSubMenuLevel--;
+					}
+				}
+			}
+		}
+		
+		if (old.DeathMenu == 0 && (current.DeathMenu == 2 || current.DeathMenu == 7 || current.DeathMenu == 9 || current.DeathMenu == 10))
+		{
+			vars.currentSubMenuLevel = 0;
+			for (var i = 0; i <= 10; i++)
+			{
+				vars.menuSelection[i] = -1;
+			}
+			
+			if (current.DeathMenu == 10)
+				vars.waitUntilReturnToMainMenu = true;
 		}
 		
 		var isLastLevel = current.LevelID == 290 || current.LevelID == 291;
