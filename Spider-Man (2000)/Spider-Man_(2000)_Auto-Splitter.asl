@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v0.10.0 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v1.0.0 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -240,6 +240,7 @@ init
 	vars.dontStartUntilMainMenu = true;
   	vars.dontSplitUntilPlaying = true;
 	vars.currentSubMenuLevel = 0;
+	vars.waitUntilReturnToMainMenu = true; // For Sub-Menus we're not interested in tracking
 	vars.menuSelection = new List<int>();
 	for (var i = 0; i <= 10; i++)
 	{
@@ -247,8 +248,6 @@ init
 	}
 	// vars.menuSelection[0] == Main Menu Selection 
 	// vars.menuSelection[1] == First Sub Menu Selection...and so on
-	vars.waitUntilReturnToMainMenu = false; // For Sub-Menus we're not interested in tracking
-	
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
 	print("CurrentProcess is: " + processName);
@@ -380,58 +379,70 @@ update
 			}
 		}
 		
-		if (vars.hasMenus && vars.currentSubMenuLevel > 0) 
-		{
-			var menuXPressed = (old.MenuXPress == 0 || old.MenuXPress == 256) && (current.MenuXPress == 1 || current.MenuXPress == 257);
-			var menuStartPressed = (old.MenuStartPress == 0 || old.MenuStartPress == 256) && (current.MenuStartPress == 1 || current.MenuStartPress == 257);
-			var menuTrianglePressed = (old.MenuTrianglePress == 0 || old.MenuTrianglePress == 256) && (current.MenuTrianglePress == 1 || current.MenuTrianglePress == 257);
-
-			if (menuXPressed || menuStartPressed) 
-			{
-				vars.menuSelection[vars.currentSubMenuLevel] = old.SubMenuItem;
-				vars.currentSubMenuLevel = vars.currentSubMenuLevel + 1;
-			}
-			else if (menuTrianglePressed) 
-			{
-				vars.menuSelection[vars.currentSubMenuLevel - 1] = -1;
-				vars.currentSubMenuLevel = vars.currentSubMenuLevel - 1;
-			}
-		}
-		else 
-		{
-			for (var i = 0; i <= 10; i++)
-			{
-				vars.menuSelection[i] = -1;
-			}
-		}
 		
 		if (vars.hasMenus) 
 		{ 	
 			if (current.IsMainMenu == 1 && current.IsStartScreen == 0)
 			{
-				if (current.OutsideSubMenus > 0)
+				var menuXPressed = (old.MenuXPress == 0 || old.MenuXPress == 256) && (current.MenuXPress == 1 || current.MenuXPress == 257);
+				var menuStartPressed = (old.MenuStartPress == 0 || old.MenuStartPress == 256) && (current.MenuStartPress == 1 || current.MenuStartPress == 257);
+				var menuTrianglePressed = (old.MenuTrianglePress == 0 || old.MenuTrianglePress == 256) && (current.MenuTrianglePress == 1 || current.MenuTrianglePress == 257);
+				
+				if (current.OutsideSubMenus > 0 && (vars.currentSubMenuLevel > 0 || vars.waitUntilReturnToMainMenu)) 
+				{
+					for (var i = 0; i <= 10; i++)
+					{
+						vars.menuSelection[i] = -1;
+					}
 					vars.currentSubMenuLevel = 0;
-					
-				var enteredSpecialMenu = old.MainMenuItem == 6 && current.MainMenuItem == 1;
-				if (!enteredSpecialMenu && current.MainMenuItem < 8 && vars.currentSubMenuLevel == 0 && (!vars.waitUntilReturnToMainMenu || current.OutsideSubMenus > 0)) 
-				{
-					vars.menuSelection[0] = -1;
-					vars.waitUntilReturnToMainMenu = false;
+					if (vars.waitUntilReturnToMainMenu)
+						vars.waitUntilReturnToMainMenu = false;
 				}
-				else if (vars.currentSubMenuLevel == 0 && !vars.waitUntilReturnToMainMenu && (enteredSpecialMenu || (old.MainMenuItem < 8 && current.MainMenuItem >= 8))) 
+				else if (!vars.waitUntilReturnToMainMenu) 
 				{
-					vars.menuSelection[0] = old.MainMenuItem;
-					if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
-						vars.currentSubMenuLevel = 1;
-					else
-						vars.waitUntilReturnToMainMenu = true;
+					var menuLevelZero = Convert.ToInt32(vars.currentSubMenuLevel == 0);
+					var menuLevelOnePlus = Convert.ToInt32(vars.currentSubMenuLevel > 0);
+					if (menuXPressed || menuStartPressed) 
+					{
+						vars.menuSelection[vars.currentSubMenuLevel] = (old.MainMenuItem * menuLevelZero) + (old.SubMenuItem * menuLevelOnePlus);
+						if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
+							vars.currentSubMenuLevel++;
+						else
+							vars.waitUntilReturnToMainMenu = true;
+					}
+					else if (menuTrianglePressed) 
+					{
+						if (vars.currentSubMenuLevel > 0)
+						{
+							vars.menuSelection[vars.currentSubMenuLevel - 1] = -1;
+							vars.currentSubMenuLevel--;
+						}
+					}
 				}
+			}
+			
+			if (old.DeathMenu == 0 && (current.DeathMenu == 2 || current.DeathMenu == 7 || current.DeathMenu == 9))
+			{
+				vars.currentSubMenuLevel = 0;
+				for (var i = 0; i <= 10; i++)
+				{
+					vars.menuSelection[i] = -1;
+				}
+			}
+			else if (old.DeathMenu == 0 && current.DeathMenu == 10)
+			{
+				vars.currentSubMenuLevel = 2;
+				vars.menuSelection[0] = 4;
+				vars.menuSelection[1] = 1;
+				for (var i = 2; i <= 10; i++)
+				{
+					vars.menuSelection[i] = -1;
+				}
+				
 			}
 		}
 		
 		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && (current.DeathMenu != 3 || current.LevelID == 695));
-		if (vars.dontStartUntilMainMenu)
-			vars.currentSubMenuLevel = 0;
 		
 		if (vars.dontSplitUntilPlaying) 
 		{ 
