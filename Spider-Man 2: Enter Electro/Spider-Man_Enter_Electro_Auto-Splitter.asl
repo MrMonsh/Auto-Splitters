@@ -1,4 +1,4 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v0.6.0 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v1.0.0 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -58,11 +58,7 @@ startup
 	// Add setting 'startOnNewGame', with 'start_group' as parent
 	settings.Add("startOnNewGame", true, "Start when selecting New Game", "start_group");
 	settings.SetToolTip("startOnNewGame", "The timer will start as soon as you start a new game.");
-	
-	// Add setting 'startOnAttackChallenge', with 'start_group' as parent
-	settings.Add("startOnAttackChallenge", true, "Start when selecting the Attack Challenge", "start_group");
-	settings.SetToolTip("startOnAttackChallenge", "The timer will start as soon as you select the Attack Challenge (for 100%).");
-	
+
 	
 	// Add setting group 'split_group'
 	settings.Add("split_group", true, "Splitting");
@@ -136,6 +132,7 @@ init
 	vars.dontStartUntilMainMenu = true;
   	vars.dontSplitUntilPlaying = true;
 	vars.currentSubMenuLevel = 0;
+	vars.waitUntilReturnToMainMenu = true; // For Sub-Menus we're not interested in tracking
 	vars.menuSelection = new List<int>();
 	for (var i = 0; i <= 10; i++)
 	{
@@ -143,7 +140,6 @@ init
 	}
 	// vars.menuSelection[0] == Main Menu Selection 
 	// vars.menuSelection[1] == First Sub Menu Selection...and so on
-	vars.waitUntilReturnToMainMenu = false; // For Sub-Menus we're not interested in tracking
 	
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
@@ -241,56 +237,60 @@ update
 			}
 		}
 		
-		var menuXPressed = (old.MenuXPress == 0 || old.MenuXPress == 256) && (current.MenuXPress == 1 || current.MenuXPress == 257);
-		var menuStartPressed = (old.MenuStartPress == 0 || old.MenuStartPress == 256) && (current.MenuStartPress == 1 || current.MenuStartPress == 257);
-		var menuTrianglePressed = (old.MenuTrianglePress == 0 || old.MenuTrianglePress == 256) && (current.MenuTrianglePress == 1 || current.MenuTrianglePress == 257);
-		if (vars.currentSubMenuLevel > 0) 
-		{
-			if (menuXPressed || menuStartPressed)
-			{
-				vars.menuSelection[vars.currentSubMenuLevel] = old.SubMenuItem;
-				vars.currentSubMenuLevel = vars.currentSubMenuLevel + 1;
-			}
-			else if (menuTrianglePressed) 
-			{
-				vars.menuSelection[vars.currentSubMenuLevel - 1] = -1;
-				vars.currentSubMenuLevel = vars.currentSubMenuLevel - 1;
-			}
-		}
-		else 
-		{
-			for (var i = 1; i <= 10; i++)
-			{
-				vars.menuSelection[i] = -1;
-			}
-		}
-		
 		if (current.IsMainMenu == 1 && current.IsStartScreen == 0 && current.IsCutscene == 0) 
 		{ 	
-			if (vars.currentSubMenuLevel == 0 && !vars.waitUntilReturnToMainMenu) 
-			{
-				if (menuXPressed || menuStartPressed) 
+			var menuXPressed = (old.MenuXPress == 0 || old.MenuXPress == 256) && (current.MenuXPress == 1 || current.MenuXPress == 257);
+			var menuStartPressed = (old.MenuStartPress == 0 || old.MenuStartPress == 256) && (current.MenuStartPress == 1 || current.MenuStartPress == 257);
+			var menuTrianglePressed = (old.MenuTrianglePress == 0 || old.MenuTrianglePress == 256) && (current.MenuTrianglePress == 1 || current.MenuTrianglePress == 257);
+			
+			if (current.OutsideSubMenus > 0 && (vars.currentSubMenuLevel > 0 || vars.waitUntilReturnToMainMenu)) 
 				{
-					vars.menuSelection[0] = old.MainMenuItem;
-					if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
-						vars.currentSubMenuLevel = 1;
-					else
-						vars.waitUntilReturnToMainMenu = true;
+					for (var i = 0; i <= 10; i++)
+					{
+						vars.menuSelection[i] = -1;
+					}
+					vars.currentSubMenuLevel = 0;
+					if (vars.waitUntilReturnToMainMenu)
+						vars.waitUntilReturnToMainMenu = false;
+				}
+				else if (!vars.waitUntilReturnToMainMenu) 
+				{
+					var menuLevelZero = Convert.ToInt32(vars.currentSubMenuLevel == 0);
+					var menuLevelOnePlus = Convert.ToInt32(vars.currentSubMenuLevel > 0);
+					if (menuXPressed || menuStartPressed) 
+					{
+						vars.menuSelection[vars.currentSubMenuLevel] = (old.MainMenuItem * menuLevelZero) + (old.SubMenuItem * menuLevelOnePlus);
+						if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
+							vars.currentSubMenuLevel++;
+						else
+							vars.waitUntilReturnToMainMenu = true;
+					}
+					else if (menuTrianglePressed) 
+					{
+						if (vars.currentSubMenuLevel > 0)
+						{
+							vars.menuSelection[vars.currentSubMenuLevel - 1] = -1;
+							vars.currentSubMenuLevel--;
+						}
+					}
 				}
 			}
-			else if (current.OutsideSubMenus > 0) 
+			
+			if (old.DeathMenu == 0 && (current.DeathMenu == 2 || current.DeathMenu == 7 || current.DeathMenu == 9 || current.DeathMenu == 10))
 			{
-				vars.menuSelection[0] = -1;
 				vars.currentSubMenuLevel = 0;
-				if (vars.waitUntilReturnToMainMenu)
-					vars.waitUntilReturnToMainMenu = false;
+				for (var i = 0; i <= 10; i++)
+				{
+					vars.menuSelection[i] = -1;
+				}
+				
+				if (current.DeathMenu == 10)
+					vars.waitUntilReturnToMainMenu = true;
 			}
 		}
 		
 		var isLastLevel = current.LevelID == 290 || current.LevelID == 291;
 		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && (current.DeathMenu != 3 || isLastLevel));
-		if (vars.dontStartUntilMainMenu)
-			vars.currentSubMenuLevel = 0;
 		
 		if (vars.dontSplitUntilPlaying) 
 		{ 
@@ -332,11 +332,6 @@ start
 		{
 			print("Should start timer due to New Game selection!");
 			return settings["startOnNewGame"];
-		}
-		if (vars.menuSelection[0] == 4 && vars.menuSelection[2] == 1 && vars.menuSelection[3] == 6)
-		{
-			print("Should start timer due to Attack Challenge selection!");
-			return settings["startOnAttackChallenge"];
 		}
 	}
 	return false;
