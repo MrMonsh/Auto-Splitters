@@ -1,4 +1,4 @@
-# Spider-Man (2000) Auto-Splitter & Load Remover v1.0.0 - by MrMonsh
+# Spider-Man (2000) Auto-Splitter & Load Remover v1.1.0 - by MrMonsh
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -36,6 +36,8 @@ This timer will function similar to your current timer, but the difference is th
 + DC Emulators:
 	+ DEMUL
  		+ v0.7
+   	+ redream
+   		+ v1.5.0
 + N64 Emulators:
 	+ Project64
  		+ v1.6
