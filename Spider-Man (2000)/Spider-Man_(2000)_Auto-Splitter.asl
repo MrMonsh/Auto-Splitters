@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v1.0.0 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v1.1.0 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -24,6 +24,10 @@ state("project64", "v1.6")
   	byte IsMainMenu : "Project64.exe", 0xD6A1C, 0x18A925;
 }
 
+state("nullDC", "N/A") 
+{
+}
+
 state("demul", "N/A") 
 {
 	int IsLoading: "demul.exe", 0x1A87E8, 0x27F604;
@@ -38,8 +42,18 @@ state("demul", "N/A")
 	byte IsComicCover : "demul.exe", 0x1A87E8, 0x27F910;
 }
 
-state("nullDC", "N/A") 
+state("redream", "1.5.0") 
 {
+	int IsLoading: "redream.exe", 0x287C120, 0x27F604;
+	int DeathMenu: "redream.exe", 0x287C120, 0x1CB7F8;
+	int IsCutscene : "redream.exe", 0x287C120, 0x350944;
+	int UnlockedCostumes : "redream.exe", 0x287C120, 0x20F90C;
+	int LevelID : "redream.exe", 0x287C120, 0x202258;
+	byte IsPlaying: "redream.exe", 0x287C120, 0x2000D4;
+	byte PauseMenu : "redream.exe", 0x287C120, 0x200114;
+	byte IsMainMenu : "redream.exe", 0x287C120, 0x20F6B8;
+	byte IsSaveMenu : "redream.exe", 0x287C120, 0xFC9944;
+	byte IsComicCover : "redream.exe", 0x287C120, 0x27F910;
 }
 
 state("psxfin", "v1.13")
@@ -160,6 +174,12 @@ init
 		//vars.shouldUseBaseAddress = true;
 		//vars.watchers = new MemoryWatcherList{};
 		//vars.baseAddress = (IntPtr)0x2C000000;
+	}
+	else if (processName.Contains("redream")) // redream
+	{
+		vars.platform = "DC";
+		if (firstModuleMemorySize == 45289472)
+			version = "1.5.0";
 	}
 	else if ((processName.Length > 10) && (processName.Substring(0, 6) == "nullDC")) // NullDC
 	{
