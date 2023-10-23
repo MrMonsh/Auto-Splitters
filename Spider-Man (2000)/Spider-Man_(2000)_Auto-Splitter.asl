@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v1.1.0 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v1.1.1 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -30,30 +30,30 @@ state("nullDC", "N/A")
 
 state("demul", "N/A") 
 {
-	int IsLoading: "demul.exe", 0x1A87E8, 0x27F604;
-	int DeathMenu: "demul.exe", 0x1A87E8, 0x1CB7F8;
-	int IsCutscene : "demul.exe", 0x1A87E8, 0x350944;
-	int UnlockedCostumes : "demul.exe", 0x1A87E8, 0x20F90C;
-	int LevelID : "demul.exe", 0x1A87E8, 0x202258;
-	byte IsPlaying: "demul.exe", 0x1A87E8, 0x2000D4;
-	byte PauseMenu : "demul.exe", 0x1A87E8, 0x200114;
-	byte IsMainMenu : "demul.exe", 0x1A87E8, 0x20F6B8;
+	int IsLoading: "demul.exe", 0x1A87E8, 0x27CE50;
+	int DeathMenu: "demul.exe", 0x1A87E8, 0x1CC258;
+	int IsCutscene : "demul.exe", 0x1A87E8, 0x3440E4;
+	int UnlockedCostumes : "demul.exe", 0x1A87E8, 0x210374;
+	int LevelID : "demul.exe", 0x1A87E8, 0x202CC0;
+	byte IsPlaying: "demul.exe", 0x1A87E8, 0x200B3C;
+	byte PauseMenu : "demul.exe", 0x1A87E8, 0x200B7C;
+	byte IsMainMenu : "demul.exe", 0x1A87E8, 0x210120;
 	byte IsSaveMenu : "demul.exe", 0x1A87E8, 0xFC9944;
-	byte IsComicCover : "demul.exe", 0x1A87E8, 0x27F910;
+	byte IsComicCover : "demul.exe", 0x1A87E8, 0x27D15C;
 }
 
 state("redream", "1.5.0") 
 {
-	int IsLoading: "redream.exe", 0x287C120, 0x27F604;
-	int DeathMenu: "redream.exe", 0x287C120, 0x1CB7F8;
-	int IsCutscene : "redream.exe", 0x287C120, 0x350944;
-	int UnlockedCostumes : "redream.exe", 0x287C120, 0x20F90C;
-	int LevelID : "redream.exe", 0x287C120, 0x202258;
-	byte IsPlaying: "redream.exe", 0x287C120, 0x2000D4;
-	byte PauseMenu : "redream.exe", 0x287C120, 0x200114;
-	byte IsMainMenu : "redream.exe", 0x287C120, 0x20F6B8;
+	int IsLoading: "redream.exe", 0x287C120, 0x27CE50;
+	int DeathMenu: "redream.exe", 0x287C120, 0x1CC258;
+	int IsCutscene : "redream.exe", 0x287C120, 0x3440E4;
+	int UnlockedCostumes : "redream.exe", 0x287C120, 0x210374;
+	int LevelID : "redream.exe", 0x287C120, 0x202CC0;
+	byte IsPlaying: "redream.exe", 0x287C120, 0x200B3C;
+	byte PauseMenu : "redream.exe", 0x287C120, 0x200B7C;
+	byte IsMainMenu : "redream.exe", 0x287C120, 0x210120;
 	byte IsSaveMenu : "redream.exe", 0x287C120, 0xFC9944;
-	byte IsComicCover : "redream.exe", 0x287C120, 0x27F910;
+	byte IsComicCover : "redream.exe", 0x287C120, 0x27D15C;
 }
 
 state("psxfin", "v1.13")
