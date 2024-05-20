@@ -1,4 +1,4 @@
-// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v1.1.1 - by MrMonsh
+// SPIDER-MAN (2000) AUTO-SPLITTER AND LOAD REMOVER v1.2.0 - by MrMonsh
 
 state("SpideyPC", "N/A")
 {
@@ -268,6 +268,16 @@ init
 	}
 	// vars.menuSelection[0] == Main Menu Selection 
 	// vars.menuSelection[1] == First Sub Menu Selection...and so on
+	vars.mainMenuItemSnapshots = new List<int>(); // For storing the last 5 values from MainMenuItem
+	for (var i = 0; i <= 4; i++)
+	{
+		vars.mainMenuItemSnapshots.Add(-1);
+	}
+	vars.subMenuItemSnapshots = new List<int>(); // For storing the last 5 values from SubMenuItem
+	for (var i = 0; i <= 4; i++)
+	{
+		vars.subMenuItemSnapshots.Add(-1);
+	}
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
 	print("CurrentProcess is: " + processName);
@@ -408,7 +418,19 @@ update
 				var menuStartPressed = (old.MenuStartPress == 0 || old.MenuStartPress == 256) && (current.MenuStartPress == 1 || current.MenuStartPress == 257);
 				var menuTrianglePressed = (old.MenuTrianglePress == 0 || old.MenuTrianglePress == 256) && (current.MenuTrianglePress == 1 || current.MenuTrianglePress == 257);
 				
-				if (current.OutsideSubMenus > 0 && (vars.currentSubMenuLevel > 0 || vars.waitUntilReturnToMainMenu)) 
+				for (var i = 0; i <= 3; i++)
+				{
+					vars.mainMenuItemSnapshots[i+1] = vars.mainMenuItemSnapshots[i];
+				}
+				vars.mainMenuItemSnapshots[0] = old.MainMenuItem;
+				
+				for (var i = 0; i <= 3; i++)
+				{
+					vars.subMenuItemSnapshots[i+1] = vars.subMenuItemSnapshots[i];
+				}
+				vars.subMenuItemSnapshots[0] = old.SubMenuItem;
+				
+				if (old.OutsideSubMenus == 0 && current.OutsideSubMenus > 0 && (vars.currentSubMenuLevel > 0 || vars.waitUntilReturnToMainMenu)) 
 				{
 					for (var i = 0; i <= 10; i++)
 					{
@@ -420,11 +442,26 @@ update
 				}
 				else if (!vars.waitUntilReturnToMainMenu) 
 				{
-					var menuLevelZero = Convert.ToInt32(vars.currentSubMenuLevel == 0);
-					var menuLevelOnePlus = Convert.ToInt32(vars.currentSubMenuLevel > 0);
+					//var menuLevelZero = Convert.ToInt32(vars.currentSubMenuLevel == 0);
+					//var menuLevelOnePlus = Convert.ToInt32(vars.currentSubMenuLevel > 0);
 					if (menuXPressed || menuStartPressed) 
 					{
-						vars.menuSelection[vars.currentSubMenuLevel] = (old.MainMenuItem * menuLevelZero) + (old.SubMenuItem * menuLevelOnePlus);
+						if (vars.currentSubMenuLevel == 0) 
+						{
+							for (var i = 0; i <= 4; i++)
+							{
+								if (vars.mainMenuItemSnapshots[i] >= 0 && vars.mainMenuItemSnapshots[i] < 8)
+									vars.menuSelection[vars.currentSubMenuLevel] = vars.mainMenuItemSnapshots[i];
+							}
+						}
+						else if (vars.currentSubMenuLevel > 0)
+						{
+							for (var i = 0; i <= 4; i++)
+							{
+								if (vars.subMenuItemSnapshots[i] >= 0 && vars.subMenuItemSnapshots[i] < 8)
+									vars.menuSelection[vars.currentSubMenuLevel] = vars.subMenuItemSnapshots[i];
+							}
+						}
 						if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
 							vars.currentSubMenuLevel++;
 						else
@@ -448,6 +485,14 @@ update
 				{
 					vars.menuSelection[i] = -1;
 				}
+				for (var i = 0; i <= 4; i++)
+				{
+					vars.mainMenuItemSnapshots[i] = -1;
+				}
+				for (var i = 0; i <= 4; i++)
+				{
+					vars.subMenuItemSnapshots[i] = -1;
+				}
 			}
 			else if (old.DeathMenu == 0 && current.DeathMenu == 10)
 			{
@@ -458,7 +503,14 @@ update
 				{
 					vars.menuSelection[i] = -1;
 				}
-				
+				for (var i = 0; i <= 4; i++)
+				{
+					vars.mainMenuItemSnapshots[i] = -1;
+				}
+				for (var i = 0; i <= 4; i++)
+				{
+					vars.subMenuItemSnapshots[i] = -1;
+				}
 			}
 		}
 		
@@ -495,6 +547,9 @@ update
 				vars.isLoading = current.IsLoading == 1;
 			}
 		}
+		
+		//if (!vars.dontStartUntilMainMenu)
+			//print("DontStartUntilMain: " + vars.dontStartUntilMainMenu + " | MenuSelections: " + vars.menuSelection[0] + " " + vars.menuSelection[1]);
 	}
 
 	return version != "" && (!vars.shouldUseWatchers || (vars.foundMemoryOffset && !justFoundMemoryOffset));
