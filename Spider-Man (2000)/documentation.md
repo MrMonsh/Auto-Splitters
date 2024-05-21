@@ -239,6 +239,7 @@ This address tells us which is the current SUB menu item we're stepping on.
 + 1: Second item from the top
 + 2: Third item from the top
 + and so on...
++ 80000 to 95000 approx.: "Kid Mode" sound (when first hovered)
 
 ## UnlockedCostumes
 **PS1 Offset:** 0xA5708
