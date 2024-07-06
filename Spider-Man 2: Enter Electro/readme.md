@@ -26,6 +26,15 @@ This timer will function similar to your current timer, but the difference is th
 
 **A:** Unfortunately, this auto-splitter can only hook itself into processes running on your PC, meaning that it can't do anything with real console runs and that it'll only work for emulator.
 
+
+**Q:** Why is the Auto-Splitter not working?
+
+**A:** This could happen due to a myriad of reasons. Assuming you're using one of the supported emulators, these could be likely reasons:
++ Your version of the emulator is too old or too recent to be supported
++ You have multiple instances of supported emulators which could be confusing the Auto-Splitter tool
++ You have another Auto-Splitter active, possibly from another game you ran in the past
++ Sometimes the auto-start feature just refuses to work. Auto-splitting and auto-resetting should work 100% of the time as long as it's enabled though.
+
 ## Supported Emulators
 
 + pSX/psxFin 
@@ -39,10 +48,11 @@ This timer will function similar to your current timer, but the difference is th
 	+ Duckstation core
 + DuckStation
 	+ NoGUI version
-	+ QT Front-End version
+	+ QT Front-End version (only up to versions from August 2023)
  
 ### ⚠️ Important Notice ⚠️
-This auto-splitter will only work for the NTSC-U retail version of the game. Neither PAL or the pre-9/11 versions of the game will work correctly with this tool for the time being.
+* This auto-splitter will only work for the NTSC-U retail version of the game. Neither PAL or the pre-9/11 versions of the game will work correctly with this tool for the time being.
+* If you want to use the auto-start feature, please open LiveSplit while at the Main Menu (if you're inside a sub-menu, please exit it), otherwise it'll not work.
 
 ## Installation Guide
 
