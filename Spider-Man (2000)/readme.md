@@ -29,7 +29,6 @@ This timer will function similar to your current timer, but the difference is th
 **Q:** Why is the Auto-Splitter not working?
 
 **A:** This could happen due to a myriad of reasons. Assuming you're using one of the supported emulators, these could be likely reasons:
-	
  	1. Your version of the emulator is too old or too recent to be supported
  	2. You have multiple instances of supported emulators which could be confusing the Auto-Splitter tool
   	3. You have another Auto-Splitter active, possibly from another game you ran in the past
