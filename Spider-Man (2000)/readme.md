@@ -26,6 +26,14 @@ This timer will function similar to your current timer, but the difference is th
 
 **A:** Unfortunately, this auto-splitter can only hook itself into processes running on your PC, meaning that it can't do anything with real console runs and that it'll only work for emulator/PC.
 
+**Q:** Why is the Auto-Splitter not working?
+
+**A:** This could happen due to a myriad of reasons. Assuming you're using one of the supported emulators, these could be likely reasons:
+	+ Your version of the emulator is too old or too recent to be supported
+ 	+ You have multiple instances of supported emulators which could be confusing the Auto-Splitter tool
+  	+ You have another Auto-Splitter active, possibly from another game you ran in the past
+   	+ Sometimes the auto-start feature just refuses to work. Auto-splitting and auto-resetting should work 100% of the time as long as it's enabled though.
+
 ## Supported Emulators/Versions
 
 + Windows PC version:
@@ -53,7 +61,7 @@ This timer will function similar to your current timer, but the difference is th
 		+ Duckstation core
 	+ DuckStation
 		+ NoGUI version
-		+ QT Front-End version
+		+ QT Front-End version (only up to versions from August 2023)
 
 ### ⚠️ Important Notes ⚠️
 
@@ -61,6 +69,7 @@ This timer will function similar to your current timer, but the difference is th
 2. DC Emulators will not be getting the auto-start feature, only auto-splits, auto-resets and load removal.
 3. N64 Emulators currently don't have neither the auto-start feature nor load removal, only auto-splits and auto-resets. The missing features might be implemented at a later date.
 4. Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
+5. If you're on a PS Emulator and want to use the auto-start feature, please open LiveSplit while at the Main Menu (if you're inside a sub-menu, please exit it), otherwise it'll not work.
 
 ## Installation Guide
 
