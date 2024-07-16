@@ -53,7 +53,7 @@ This timer will function similar to your current timer, but the difference is th
 	+ Duckstation core
 + DuckStation
 	+ NoGUI version
-	+ QT Front-End version
+	+ QT Front-End version (only up to version 0.1-5613-g5d750a88, from August 2023)
 
 ## Installation Guide
 
