@@ -48,7 +48,7 @@ This timer will function similar to your current timer, but the difference is th
 	+ Duckstation core
 + DuckStation
 	+ NoGUI version
-	+ QT Front-End version (only up to versions from August 2023)
+	+ QT Front-End version (only up to version 0.1-5613-g5d750a88, from August 2023)
  
 ### ⚠️ Important Notice ⚠️
 * This auto-splitter will only work for the NTSC-U retail version of the game. Neither PAL or the pre-9/11 versions of the game will work correctly with this tool for the time being.
