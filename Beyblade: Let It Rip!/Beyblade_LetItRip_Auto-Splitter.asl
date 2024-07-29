@@ -1,10 +1,6 @@
+// BEYBLADE: LET IT RIP! AUTO-SPLITTER AND LOAD REMOVER v0.2.2 - by MrMonsh
+
 state("ePSXe", "v1.9.0"){
-	// The address you're looking for is 00AA46C8
-	//byte outOfLoading1 : 0x5BDE68, 0x128;
-	//byte outOfLoading2 : 0x5BC634, 0x138;
-	//byte outOfLoading3 : 0x5BAF74, 0x1B8;
-	//byte outOfLoading4 : 0x5BC360, 0x1C8;
-	
 	byte outOfLoading1 : 0x5BDE98, 0x128;
 	byte outOfLoading2 : 0x5BC664, 0x138;
 	byte outOfLoading3 : 0x5BAFA4, 0x1B8;
