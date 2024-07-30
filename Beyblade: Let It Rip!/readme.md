@@ -1,4 +1,4 @@
-# Beyblade: Let It Rip! Auto-Splitter & Load Remover v0.3.0 - by MrMonsh
+# Beyblade: Let It Rip! Auto-Splitter & Load Remover v0.3.1 - by MrMonsh
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
