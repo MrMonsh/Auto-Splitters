@@ -1,4 +1,4 @@
-// BEYBLADE: LET IT RIP! AUTO-SPLITTER AND LOAD REMOVER v0.3.0 - by MrMonsh
+// BEYBLADE: LET IT RIP! AUTO-SPLITTER AND LOAD REMOVER v0.3.1 - by MrMonsh
 
 state("ePSXe", "v1.9.0")
 {
@@ -65,7 +65,7 @@ split
 
 reset 
 {
-	return settings["resetOnMatchLoss"] && (current.opponentPoints >= 4 || current.playerBroken == 1);
+	return settings["resetOnMatchLoss"] && old.opponentPoints < 4 && (current.opponentPoints >= 4 || (old.playerBroken == 0 && current.playerBroken == 1));
 }
 
 isLoading 
