@@ -1,4 +1,4 @@
-// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v1.0.1 - by MrMonsh
+// SPIDER-MAN 2: ENTER ELECTRO AUTO-SPLITTER AND LOAD REMOVER v1.1.0 - by MrMonsh
 
 state("psxfin", "v1.13")
 {
@@ -19,6 +19,7 @@ state("psxfin", "v1.13")
 	byte IsMainMenu : "psxfin.exe", 0x171A5C, 0xC28F8;
 	byte IsSavePrompt : "psxfin.exe", 0x171A5C, 0x105110;
 	byte IsBugleHeadline : "psxfin.exe", 0x171A5C, 0xC1F24;
+	byte BasketballHoops : "psxfin.exe", 0x171A5C, 0x1D64E2;
 }
 
 state("ePSXe", "v1.9.0")
@@ -40,6 +41,7 @@ state("ePSXe", "v1.9.0")
 	byte IsMainMenu : "ePSXe.exe", 0x71A298;
 	byte IsSavePrompt : "ePSXe.exe", 0x75CAB0;
 	byte IsBugleHeadline : "ePSXe.exe", 0x7198C4;
+	byte BasketballHoops : "ePSXe.exe", 0x82DE82;
 }
 
 // RetroArch is a special case, I'll be manually reading its memory
@@ -76,6 +78,10 @@ startup
 	settings.Add("splitOnNewCostume", true, "Split when unlocking a new costume", "split_group");
 	settings.SetToolTip("splitOnNewCostume", "The timer will split as soon as a new costume is unlocked. This only includes Prodigy (for 100%).");
 	
+	// Add setting 'splitOnBasketballHoop', with 'split_group' as parent
+	settings.Add("splitOnBasketballHoop", true, "Split when scoring a basketball hoop", "split_group");
+	settings.SetToolTip("splitOnBasketballHoop", "The timer will split as soon as you score on the basketball hoop from the second level (only works for the first time you score).");
+
 
 	// Add setting group 'reset_group'
 	settings.Add("reset_group", true, "Resetting");
@@ -140,6 +146,16 @@ init
 	}
 	// vars.menuSelection[0] == Main Menu Selection 
 	// vars.menuSelection[1] == First Sub Menu Selection...and so on
+	vars.mainMenuItemSnapshots = new List<int>(); // For storing the last 5 values from MainMenuItem
+	for (var i = 0; i <= 4; i++)
+	{
+		vars.mainMenuItemSnapshots.Add(-1);
+	}
+	vars.subMenuItemSnapshots = new List<int>(); // For storing the last 5 values from SubMenuItem
+	for (var i = 0; i <= 4; i++)
+	{
+		vars.subMenuItemSnapshots.Add(-1);
+	}
 	
 	
 	print("Current ModuleMemorySize is: " + firstModuleMemorySize.ToString());
@@ -184,7 +200,8 @@ update
 				new MemoryWatcher<byte>(memoryOffset + 0xC18C4) { Name = "PauseMenu" },
 				new MemoryWatcher<byte>(memoryOffset + 0xC28F8) { Name = "IsMainMenu" },
 				new MemoryWatcher<byte>(memoryOffset + 0x105110) { Name = "IsSavePrompt" },
-				new MemoryWatcher<byte>(memoryOffset + 0xC1F24) { Name = "IsBugleHeadline" }
+				new MemoryWatcher<byte>(memoryOffset + 0xC1F24) { Name = "IsBugleHeadline" },
+				new MemoryWatcher<byte>(memoryOffset + 0x1D64E2) { Name = "BasketballHoops" }
 			};
 			break;
 		}
@@ -195,6 +212,7 @@ update
 		{
 			vars.watchers.UpdateAll(game);
 			current.IsPlaying = vars.watchers["IsPlaying"].Current;
+			current.BasketballHoops = vars.watchers["BasketballHoops"].Current;
 			current.DeathMenu = vars.watchers["DeathMenu"].Current;
 			current.IsCutscene = vars.watchers["IsCutscene"].Current;
 			current.IsMainMenu = vars.watchers["IsMainMenu"].Current;
@@ -216,6 +234,7 @@ update
 			if (vars.firstUpdate)
 			{
 				old.IsPlaying = vars.watchers["IsPlaying"].Current;
+				old.BasketballHoops = vars.watchers["BasketballHoops"].Current;
 				old.DeathMenu = vars.watchers["DeathMenu"].Current;
 				old.IsCutscene = vars.watchers["IsCutscene"].Current;
 				old.IsMainMenu = vars.watchers["IsMainMenu"].Current;
@@ -243,7 +262,19 @@ update
 			var menuStartPressed = (old.MenuStartPress == 0 || old.MenuStartPress == 256) && (current.MenuStartPress == 1 || current.MenuStartPress == 257);
 			var menuTrianglePressed = (old.MenuTrianglePress == 0 || old.MenuTrianglePress == 256) && (current.MenuTrianglePress == 1 || current.MenuTrianglePress == 257);
 			
-			if (current.OutsideSubMenus > 0 && (vars.currentSubMenuLevel > 0 || vars.waitUntilReturnToMainMenu)) 
+			for (var i = 0; i <= 3; i++)
+			{
+				vars.mainMenuItemSnapshots[i+1] = vars.mainMenuItemSnapshots[i];
+			}
+			vars.mainMenuItemSnapshots[0] = old.MainMenuItem;
+			
+			for (var i = 0; i <= 3; i++)
+			{
+				vars.subMenuItemSnapshots[i+1] = vars.subMenuItemSnapshots[i];
+			}
+			vars.subMenuItemSnapshots[0] = old.SubMenuItem;
+			
+			if (old.OutsideSubMenus == 0 && current.OutsideSubMenus > 0 && (vars.currentSubMenuLevel > 0 || vars.waitUntilReturnToMainMenu)) 
 			{
 				for (var i = 0; i <= 10; i++)
 				{
@@ -255,11 +286,24 @@ update
 			}
 			else if (!vars.waitUntilReturnToMainMenu) 
 			{
-				var menuLevelZero = Convert.ToInt32(vars.currentSubMenuLevel == 0);
-				var menuLevelOnePlus = Convert.ToInt32(vars.currentSubMenuLevel > 0);
 				if (menuXPressed || menuStartPressed) 
 				{
-					vars.menuSelection[vars.currentSubMenuLevel] = (old.MainMenuItem * menuLevelZero) + (old.SubMenuItem * menuLevelOnePlus);
+					if (vars.currentSubMenuLevel == 0) 
+					{
+						for (var i = 0; i <= 4; i++)
+						{
+							if (vars.mainMenuItemSnapshots[i] >= 0 && vars.mainMenuItemSnapshots[i] < 8)
+								vars.menuSelection[vars.currentSubMenuLevel] = vars.mainMenuItemSnapshots[i];
+						}
+					}
+					else if (vars.currentSubMenuLevel > 0)
+					{
+						for (var i = 0; i <= 4; i++)
+						{
+							if (vars.subMenuItemSnapshots[i] >= 0)
+								vars.menuSelection[vars.currentSubMenuLevel] = vars.subMenuItemSnapshots[i];
+						}
+					}
 					if (vars.menuSelection[0] == 1 || vars.menuSelection[0] == 4)
 						vars.currentSubMenuLevel++;
 					else
@@ -283,13 +327,37 @@ update
 			{
 				vars.menuSelection[i] = -1;
 			}
+			for (var i = 0; i <= 4; i++)
+			{
+				vars.mainMenuItemSnapshots[i] = -1;
+			}
+			for (var i = 0; i <= 4; i++)
+			{
+				vars.subMenuItemSnapshots[i] = -1;
+			}
 			
 			if (current.DeathMenu == 10)
 				vars.waitUntilReturnToMainMenu = true;
 		}
+		else if ((current.LevelID == 290 || current.LevelID == 291) && old.DeathMenu != 3 && current.DeathMenu == 3)
+		{
+			vars.currentSubMenuLevel = 0;
+			for (var i = 0; i <= 10; i++)
+			{
+				vars.menuSelection[i] = -1;
+			}
+			for (var i = 0; i <= 4; i++)
+			{
+				vars.mainMenuItemSnapshots[i] = -1;
+			}
+			for (var i = 0; i <= 4; i++)
+			{
+				vars.subMenuItemSnapshots[i] = -1;
+			}
+		}
 		
 		var isLastLevel = current.LevelID == 290 || current.LevelID == 291;
-		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && (current.DeathMenu != 3 || isLastLevel));
+		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && current.IsStartScreen == 0 && (current.DeathMenu != 3 || isLastLevel));
 		
 		if (vars.dontSplitUntilPlaying) 
 		{ 
@@ -351,6 +419,11 @@ split
 		vars.dontSplitUntilPlaying = true;
 		var isLastLevel = current.LevelID == 290 || current.LevelID == 291;
 		return settings["splitOnAnyLevel"] || (settings["splitOnLastLevelOnly"] && isLastLevel);
+	}
+	else if (!vars.dontSplitUntilPlaying && current.LevelID == 516 && old.BasketballHoops == 0 && current.BasketballHoops >= 1) 
+	{
+		print("Should split due to player scoring a basketball hoop!");
+		return settings["splitOnBasketballHoop"];
 	}
 	return false;
 }
