@@ -1,9 +1,10 @@
-# Spider-Man 2: Enter Electro Auto-Splitter & Load Remover v1.0.1 - by MrMonsh
+# Spider-Man 2: Enter Electro Auto-Splitter & Load Remover v1.1.0 - by MrMonsh
 
 ## Variables
 
-We track the following 17 variables: 
+We track the following 18 variables: 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+- [BasketballHoops](#basketballHoops)
 - [DeathMenu](#deathMenu)
 - [IsBugleHeadline](#isBugleHeadline)
 - [IsCutscene](#isCutscene)
@@ -22,6 +23,15 @@ We track the following 17 variables:
 - [SubMenuItem](#subMenuItem)
 - [UnlockedCostumes](#unlockedCostumes)
 <!-- /TOC -->
+
+## BasketballHoops
+**Offset:** 0x1D64E2
+
+This address tells us if the player has scored on the basketball hoop from the second level. Only detects the first time the player scores.
+
+### BasketballHoops Values
++ 0: Player hasn't scored yet
++ 1: Player scored on the basketball hoop at least once
 
 ## DeathMenu
 **Offset:** 0xC1F90
