@@ -45,7 +45,7 @@ This timer will function similar to your current timer, but the difference is th
 	+ DEMUL
  		+ v0.7
    	+ redream
-   		+ v1.5.0
+   		+ v1.5.0 (stable release only)
 + N64 Emulators (NTSC-U ONLY):
 	+ Project64
  		+ v1.6
