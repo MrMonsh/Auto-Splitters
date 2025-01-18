@@ -530,8 +530,6 @@ update
 			}
 		}
 		
-		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && current.IsStartScreen == 0 && (current.DeathMenu != 3 || current.LevelID == 695));
-		
 		if (vars.dontSplitUntilPlaying) 
 		{ 
 			vars.dontSplitUntilPlaying = !(old.IsPlaying == 0 && current.IsPlaying == 1);
@@ -575,6 +573,8 @@ start
 {
 	if (vars.hasMenus)
 	{
+		vars.dontStartUntilMainMenu = !(current.IsMainMenu == 1 && current.IsStartScreen == 0 && (current.DeathMenu != 3 || current.LevelID == 695));
+		
 		if (!vars.dontStartUntilMainMenu)
 		{
 			if (vars.menuSelection[0] == 1 && vars.menuSelection[1] != -1)
