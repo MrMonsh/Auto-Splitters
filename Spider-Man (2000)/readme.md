@@ -71,11 +71,11 @@ This timer will function similar to your current timer, but the difference is th
 
 ### ⚠️ Important Notes ⚠️
 
-1. Windows PC will not be getting the auto-start feature, only auto-splits and auto-resets. Load removal is pointless since it's got no loads.
-2. DC Emulators will not be getting the auto-start feature, only auto-splits, auto-resets and load removal.
-3. N64 Emulators currently don't have neither the auto-start feature nor load removal, only auto-splits and auto-resets. The missing features might be implemented at a later date.
-4. Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
-5. If you're on a PS Emulator and want to use the auto-start feature, **please open LiveSplit before opening the game (or if the game is currently open when you open LiveSplit, close it and restart it)**, otherwise it'll not work.
+1.**Please open LiveSplit before opening the game (or if the game is currently open when you open LiveSplit, close it and restart it)**, otherwise it'll not work.
+2. Windows PC will not be getting the auto-start feature, only auto-splits and auto-resets. Load removal is pointless since it's got no loads.
+3. DC Emulators will not be getting the auto-start feature, only auto-splits, auto-resets and load removal.
+4. N64 Emulators currently don't have neither the auto-start feature nor load removal, only auto-splits and auto-resets. The missing features might be implemented at a later date.
+5. Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
 
 ## Installation Guide
 
