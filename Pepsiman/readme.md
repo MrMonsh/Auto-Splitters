@@ -69,8 +69,7 @@ This timer will function similar to your current timer, but the difference is th
 	+ NoGUI version
 	+ QT Front-End version
 
-### ⚠️ Important Notes ⚠️
-
+### ⚠️ Important Notice ⚠️
 * **Please open LiveSplit before opening the game** (or if the game is currently open when you open LiveSplit, close it and restart it), otherwise it'll not work.
 
 ## Installation Guide
