@@ -26,12 +26,18 @@ This timer will function similar to your current timer, but the difference is th
 
 **A:** Unfortunately, this auto-splitter can only hook itself into processes running on your PC, meaning that it can't do anything with real console runs and that it'll only work for emulator/PC.
 
+
 **Q:** Why is the Auto-Splitter not working?
+
+**A:** If you opened LiveSplit while the game was already running, please close the game and/or the emulator and re-open it. This should prompt the auto-splitter to look for it's memory address again and work just fine. (Special thanks to pugman for help in diagnosing this!)
+
+
+**Q:** The Auto-Splitter is still not working after trying the previous suggestion. What now?
 
 **A:** This could happen due to a myriad of reasons. Assuming you're using one of the supported emulators, these could be likely reasons:
 + Your version of the emulator is too old or too recent to be supported
-+ You have multiple instances of supported emulators which could be confusing the Auto-Splitter tool
-+ You have another Auto-Splitter active, possibly from another game you ran in the past
++ You have multiple instances of supported emulators which could be confusing the Auto-Splitter tool. Please close any instances not currently in use.
++ You have another Auto-Splitter active, possibly from another game you ran in the past. Check your LiveSplit Layout for any "Scriptable Auto-Splitter" sections and there's your likely culprit.
 + Sometimes the auto-start feature just refuses to work. Auto-splitting and auto-resetting should work 100% of the time as long as it's enabled though.
 
 ## Supported Emulators/Versions
@@ -61,7 +67,7 @@ This timer will function similar to your current timer, but the difference is th
 		+ Duckstation core
 	+ DuckStation
 		+ NoGUI version
-		+ QT Front-End version (only up to version 0.1-5613-g5d750a88, from August 2023)
+		+ QT Front-End version
 
 ### ⚠️ Important Notes ⚠️
 
