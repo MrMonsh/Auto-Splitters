@@ -75,16 +75,17 @@ This timer will function similar to your current timer, but the difference is th
 2. DC Emulators will not be getting the auto-start feature, only auto-splits, auto-resets and load removal.
 3. N64 Emulators currently don't have neither the auto-start feature nor load removal, only auto-splits and auto-resets. The missing features might be implemented at a later date.
 4. Even if you use RetroArch to emulate N64/DC, the auto-splitter will currently still assume you're using PS1. My apologies for the inconvenience.
-5. If you're on a PS Emulator and want to use the auto-start feature, please open LiveSplit before opening the game (or if you're inside the game, close it and restart it), otherwise it'll not work.
+5. If you're on a PS Emulator and want to use the auto-start feature, **please open LiveSplit before opening the game (or if you're inside the game, close it and restart it)**, otherwise it'll not work.
 
 ## Installation Guide
 
-1. Open your LiveSplit.
-2. Right-click on the LiveSplit window, then select "Edit Splits".
-3. Under "Game Name", write the name of the game exactly like this: "Spider-Man (2000)" (or "Spider-Man (2000) Category Extensions").
-4. On the line mentioning the auto-splitter, click on "Activate" first, then click on the now-enabled "Settings" button.
-5. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets). 
-6. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
+1. If your emulator of choice is currently open, please close it.
+2. Open your LiveSplit.
+3. Right-click on the LiveSplit window, then select "Edit Splits".
+4. Under "Game Name", write the name of the game exactly like this: "Spider-Man (2000)" (or "Spider-Man (2000) Category Extensions").
+5. On the line mentioning the auto-splitter, click on "Activate" first, then click on the now-enabled "Settings" button.
+6. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets). 
+7. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
 	+ For running anything other than 100%, I'd personally leave the settings as they are by default, otherwise just read what each setting does and you'll know which ones to use.
 8. Click "OK" on the settings window, then click "OK" on the Splits window.
 9. You're done! Now you can boot up the emulator and run to your heart's content.
