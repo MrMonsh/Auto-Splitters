@@ -37,7 +37,7 @@ This timer will function similar to your current timer, but the difference is th
 
 **A:** This could happen due to a myriad of reasons. Assuming you're using one of the supported emulators, these could be likely reasons:
 + Your version of the emulator is too old or too recent to be supported
-+ You have multiple instances of supported emulators which could be confusing the Auto-Splitter tool. Please close any instances not currently in use.
++ You have multiple open instances of supported emulators which could be confusing the Auto-Splitter tool. Please close any instances not currently in use.
 + You have another Auto-Splitter active, possibly from another game you ran in the past. Check your LiveSplit Layout for any "Scriptable Auto-Splitter" sections and there's your likely culprit.
 
 
