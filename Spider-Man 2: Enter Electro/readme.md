@@ -29,10 +29,15 @@ This timer will function similar to your current timer, but the difference is th
 
 **Q:** Why is the Auto-Splitter not working?
 
+**A:** If you opened LiveSplit while the game was already running, please close the game and/or the emulator and re-open it. This should prompt the auto-splitter to look for it's memory address again and work just fine.
+
+
+**Q:** The Auto-Splitter is still not working after trying the previous suggestion. What now?
+
 **A:** This could happen due to a myriad of reasons. Assuming you're using one of the supported emulators, these could be likely reasons:
 + Your version of the emulator is too old or too recent to be supported
-+ You have multiple instances of supported emulators which could be confusing the Auto-Splitter tool
-+ You have another Auto-Splitter active, possibly from another game you ran in the past
++ You have multiple instances of supported emulators which could be confusing the Auto-Splitter tool. Please close any instances not currently in use.
++ You have another Auto-Splitter active, possibly from another game you ran in the past. Check your LiveSplit Layout for any "Scriptable Auto-Splitter" sections and there's your likely culprit.
 + Sometimes the auto-start feature just refuses to work. Auto-splitting and auto-resetting should work 100% of the time as long as it's enabled though.
 
 ## Supported Emulators
@@ -48,20 +53,21 @@ This timer will function similar to your current timer, but the difference is th
 	+ Duckstation core
 + DuckStation
 	+ NoGUI version
-	+ QT Front-End version (only up to version 0.1-5613-g5d750a88, from August 2023)
+	+ QT Front-End version
  
 ### ⚠️ Important Notice ⚠️
 * This auto-splitter will only work for the NTSC-U retail version of the game. Neither PAL or the pre-9/11 versions of the game will work correctly with this tool for the time being.
-* If you want to use the auto-start feature, please open LiveSplit while at the Main Menu (if you're inside a sub-menu, please exit it), otherwise it'll not work.
+* **Please open LiveSplit before opening the game** (or if the game is currently open when you open LiveSplit, close it and restart it), otherwise it'll not work.
 
 ## Installation Guide
 
-1. Open your LiveSplit.
-2. Right-click on the LiveSplit window, then select "Edit Splits".
-3. Under "Game Name", write the name of the game exactly like this: "Spider-Man 2: Enter Electro".
-4. On the line mentioning the auto-splitter, click on "Activate" first, then click on the now-enabled "Settings" button.
-5. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets). 
-6. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
+1. If your emulator of choice is currently open, please close it.
+2. Open your LiveSplit.
+3. Right-click on the LiveSplit window, then select "Edit Splits".
+4. Under "Game Name", write the name of the game exactly like this: "Spider-Man 2: Enter Electro".
+5. On the line mentioning the auto-splitter, click on "Activate" first, then click on the now-enabled "Settings" button.
+6. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets). 
+7. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
 	+ For running anything other than 100%, I'd personally leave the settings as they are by default, otherwise just read what each setting does and you'll know which ones to use.
 8. Click "OK" on the settings window, then click "OK" on the Splits window.
 9. You're done! Now you can boot up the emulator and run to your heart's content.
