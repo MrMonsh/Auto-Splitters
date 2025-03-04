@@ -29,7 +29,7 @@ This timer will function similar to your current timer, but the difference is th
 
 **Q:** Why is the Auto-Splitter not working?
 
-**A:** If you opened LiveSplit while the game was already running, please close the game and/or the emulator and re-open it. This should prompt the auto-splitter to look for it's memory address again and work just fine. (Special thanks to pugman for help in diagnosing this!)
+**A:** If you opened LiveSplit while the game was already running, please close the game and/or the emulator and re-open it. This should prompt the auto-splitter to look for it's memory address again and work just fine. (Special thanks to **pugman** for their help in diagnosing this!)
 
 
 **Q:** The Auto-Splitter is still not working after trying the previous suggestion. What now?
