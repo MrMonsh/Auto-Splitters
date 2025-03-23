@@ -49,16 +49,6 @@ This timer will function similar to your current timer, but the difference is th
 	+ 2020-04-05
 + ePSXe 
 	+ v1.9.0
-	+ v1.9.25
-	+ v2.0.0
-	+ v2.0.5
-+ mednafen 
-	+ v1.26.1 win32
-	+ v1.26.1 win64
-+ BizHawk 
-	+ v2.4.2
-	+ v2.5.2
-	+ v2.6.1
 + RetroArch 
 	+ Beetle PSX core
 	+ Beetle PSX HW core
