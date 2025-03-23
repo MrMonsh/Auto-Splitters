@@ -10,7 +10,7 @@ state("psxfin", "v1.13")
 
 state("XEBRA", "20200405")
 {
-  byte IsPlaying : "xebra.exe", 0xA71F8, 0xE017;
+  	byte IsPlaying : "xebra.exe", 0xA71F8, 0xE017;
 	byte IsMainHub : "xebra.exe", 0xA71F8, 0x1046E;
 	byte IsStartScreen : "xebra.exe", 0xA71F8, 0x1E5F72;
 	byte HitsOnMerlock : "xebra.exe", 0xA71F8, 0xEAB84;
@@ -18,7 +18,7 @@ state("XEBRA", "20200405")
 
 state("ePSXe", "v1.9.0")
 {
-  byte IsPlaying : "ePSXe.exe", 0x6659B7;
+  	byte IsPlaying : "ePSXe.exe", 0x6659B7;
 	byte IsMainHub : "ePSXe.exe", 0x667E0E;
 	byte IsStartScreen : "ePSXe.exe", 0x83D912;
 	byte HitsOnMerlock : "ePSXe.exe", 0x742524;
@@ -196,10 +196,10 @@ start
 
 split
 {
-  isThirdHitOnMerlock = old.HitsOnMerlock == 2 && current.HitsOnMerlock == 3;
-  isLevelEnd = old.IsMainHub == 0 && old.IsPlaying == 128 && current.IsPlaying == 0;
+  	isThirdHitOnMerlock = old.HitsOnMerlock == 2 && current.HitsOnMerlock == 3;
+  	isLevelEnd = old.IsMainHub == 0 && old.IsPlaying == 128 && current.IsPlaying == 0;
 
-  return  (settings["splitOnLevelEnd"] && isLevelEnd) || isThirdHitOnMerlock;
+  	return  (settings["splitOnLevelEnd"] && isLevelEnd) || isThirdHitOnMerlock;
 }
 
 reset 
