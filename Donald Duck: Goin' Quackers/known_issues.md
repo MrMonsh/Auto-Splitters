@@ -1,2 +1,2 @@
 # Known Issues v1.0.0
-* None at the moment!
+* Auto-Splitting doesn't work on the boss from chapter 2. Weird.
