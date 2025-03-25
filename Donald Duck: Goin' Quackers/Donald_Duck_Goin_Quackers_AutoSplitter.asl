@@ -3,25 +3,31 @@
 state("psxfin", "v1.13")
 {
 	byte IsPlaying : "psxfin.exe", 0x171A5C, 0xE017;
-	byte IsMainHub : "psxfin.exe", 0x171A5C, 0x1046E;
+	byte IsMainHub : "psxfin.exe", 0x171A5C, 0xE056;
+	byte IsGameOver : "psxfin.exe", 0x171A5C, 0xB8D87;
 	byte IsStartScreen : "psxfin.exe", 0x171A5C, 0x1E5F72;
 	byte HitsOnMerlock : "psxfin.exe", 0x171A5C, 0xEAB84;
+	byte FirstTimeControl : "psxfin.exe", 0x171A5C, 0x1046E;
 }
 
 state("XEBRA", "20200405")
 {
   	byte IsPlaying : "xebra.exe", 0xA71F8, 0xE017;
-	byte IsMainHub : "xebra.exe", 0xA71F8, 0x1046E;
+	byte IsMainHub : "xebra.exe", 0xA71F8, 0xE056;
+	byte IsGameOver : "xebra.exe", 0xA71F8, 0xB8D87;
 	byte IsStartScreen : "xebra.exe", 0xA71F8, 0x1E5F72;
 	byte HitsOnMerlock : "xebra.exe", 0xA71F8, 0xEAB84;
+	byte FirstTimeControl : "xebra.exe", 0xA71F8, 0x1046E;
 }
 
 state("ePSXe", "v1.9.0")
 {
   	byte IsPlaying : "ePSXe.exe", 0x6659B7;
-	byte IsMainHub : "ePSXe.exe", 0x667E0E;
+	byte IsMainHub : "ePSXe.exe", 0x6659F6;
+	byte IsGameOver : "ePSXe.exe", 0x710727;
 	byte IsStartScreen : "ePSXe.exe", 0x83D912;
 	byte HitsOnMerlock : "ePSXe.exe", 0x742524;
+	byte FirstTimeControl : "ePSXe.exe", 0x667E0E;
 }
 
 // RetroArch is a special case, I'll be manually reading its memory
@@ -38,11 +44,11 @@ startup
 	settings.SetToolTip("start_group", "Choose exactly when to start the timer. Choose only one.");
 
 	// Add setting 'startOnNewGame', with 'start_group' as parent
-	settings.Add("startOnNewGame", true, "Start on New Game", "start_group");
+	settings.Add("startOnNewGame", false, "Start on New Game", "start_group");
 	settings.SetToolTip("startOnNewGame", "The timer will start as soon as you select 'New Game' on the Main Menu.");
 	
 	// Add setting 'startOnControlGain', with 'start_group' as parent
-	settings.Add("startOnControlGain", false, "Start on control gain", "start_group");
+	settings.Add("startOnControlGain", true, "Start on control gain", "start_group");
 	settings.SetToolTip("startOnControlGain", "The timer will start as soon as we gain control of Donald Duck on the main hub, outside of cutscenes and loading screens.");
 
 
@@ -55,8 +61,8 @@ startup
 	settings.SetToolTip("splitOnLevelEnd", "The timer will split as soon as the level fades out when you reach the end of the level.");
 
 	// Add setting 'splitOnEnteringNewLevel', with 'split_group' as parent
-	//settings.Add("splitOnEnteringNewLevel", false, "Split when entering new Level", "split_group");
-	//settings.SetToolTip("splitOnEnteringNewLevel", "The timer will split as soon as you enter a new level.");
+	settings.Add("splitOnEnteringNewLevel", false, "Split when entering new Level", "split_group");
+	settings.SetToolTip("splitOnEnteringNewLevel", "The timer will split as soon as you enter a new level.");
 
 	
 	// Add setting group 'reset_group'
@@ -66,10 +72,14 @@ startup
 	// Add setting 'resetOnGameClosed', with 'reset_group' as parent
 	settings.Add("resetOnGameClosed", true, "Reset when closing the emulator", "reset_group");
 	settings.SetToolTip("resetOnGameClosed", "The timer will reset as soon as the emulator is closed.");
-
+	
 	// Add setting 'resetOnGameOver', with 'reset_group' as parent
-	//settings.Add("resetOnGameOver", true, "Reset on Game Over", "reset_group");
-	//settings.SetToolTip("resetOnGameOver", "The timer will reset as soon as you get a 'Game Over'.");
+	settings.Add("resetOnGameOver", true, "Reset on Game Over", "reset_group");
+	settings.SetToolTip("resetOnGameOver", "The timer will reset as soon as you get a 'Game Over'.");
+
+	// Add setting 'resetOnStartScreen', with 'reset_group' as parent
+	settings.Add("resetOnStartScreen", true, "Reset on Start Screen", "reset_group");
+	settings.SetToolTip("resetOnStartScreen", "The timer will reset as soon as you get back to the Start Screen.");
 
 	vars.timerModel = new TimerModel { CurrentState = timer };
 }
@@ -82,6 +92,7 @@ init
 	vars.shouldUseWatchers = false;
 	vars.foundMemoryOffset = false;
 	vars.firstUpdate = true;
+	vars.comingFromStartScreen = false;
 
 	if (processName.Contains("psxfin")) // pSX/psxfin
 	{
@@ -154,9 +165,11 @@ update
 			vars.watchers = new MemoryWatcherList
 			{
 				new MemoryWatcher<byte>(memoryOffset + 0xE017) { Name = "IsPlaying" },
-				new MemoryWatcher<byte>(memoryOffset + 0x1046E) { Name = "IsMainHub" },
+				new MemoryWatcher<byte>(memoryOffset + 0xE056) { Name = "IsMainHub" },
+				new MemoryWatcher<byte>(memoryOffset + 0xB8D87) { Name = "IsGameOver" },
 				new MemoryWatcher<byte>(memoryOffset + 0x1E5F72) { Name = "IsStartScreen" },
-				new MemoryWatcher<byte>(memoryOffset + 0xEAB84) { Name = "HitsOnMerlock" }
+				new MemoryWatcher<byte>(memoryOffset + 0xEAB84) { Name = "HitsOnMerlock" },
+				new MemoryWatcher<byte>(memoryOffset + 0x1046E) { Name = "FirstTimeControl" }
 			};
 			break;
 		}
@@ -168,43 +181,63 @@ update
 			vars.watchers.UpdateAll(game);
 			current.IsPlaying = vars.watchers["IsPlaying"].Current;
 			current.IsMainHub = vars.watchers["IsMainHub"].Current;
+			current.IsGameOver = vars.watchers["IsGameOver"].Current;
 			current.IsStartScreen = vars.watchers["IsStartScreen"].Current;
 			current.HitsOnMerlock = vars.watchers["HitsOnMerlock"].Current;
+			current.FirstTimeControl = vars.watchers["FirstTimeControl"].Current;
 			
 			// I need to load the "old" with watcher vars the first time, otherwise I would fail checking old != current 'cos it won't have 'em
 			if (vars.firstUpdate)
 			{
 				old.IsPlaying = vars.watchers["IsPlaying"].Current;
 				old.IsMainHub = vars.watchers["IsMainHub"].Current;
+				old.IsGameOver = vars.watchers["IsGameOver"].Current;
 				old.IsStartScreen = vars.watchers["IsStartScreen"].Current;
 				old.HitsOnMerlock = vars.watchers["HitsOnMerlock"].Current;
+				old.FirstTimeControl = vars.watchers["FirstTimeControl"].Current;
 				vars.firstUpdate = false;
 			}
 		}
 	}
+	
+	vars.comingFromStartScreen = vars.comingFromStartScreen || (old.IsStartScreen == 1 && current.IsStartScreen == 255);
+	if (current.IsStartScreen != 1 && current.IsPlaying == 128 && current.IsMainHub == 7)
+		vars.comingFromStartScreen = false;
 
+	if (old.IsPlaying == 0 && current.IsPlaying == 128){
+		print("-------------------------------------------------------------------------");
+		print("ComingFromStartScreen: " + vars.comingFromStartScreen);
+		print("IsPlaying: " + old.IsPlaying.ToString() + " " + current.IsPlaying.ToString());
+		print("IsGameOver: " + old.IsGameOver.ToString() + " " + current.IsGameOver.ToString());
+		print("IsStartScreen: " + old.IsStartScreen.ToString() + " " + current.IsStartScreen.ToString());
+		print("IsMainHub: " + old.IsMainHub.ToString() + " " + current.IsMainHub.ToString());
+		print("HitsOnMerlock: " + old.HitsOnMerlock.ToString() + " " + current.HitsOnMerlock.ToString());
+		print("-------------------------------------------------------------------------");
+	}
+	
 	return version != "" && (!vars.shouldUseWatchers || (vars.foundMemoryOffset && !justFoundMemoryOffset));
 }
 
 start 
 {
-	if (settings["startOnNewGame"])
-		return old.IsStartScreen == 1 && current.IsStartScreen == 255;
-	else if (settings["startOnControlGain"])
-		return old.IsPlaying == 0 && current.IsPlaying == 128;
+	//if (settings["startOnNewGame"])
+		//return old.IsStartScreen == 1 && current.IsStartScreen == 255;
+	if (settings["startOnControlGain"]) 
+		return vars.comingFromStartScreen && current.IsStartScreen != 1 && current.FirstTimeControl == 1 && old.IsPlaying == 0 && current.IsPlaying == 128;
 }
 
 split
 {
-  	isThirdHitOnMerlock = old.HitsOnMerlock == 2 && current.HitsOnMerlock == 3;
-  	isLevelEnd = old.IsMainHub == 0 && old.IsPlaying == 128 && current.IsPlaying == 0;
+  	var isThirdHitOnMerlock = old.HitsOnMerlock == 2 && current.HitsOnMerlock == 3;
+  	var isLevelEnd = old.IsMainHub == 7 && old.IsPlaying == 128 && current.IsPlaying == 0;
+	var enteringNewLevel = !vars.comingFromStartScreen && old.IsMainHub == 6 && old.IsPlaying == 128 && current.IsPlaying == 0;
 
-  	return  (settings["splitOnLevelEnd"] && isLevelEnd) || isThirdHitOnMerlock;
+  	return (settings["splitOnEnteringNewLevel"] && enteringNewLevel) || (settings["splitOnLevelEnd"] && isLevelEnd) || isThirdHitOnMerlock;
 }
 
 reset 
 {
-	return false;
+	return (settings["resetOnStartScreen"] && old.IsStartScreen != 1 && current.IsStartScreen == 1) || (settings["resetOnGameOver"] && old.IsGameOver == 0 && current.IsGameOver == 128);
 }
 
 isLoading 
