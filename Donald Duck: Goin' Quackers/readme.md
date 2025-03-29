@@ -64,16 +64,6 @@ This timer will function similar to your current timer, but the difference is th
 
 ## Installation Guide
 
-1. If your emulator of choice is currently open, please close it.
-2. Open your LiveSplit.
-3. Right-click on the LiveSplit window, then select "Edit Splits".
-4. Under "Game Name", write the name of the game exactly like this: "Donald Duck: Goin' Quackers".
-5. On the line mentioning the auto-splitter, click on "Activate" first, then click on the now-enabled "Settings" button.
-6. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets). 
-7. **[OPTIONAL]** Change the advanced settings to fine-tune when exactly the timer should auto-start, auto-split and/or auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
-8. Click "OK" on the settings window, then click "OK" on the Splits window.
-9. You're done! Now you can boot up the emulator and run to your heart's content.
-
 1. Download the "Donald_Duck_Goin_Quackers_AutoSplitter.asl" file from this repository.
 2. If your emulator of choice is currently open, please close it.
 3. Open your LiveSplit.
@@ -81,18 +71,15 @@ This timer will function similar to your current timer, but the difference is th
 5. Under "Game Name", write the name of the game exactly like this: "Donald Duck: Goin' Quackers".
 6. On this same window, you should see an AutoSplitter available and a button to Activate/Deactivate it. Make sure it is ***[Deactivated]***.
    	* We do this because that is a different AutoSplitter which is set up for the PC and N64 versions of the game, and would otherwise conflict with this one which is for PS1.
-8. Click "OK" on the Splits window.
-4. Right-click on the LiveSplit window, then select "Edit Layout".
-3. Click on the "+" button, then select "Control > Scriptable Auto Splitter".
-4. Select the newly added "Scriptable Auto Splitter", then browse your files and link it to the "Donald_Duck_Goin_Quackers_AutoSplitter.asl" file.
-5. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets).  
-6. **[OPTIONAL]** Change the advanced settings for when the timer should auto-start, auto-split and auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
+7. Click "OK" on the Splits window.
+8. Right-click on the LiveSplit window, then select "Edit Layout".
+9. Click on the "+" button, then select "Control > Scriptable Auto Splitter".
+10. Select the newly added "Scriptable Auto Splitter", then browse your files and link it to the "Donald_Duck_Goin_Quackers_AutoSplitter.asl" file.
+11. **[OPTIONAL]** Select which functions from the Auto-Splitter you'd like to use (Auto-Starts, Auto-Splits and/or Auto-Resets).  
+12. **[OPTIONAL]** Change the advanced settings for when the timer should auto-start, auto-split and auto-reset. Each setting will give you more info on what it does by hovering it with the mouse.
 	* In the topic of changing the "Timer Start" advanced settings, I'd personally leave it as-is, given that its set to start when you gain control over Donald (which is how the current ruleset works). I added this in the event the rules change and another setting is needed.
-7. Click "OK".
-8. Click on the "+" button again, but this time select "Timer > Timer".
-9. Select the newly added "Timer", then select "Game Time" for the Timing Method option.
-10. Click "OK".
-11. You're done! Now you can boot up the emulator and run to your heart's content.
+13. Click "OK".
+17. You're done! Now you can boot up the emulator and run to your heart's content.
 
 Now, Donald Duck: Goin' Quackers currently only takes Time with Loads into account for your final time on the leaderboard, so having a Loadless Timer (which would pause during loads between levels) is as of yet *not necessary at all*.
 
