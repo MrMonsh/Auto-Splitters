@@ -44,8 +44,8 @@ startup
 	settings.SetToolTip("start_group", "Choose exactly when to start the timer. Choose only one.");
 
 	// Add setting 'startOnNewGame', with 'start_group' as parent
-	settings.Add("startOnNewGame", false, "Start on New Game", "start_group");
-	settings.SetToolTip("startOnNewGame", "The timer will start as soon as you select 'New Game' on the Main Menu.");
+	//settings.Add("startOnNewGame", false, "Start on New Game", "start_group");
+	//settings.SetToolTip("startOnNewGame", "The timer will start as soon as you select 'New Game' on the Main Menu.");
 	
 	// Add setting 'startOnControlGain', with 'start_group' as parent
 	settings.Add("startOnControlGain", true, "Start on control gain", "start_group");
@@ -74,8 +74,8 @@ startup
 	settings.SetToolTip("resetOnGameClosed", "The timer will reset as soon as the emulator is closed.");
 	
 	// Add setting 'resetOnGameOver', with 'reset_group' as parent
-	settings.Add("resetOnGameOver", true, "Reset on Game Over", "reset_group");
-	settings.SetToolTip("resetOnGameOver", "The timer will reset as soon as you get a 'Game Over'.");
+	//settings.Add("resetOnGameOver", true, "Reset on Game Over", "reset_group");
+	//settings.SetToolTip("resetOnGameOver", "The timer will reset as soon as you get a 'Game Over'.");
 
 	// Add setting 'resetOnStartScreen', with 'reset_group' as parent
 	settings.Add("resetOnStartScreen", true, "Reset on Start Screen", "reset_group");
@@ -200,20 +200,9 @@ update
 		}
 	}
 	
-	vars.comingFromStartScreen = vars.comingFromStartScreen || (old.IsStartScreen == 1 && current.IsStartScreen == 255);
+	vars.comingFromStartScreen = vars.comingFromStartScreen || (current.IsMainHub == 6 && old.IsStartScreen == 1 && current.IsStartScreen == 255);
 	if (current.IsStartScreen != 1 && current.IsPlaying == 128 && current.IsMainHub == 7)
 		vars.comingFromStartScreen = false;
-
-	if (old.IsPlaying == 0 && current.IsPlaying == 128){
-		print("-------------------------------------------------------------------------");
-		print("ComingFromStartScreen: " + vars.comingFromStartScreen);
-		print("IsPlaying: " + old.IsPlaying.ToString() + " " + current.IsPlaying.ToString());
-		print("IsGameOver: " + old.IsGameOver.ToString() + " " + current.IsGameOver.ToString());
-		print("IsStartScreen: " + old.IsStartScreen.ToString() + " " + current.IsStartScreen.ToString());
-		print("IsMainHub: " + old.IsMainHub.ToString() + " " + current.IsMainHub.ToString());
-		print("HitsOnMerlock: " + old.HitsOnMerlock.ToString() + " " + current.HitsOnMerlock.ToString());
-		print("-------------------------------------------------------------------------");
-	}
 	
 	return version != "" && (!vars.shouldUseWatchers || (vars.foundMemoryOffset && !justFoundMemoryOffset));
 }
@@ -237,7 +226,7 @@ split
 
 reset 
 {
-	return (settings["resetOnStartScreen"] && old.IsStartScreen != 1 && current.IsStartScreen == 1) || (settings["resetOnGameOver"] && old.IsGameOver == 0 && current.IsGameOver == 128);
+	return (settings["resetOnStartScreen"] && old.IsStartScreen != 1 && current.IsStartScreen == 1 && current.IsMainHub == 6);
 }
 
 isLoading 
