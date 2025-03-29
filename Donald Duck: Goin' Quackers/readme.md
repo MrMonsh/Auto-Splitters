@@ -80,7 +80,8 @@ This timer will function similar to your current timer, but the difference is th
 4. Right-click on the LiveSplit window, then select "Edit Splits".
 5. Under "Game Name", write the name of the game exactly like this: "Donald Duck: Goin' Quackers".
 6. On this same window, you should see an AutoSplitter available and a button to Activate/Deactivate it. Make sure it is ***[Deactivated]***.
-7. Click "OK" on the Splits window.
+   	* We do this because that is a different AutoSplitter which is set up for the PC and N64 versions of the game, and would otherwise conflict with this one which is for PS1.
+8. Click "OK" on the Splits window.
 4. Right-click on the LiveSplit window, then select "Edit Layout".
 3. Click on the "+" button, then select "Control > Scriptable Auto Splitter".
 4. Select the newly added "Scriptable Auto Splitter", then browse your files and link it to the "Donald_Duck_Goin_Quackers_AutoSplitter.asl" file.
