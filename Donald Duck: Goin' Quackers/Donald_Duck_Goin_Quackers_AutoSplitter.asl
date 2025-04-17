@@ -1,14 +1,4 @@
-// DONALD DUCK: GOIN' QUACKERS AUTO-SPLITTER AND LOAD REMOVER v1.0.0 - by MrMonsh
-
-state("psxfin", "v1.13")
-{
-	byte IsPlaying : "psxfin.exe", 0x171A5C, 0xE017;
-	byte IsMainHub : "psxfin.exe", 0x171A5C, 0xE056;
-	byte IsGameOver : "psxfin.exe", 0x171A5C, 0xB8D87;
-	byte IsStartScreen : "psxfin.exe", 0x171A5C, 0x1E5F72;
-	byte HitsOnMerlock : "psxfin.exe", 0x171A5C, 0xEAB84;
-	byte FirstTimeControl : "psxfin.exe", 0x171A5C, 0x1046E;
-}
+// DONALD DUCK: GOIN' QUACKERS AUTO-SPLITTER AND LOAD REMOVER v1.0.1 - by MrMonsh
 
 state("XEBRA", "20200405")
 {
