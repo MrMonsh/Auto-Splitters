@@ -83,6 +83,7 @@ init
 	vars.foundMemoryOffset = false;
 	vars.firstUpdate = true;
 	vars.comingFromStartScreen = false;
+	vars.timer = 0;
 
 	if (processName.Contains("psxfin")) // pSX/psxfin
 	{
@@ -193,7 +194,21 @@ update
 	vars.comingFromStartScreen = vars.comingFromStartScreen || (current.IsMainHub == 6 && old.IsStartScreen == 1 && current.IsStartScreen == 255);
 	if (current.IsStartScreen != 1 && current.IsPlaying == 128 && current.IsMainHub == 7)
 		vars.comingFromStartScreen = false;
-	
+
+	if (vars.timer == 180){
+ 		print("-------------------------------------------------------------------------");
+ 		print("ComingFromStartScreen: " + vars.comingFromStartScreen);
+ 		print("IsPlaying: " + old.IsPlaying.ToString() + " " + current.IsPlaying.ToString());
+ 		print("IsGameOver: " + old.IsGameOver.ToString() + " " + current.IsGameOver.ToString());
+ 		print("IsStartScreen: " + old.IsStartScreen.ToString() + " " + current.IsStartScreen.ToString());
+ 		print("IsMainHub: " + old.IsMainHub.ToString() + " " + current.IsMainHub.ToString());
+ 		print("HitsOnMerlock: " + old.HitsOnMerlock.ToString() + " " + current.HitsOnMerlock.ToString());
+ 		print("-------------------------------------------------------------------------");
+		vars.timer = 0;
+ 	}
+
+	vars.timer += 1;
+
 	return version != "" && (!vars.shouldUseWatchers || (vars.foundMemoryOffset && !justFoundMemoryOffset));
 }
 
