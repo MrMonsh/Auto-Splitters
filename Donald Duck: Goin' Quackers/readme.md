@@ -43,8 +43,6 @@ This timer will function similar to your current timer, but the difference is th
 
 ## Supported Emulator/Versions
 
-+ pSX/psxFin 
-	+ v1.13
 + XEBRA 
 	+ 2020-04-05
 + ePSXe 
