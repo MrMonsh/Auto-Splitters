@@ -6,6 +6,7 @@ Currently hosting auto-splitters for:
 + [Pepsiman](https://github.com/MrMonsh/Auto-Splitters/tree/main/Pepsiman)
 + [Spider-Man (2000)](https://github.com/MrMonsh/Auto-Splitters/tree/main/Spider-Man%20(2000))
 + [Spider-Man 2: Enter Electro](https://github.com/MrMonsh/Auto-Splitters/tree/main/Spider-Man%202:%20Enter%20Electro)
++ [Donald Duck: Goin' Quackers](https://github.com/MrMonsh/Auto-Splitters/tree/main/Donald%20Duck%3A%20Goin'%20Quackers)
 
 ## Documentation
 + [Base Memory Addresses](https://github.com/MrMonsh/Auto-Splitters/blob/main/baseMemoryAddreses.md)
